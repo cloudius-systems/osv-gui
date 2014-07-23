@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OSv : vm23_39382ds</title>
+
+    <link href="library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+    <link href="styles/jquery.jqplot.css" rel="stylesheet">
+	<script type="text/javascript" src="lib.js"></script>
+	<script type="text/javascript" src="out.js"></script>
+    <script src="./library/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="osv_header">
+    <div class="logo" ><img src="images/logo_osv.png"></div>
+    <div class="vmname">vm labavla</div>
+</div>
+
+<div class="osv_header">
+    <div class="logo" ><img src="images/logo_osv.png"></div>
+    <div class="vmname">{{ hostname }}</div>
+</div>
+
+
+
+<div id="main" style="height: 100%">
+    <div class="sidebarOsv">
+        <ul class="nav nav-tabs" id="leftNavOsv">
+            <li class="active"><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-magnet"></span></a></li>
+            <li><a href="#"><span class="iconsAsTxt">Rest</span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-tasks"></span></a></li>
+        </ul>
+    </div>
+
+
+
+
+
+    <div class="container-fluid">
+        <div class="main row">
+                <ul class="nav nav-tabs" role="tablist"  style="height: 34px; padding-left: 50px; background-color: #232323">
+                    <li><a href="#">Home</a></li>
+                    <li class="active"><a href="#">Profile</a></li>
+                    <li><a href="#">Messages</a></li>
+                    <p class="navbar-text navbar-right manageDashboardButton"><a href="#" class="navbar-link">Custom Dashboard</a></p>
+                </ul>
+        </div>
+    </div>
+
+    <div class="container-fluid">
