@@ -3,24 +3,14 @@ var OSv = OSv || {};
 OSv.API = (function() {
 
   var BasePath = OSv.Settings.BasePath,
+    apiGETCall = helpers.apiGETCall,
+    apiPOSTCall = helpers.apiPOSTCall,
     OS,
     GraphAPI = OSv.API.GraphAPI;
     memoryGraph = {};
 
   memoryGraph.free = new GraphAPI("/os/memory/free");
   memoryGraph.total = new GraphAPI("/os/memory/total");
-
-  function apiGETCall(path) {
-    return function() {
-      return $.get(BasePath + path);
-    };
-  }
-
-  function apiPOSTCall(path) {
-    return function(data) {
-      return $.post(BasePath + path, data);
-    }
-  }
 
   OS = {
     version: apiGETCall("/os/version"),
