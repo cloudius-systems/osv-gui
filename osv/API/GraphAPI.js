@@ -3,10 +3,13 @@ OSv.API = OSv.API || {};
 
 OSv.API.GraphAPI = (function() {
   
-  function GraphAPI (path) {
+  function GraphAPI (path, formatter) {
     this.path = path;
     this.data = [];
     this.startPulling();
+    if (formatter) {
+      this.formatResponse = formatter;
+    }
   };
 
   GraphAPI.prototype.formatResponse = function (response) {
