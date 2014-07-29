@@ -11,34 +11,7 @@ OSv.Boxes.GraphBox = (function() {
 
   GraphBox.prototype.baseSettings = function() {
     return {
-      axes: {
-        xaxis: {
-          renderer: $.jqplot.DateAxisRenderer,
-          tickOptions: {
-            formatString: "%H:%M:%S"
-          },
-          label: "Time"
-        }
-      },
-      series: [
-      {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
-        label: "Free",
-        size: 1
-      },
-
-      {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
-        label: "Total"
-      }
-
-    ],
+     
     highlighter: {
           show: true,
           sizeAdjust: 7.5
