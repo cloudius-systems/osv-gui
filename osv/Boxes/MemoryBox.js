@@ -34,8 +34,8 @@ OSv.Boxes.MemoryBox = (function() {
 
   MemoryBox.prototype.fetchData = function() {
     var MemoryHistory = OSv.API.OS.Memory.History,
-      free = MemoryHistory.free,
-      total = MemoryHistory.total;
+      free = MemoryHistory.free(),
+      total = MemoryHistory.total();
 
     // If there was no data fetched yet, the graph will break the whole application.
     // this is a workaround.

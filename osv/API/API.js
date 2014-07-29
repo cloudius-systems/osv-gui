@@ -3,9 +3,12 @@ var OSv = OSv || {};
 OSv.API = (function() {
 
   var BasePath = OSv.Settings.BasePath,
-    totalMemoryHistory = [],
-    freeMemoryHistory = [],
-    OS;
+    OS,
+    GraphAPI = OSv.API.GraphAPI;
+    memoryGraph = {};
+
+  memoryGraph.free = new GraphAPI("/os/memory/free");
+  memoryGraph.total = new GraphAPI("/os/memory/total");
 
   function apiGETCall(path) {
     return function() {
@@ -28,8 +31,8 @@ OSv.API = (function() {
       total: apiGETCall("/os/memory/total"),
       free: apiGETCall("/os/memory/free"),
       History: {
-        total: totalMemoryHistory,
-        free: freeMemoryHistory
+        total: function () { return memoryGraph.total.getData(); },
+        free: function () { return memoryGraph.free.getData(); }
       }
     },
     shutdown: apiPOSTCall("/os/shutdown"),
@@ -39,33 +42,6 @@ OSv.API = (function() {
     threads: apiGETCall("/os/threads")
 
   };
-
-  function fetchMemoryStats() {
-    $.when(OS.Memory.total(), OS.Memory.free()).then(function(total, free) {
-      var time = Date.now();
-
-      totalMemoryHistory.push([
-        new Date(time),
-        total[0] / Math.pow(1024, 2)
-      ]);
-
-      freeMemoryHistory.push([
-        new Date(time),
-        free[0] / Math.pow(1024, 2)
-      ]);
-
-      if (totalMemoryHistory.length > OSv.Settings.Graph.MaxTicks) {
-        totalMemoryHistory.shift();
-      }
-      if (freeMemoryHistory.length > OSv.Settings.Graph.MaxTicks) {
-        freeMemoryHistory.shift();
-      }
-
-    });
-
-  };
-
-  setInterval(fetchMemoryStats, OSv.Settings.DataFetchingRate);
 
   return {
     OS: OS
