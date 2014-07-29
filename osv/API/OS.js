@@ -5,11 +5,21 @@ OSv.API.OS = (function() {
 
   var apiGETCall = helpers.apiGETCall,
     apiPOSTCall = helpers.apiPOSTCall,
-    GraphAPI = OSv.API.GraphAPI;
+    GraphAPI = OSv.API.GraphAPI,
     freeMemoryGraph = new GraphAPI("/os/memory/free"),
-    totalMemoryGraph = new GraphAPI("/os/memory/total");
+    totalMemoryGraph = new GraphAPI("/os/memory/total"),
+    cpuGraph;
 
-  return {
+  cpuGraph = new GraphAPI("/os/threads", function(response) {
+    var threads = JSON.parse(response);
+    var idle = threads.list.filter(function(thread) { 
+      return thread.name == "idle1" 
+    })[0];
+
+    return [ Date.now(), idle.cpu_ms ];
+  });
+
+  return { 
     version: apiGETCall("/os/version"),
     manufactor: apiGETCall("/os/manufactor"),
     uptime: apiGETCall("/os/uptime"),
@@ -26,8 +36,8 @@ OSv.API.OS = (function() {
     dmesg: apiGETCall("/os/dmesg"),
     getHostname: apiGETCall("/os/hostname"),
     setHostname: apiPOSTCall("/os/hostname"),
-    threads: apiGETCall("/os/threads")
-
+    threads: apiGETCall("/os/threads"),
+    cpu: cpuGraph
   };
 
 }());
