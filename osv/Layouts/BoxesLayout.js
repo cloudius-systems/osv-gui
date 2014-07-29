@@ -5,37 +5,47 @@ OSv.Layouts.BoxesLayout = (function() {
 
   function BoxesLayout(boxes) {
     this.boxes = boxes;
+    this.layoutContainerID = "dashboard";
+    this.mainContainer = $("#main");
   }
 
-  BoxesLayout.prototype.render = function() {
+  BoxesLayout.prototype.layoutContainer = function() {
+    return "<div id='"+this.layoutContainerID+"' class='row'>";
+  };
 
-    $("#main").append("<div id='dashboard' class='row'>");
+  BoxesLayout.prototype.getLayoutContainer = function() {
+    return $("#"+this.layoutContainerID);
+  };
 
-    var container = $("#dashboard"),
-      promises = [],
-      self = this,
-      html;
-
-    promises = this.boxes.map(function(box) {
+  BoxesLayout.prototype.allBoxesHtml = function (){
+    return this.boxes.map(function(box) {
       return box.getHtml();
     });
+  };
 
-    return helpers.whenAll(promises).then(function(boxesHtml) {
-      var $html,
-        uniuqeID;
+  BoxesLayout.prototype.deleteLayoutContainer = function() {
+    this.getLayoutContainer().remove();
+  };
 
-      container.html("");
+  BoxesLayout.prototype.renderBoxHtml = function(html, id) {
+    var uniuqeID = "Box" + id,
+      $html = $(html).attr("id", uniuqeID);
 
-      boxesHtml.forEach(function(html, idx) {
-        uniuqeID = "Box" + idx;
-        $html = $(html);
-        $html.attr("id", uniuqeID);
-        container.append($html);
-        if (self.boxes[idx].postRender) {
-          self.boxes[idx].postRender(uniuqeID);
-        }
-      });
+    this.getLayoutContainer().append($html);
+    if (this.boxes[id].postRender) {
+      this.boxes[id].postRender(uniuqeID);
+    }
+  };
 
+
+  BoxesLayout.prototype.render = function() {
+    var self = this;
+
+    this.deleteLayoutContainer();
+    this.mainContainer.append(this.layoutContainer());
+
+    return helpers.whenAll( this.allBoxesHtml() ).then(function(boxesHtml) {
+      boxesHtml.forEach(self.renderBoxHtml.bind(self));
     });
   };
 
