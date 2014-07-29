@@ -1,0 +1,184 @@
+html,body{height:100%;}
+
+
+.osv_header {
+    background-color: #232323;
+    height:40px;
+}
+
+
+.main {
+    background:none;
+    position:absolute; width:100%; top:40px; height: 34px;
+}
+
+.logo {
+    float:left; width:307px;
+    padding-top: 6px;
+}
+
+.vmname {
+    color:white;
+    padding-top: 8px;
+}
+
+li{
+    position:absolute;
+    margin-left:0px;
+    height:30px;
+}
+.nav-tabs {
+    border-bottom: 1px #232323 solid;
+}
+.nav-tabs.nav>li{
+    margin-right: 2px;
+}
+.nav-tabs.nav>li>a{
+
+}
+
+.nav-tabs>li>a{
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    background-color: #d4d4d4;
+    border-radius: 6px 6px 0 0;
+    color: #666666;
+    border-bottom: 1px solid #bebebe;
+    padding: 6px 40px;
+}
+
+
+
+
+.sidebarOsv {
+    background-color: #294d6d;
+    height:100%;
+    width: 50px;
+    padding-top: 34px;
+}
+
+.sidebarOsv>.nav-tabs {
+    border-bottom: none;
+}
+
+
+#leftNavOsv.nav>li{
+    width: 50px;
+    height: 50px;
+
+}
+
+#leftNavOsv.nav>li>a{
+    color:white !important;
+    padding: 6px 20px;
+    border-radius: 0 0 0 0;
+    margin-right: 0px;
+    height: 50px;
+    font-size: 20px;
+    border: none;
+    background: none;
+}
+#leftNavOsv.nav>li>a:hover{
+    color:white !important;
+    background: orange;
+}
+
+#leftNavOsv.nav>li.active{
+    color:cadetblue !important;
+    background: white;
+}
+
+#leftNavOsv.nav>li.active>a{
+    color: #294d6d !important;
+    background: white;
+}
+
+
+
+
+#leftNavOsv.nav>li>a>span{
+    top: 9px;
+    right: 5px;
+}
+
+.iconsAsTxt {
+    font-size: 12px;
+    margin-left: -7px;
+}
+.manageDashboardButton {
+    top: 12px;
+}
+
+.manageDashboardButton a {
+    color: white;
+    font-size: 11px;
+    padding-right: 25px;
+}
+
+#dashboard {
+    position:absolute; width:1200px; top:90px; left:80px;
+}
+.graph_type_1 {
+    min-height: 260px;
+    border: none;
+    padding-right: 0px;
+    padding-top:20px;
+    width: 600px;
+}
+.graph_type_2 {
+    min-height: 260px;
+    border: none;
+    margin-right: 0px;
+    width: 600px;
+}
+
+.graph_type_2 h5 {
+    margin-bottom: 4px;
+    color: #666666;
+}
+
+.graphBorder{
+    border:1px #d4d4d4 solid;
+    height: 207px;
+}
+.confGraph {
+    text-align: right;
+    top:14px;
+    font-size:11px;
+    text-decoration: underline;
+    color:gray;
+}
+.tableName {
+
+}
+.tableValue {
+
+}
+.table>tbody>tr:first-child>td  {
+    border-top: none !important;
+}
+.table>tbody>tr>td:first-child  {
+    color: orange;
+}
+
+@media (max-width: 480px) {
+    .nav-tabs > li {
+        float:none;
+    }
+
+    .nav-tabs>li>a{
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: 1px solid transparent;
+        background-color: #d4d4d4;
+        border-radius: 0 0 0 0;
+        color: #666666;
+        border-bottom: 1px solid #bebebe;
+
+        z-index: 999;
+        padding-left: 50px;
+    }
+}
+
+
