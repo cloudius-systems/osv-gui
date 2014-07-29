@@ -1,18 +1,15 @@
 var OSv = OSv || {};
+OSv.API = OSv.API || {};
 
-OSv.API = (function() {
+OSv.API.OS = (function() {
 
-  var BasePath = OSv.Settings.BasePath,
-    apiGETCall = helpers.apiGETCall,
+  var apiGETCall = helpers.apiGETCall,
     apiPOSTCall = helpers.apiPOSTCall,
-    OS,
     GraphAPI = OSv.API.GraphAPI;
-    memoryGraph = {};
+    freeMemoryGraph = new GraphAPI("/os/memory/free"),
+    totalMemoryGraph = new GraphAPI("/os/memory/total");
 
-  memoryGraph.free = new GraphAPI("/os/memory/free");
-  memoryGraph.total = new GraphAPI("/os/memory/total");
-
-  OS = {
+  return {
     version: apiGETCall("/os/version"),
     manufactor: apiGETCall("/os/manufactor"),
     uptime: apiGETCall("/os/uptime"),
@@ -21,8 +18,8 @@ OSv.API = (function() {
       total: apiGETCall("/os/memory/total"),
       free: apiGETCall("/os/memory/free"),
       History: {
-        total: function () { return memoryGraph.total.getData(); },
-        free: function () { return memoryGraph.free.getData(); }
+        total: totalMemoryGraph.getData.bind(totalMemoryGraph),
+        free: freeMemoryGraph.getData.bind(freeMemoryGraph)
       }
     },
     shutdown: apiPOSTCall("/os/shutdown"),
@@ -31,10 +28,6 @@ OSv.API = (function() {
     setHostname: apiPOSTCall("/os/hostname"),
     threads: apiGETCall("/os/threads")
 
-  };
-
-  return {
-    OS: OS
   };
 
 }());
