@@ -16,6 +16,8 @@ OSv.API.OS = (function() {
       return thread.name == "idle1" 
     })[0];
 
+    if(this.data.length !== 0)
+      console.log(idle.cpu_ms - this.data[ this.data.length - 1][1])
     return [ Date.now(), idle.cpu_ms ];
   });
 
@@ -37,7 +39,7 @@ OSv.API.OS = (function() {
     getHostname: apiGETCall("/os/hostname"),
     setHostname: apiPOSTCall("/os/hostname"),
     threads: apiGETCall("/os/threads"),
-    cpu: cpuGraph
+    cpu: cpuGraph.getData.bind(cpuGraph)
   };
 
 }());

@@ -8,8 +8,8 @@ OSv.PageHandlers.Dashboard.Main = (function() {
 
   function Main() {
     this.layout = new OSv.Layouts.BoxesLayout([
-      new Boxes.StaticInfo(),
-      new Boxes.MemoryBox()
+      new Boxes.StaticInfo(), new Boxes.MemoryBox(),
+      new Boxes.CPUBox()
     ]);
   }
 

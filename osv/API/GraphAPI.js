@@ -20,7 +20,7 @@ OSv.API.GraphAPI = (function() {
     var self = this,
       path = OSv.Settings.BasePath + this.path;
 
-    $.get(path).then(this.formatResponse).then(function (res) {
+    $.get(path).then(this.formatResponse.bind(this)).then(function (res) {
       self.data.push(res)
     });
   };
