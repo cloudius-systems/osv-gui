@@ -1,6 +1,6 @@
-var OSV = OSV || {};
+var OSv = OSv || {};
 
-OSV.Boxes.MemoryBox = (function() {
+OSv.Boxes.CPUBox = (function() {
 
   function CPUBox() {
 
@@ -13,5 +13,5 @@ OSV.Boxes.MemoryBox = (function() {
   };
 
   return CPUBox;
-  
+
 }())
