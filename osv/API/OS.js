@@ -8,10 +8,10 @@ OSv.API.OS = (function() {
     GraphAPI = OSv.API.GraphAPI,
     freeMemoryGraph = new GraphAPI("/os/memory/free"),
     totalMemoryGraph = new GraphAPI("/os/memory/total"),
-    cpuGraph;
+    cpuGraph,
+    threadsGraph;
 
-  cpuGraph = new GraphAPI("/os/threads", function(response) {
-    var threads = JSON.parse(response);
+  cpuGraph = new GraphAPI("/os/threads", function(threads) {
     var idle = threads.list.filter(function(thread) { 
       return thread.name == "idle1" 
     })[0];
@@ -19,6 +19,18 @@ OSv.API.OS = (function() {
     if(this.data.length !== 0)
       console.log(idle.cpu_ms - this.data[ this.data.length - 1][1])
     return [ Date.now(), idle.cpu_ms ];
+  });
+
+
+  threadsGraph = new GraphAPI("/os/threads", function (threads) {
+    return threads.list
+    .sort(function (thread1, thread2) {
+      return thread1.cpu_ms > thread2.cpu_ms ? -1 : 1;
+    })
+    .map(function (thread) {
+        return [ Date.now(), thread.cpu_ms]
+    })
+    .slice(0, 9)
   });
 
   return { 
@@ -39,6 +51,7 @@ OSv.API.OS = (function() {
     getHostname: apiGETCall("/os/hostname"),
     setHostname: apiPOSTCall("/os/hostname"),
     threads: apiGETCall("/os/threads"),
+    threadsGraph: threadsGraph.getData.bind(threadsGraph),
     cpu: cpuGraph.getData.bind(cpuGraph)
   };
 
