@@ -46,7 +46,9 @@ window.helpers = (function() {
 
   apiGETCall = function(path) {
     return function() {
-      return $.get(OSv.Settings.BasePath + path);
+      return $.get(OSv.Settings.BasePath + path).then(function (response) {
+        return typeof response == "string"? JSON.parse(response) : reesponse;
+      });
     };
   }
 
