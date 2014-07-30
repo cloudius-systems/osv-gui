@@ -16,16 +16,9 @@
 <body>
 
 <div class="osv_header">
-    <div class="logo" ><img src="images/logo_osv.png"></div>
+    <div class="logo" ><img src="/images/logo_osv.png"></div>
     <div class="vmname">vm labavla</div>
 </div>
-
-<div class="osv_header">
-    <div class="logo" ><img src="images/logo_osv.png"></div>
-    <div class="vmname">{{ hostname }}</div>
-</div>
-
-
 
 <div id="main" style="height: 100%">
     <div class="sidebarOsv">
