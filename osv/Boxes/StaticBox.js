@@ -6,20 +6,9 @@ OSv.Boxes.StaticBox = (function() {
   function StaticBox() {
   }
 
+  StaticBox.prototype = Object.create(OSv.Boxes.BaseBox.prototype);
+
   StaticBox.prototype.template = "/osv/templates/boxes/StaticBox.html";
-
-  StaticBox.prototype.fetchData = function() {
-    return new $.Deferred().resolve();
-  };
-
-  StaticBox.prototype.getHtml = function() {
-    var source = $("[data-template-path='" + this.template + "']").html(),
-      template = Handlebars.compile(source);
-
-    return this.fetchData().then(function(data) {
-      return template(data);
-    });
-  };
 
   return StaticBox;
 
