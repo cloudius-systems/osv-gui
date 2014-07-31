@@ -1,10 +1,19 @@
 <div class="graph_type_1 col-lg-6">
     <table class="table">
       <thead>
-      <tr> <td> name </td> <td> ID </td> <td> cpu_ms </td> </tr>
+      <tr><td></td> <td> name </td> <td> ID </td> <td> cpu_ms </td> </tr>
       </thead>
-    {{#each this }}
-      <tr> <td>{{ name }}</td>  <td>{{ id }}</td> <td>{{ cpu_ms }}</td>  </tr>
+    {{#each threads }}
+      <tr> 
+        <td data-thread>
+          <input type="checkbox" 
+                 data-thread-id="{{id}}" 
+                 {{#if_contains ../selected  id }}checked="checked"{{/if_contains}}/> 
+        </td> 
+        <td>{{ name }}</td>  
+        <td>{{ id }}</td> 
+        <td>{{ cpu_ms }}</td>  
+      </tr>
     {{/each}}
     </table>
 </div>

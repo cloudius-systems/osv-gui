@@ -11,17 +11,16 @@ OSv.Boxes.GraphBox = (function() {
 
   GraphBox.prototype.baseSettings = function() {
     return {
-     
-    highlighter: {
+      highlighter: {
+            show: true,
+            sizeAdjust: 7.5
+        },
+        legend: {
           show: true,
-          sizeAdjust: 7.5
-      },
-      legend: {
-        show: true,
-          location: "nw",
-          xoffset: 12,
-          yoffset: 12
-      }
+            location: "nw",
+            xoffset: 12,
+            yoffset: 12
+        }
     }
   };
 
@@ -49,8 +48,10 @@ OSv.Boxes.GraphBox = (function() {
     return $.Deferred().resolve([ [ null ] ]);
   };
 
-  GraphBox.prototype.renderGraph = function(selector) {
+  GraphBox.prototype.renderGraph = function(selector, setATimeout) {
     var self = this;
+    selector = selector || this.selector;
+    this.selector = selector;
     this.fetchData().then(function(data) {
       if (self.plot) {
         self.plot.destroy();
@@ -58,7 +59,9 @@ OSv.Boxes.GraphBox = (function() {
       self.plot = $.jqplot(selector, data, self.getSettings());
     });
 
-    setTimeout(function() { self.renderGraph(selector) }, OSv.Settings.DataFetchingRate);
+    if (setATimeout !== false) {
+      setTimeout(function() { self.renderGraph(selector) }, OSv.Settings.DataFetchingRate);
+    }
   };
 
   GraphBox.prototype.postRender = function(selector) {

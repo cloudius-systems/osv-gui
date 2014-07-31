@@ -6,6 +6,7 @@ OSv.API.OS = (function() {
   var apiGETCall = helpers.apiGETCall,
     apiPOSTCall = helpers.apiPOSTCall,
     GraphAPI = OSv.API.GraphAPI,
+    ThreadsGraphAPI = OSv.API.ThreadsGraphAPI,
     freeMemoryGraph = new GraphAPI("/os/memory/free"),
     totalMemoryGraph = new GraphAPI("/os/memory/total"),
     cpuGraph,
@@ -15,23 +16,10 @@ OSv.API.OS = (function() {
     var idle = threads.list.filter(function(thread) { 
       return thread.name == "idle1" 
     })[0];
-
-    if(this.data.length !== 0)
-      console.log(idle.cpu_ms - this.data[ this.data.length - 1][1])
     return [ Date.now(), idle.cpu_ms ];
   });
 
-
-  threadsGraph = new GraphAPI("/os/threads", function (threads) {
-    return threads.list
-    .sort(function (thread1, thread2) {
-      return thread1.cpu_ms > thread2.cpu_ms ? -1 : 1;
-    })
-    .map(function (thread) {
-        return [ Date.now(), thread.cpu_ms]
-    })
-    .slice(0, 9)
-  });
+  threadsGraph = new ThreadsGraphAPI(); 
 
   return { 
     version: apiGETCall("/os/version"),

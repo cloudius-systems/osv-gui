@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OSv : vm23_39382ds</title>
 
-    <link href="library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="styles/style.css" rel="stylesheet">
-    <link href="styles/jquery.jqplot.css" rel="stylesheet">
-	<script type="text/javascript" src="lib.js"></script>
-	<script type="text/javascript" src="out.js"></script>
-    <script src="./library/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/styles/style.css" rel="stylesheet">
+    <link href="/styles/jquery.jqplot.css" rel="stylesheet">
+	<script type="text/javascript" src="/lib.js"></script>
+	<script type="text/javascript" src="/out.js"></script>
+    <script src="/library/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 
