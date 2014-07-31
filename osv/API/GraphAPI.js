@@ -34,6 +34,7 @@ OSv.API.GraphAPI = (function() {
   };
 
   GraphAPI.prototype.startPulling = function() {
+    this.fetchData();
     setInterval(this.fetchData.bind(this), OSv.Settings.DataFetchingRate);
   };
 

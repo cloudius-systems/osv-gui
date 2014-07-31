@@ -12,6 +12,8 @@ OSv.Layouts.ThreadsLayout = (function() {
     this.boxes = [ new Boxes.ThreadsTableBox(), this.threadsGraph ]
 
     $(document).on("change", "[data-thread] input", this.onCheckBoxChange.bind(this))
+
+    setInterval(this.refreshTable.bind(this), 2000);
   }
 
 
@@ -23,19 +25,28 @@ OSv.Layouts.ThreadsLayout = (function() {
       self.threadsGraph.visibleThreads = threads.list.sort(function (thread1, thread2) {
         return thread1.cpu_ms > thread2.cpu_ms ? -1 : 1;
       }).map(function (thread) { 
-        return thread.id;
+        return thread.id|0;
       }).slice(0, 9);
     })
   }
 
+  ThreadsLayout.prototype.getSelectedThreads = function() {
+    return this.threadsGraph.visibleThreads;
+  };
+
   ThreadsLayout.prototype.showThread = function(threadID) {
-    this.threadsGraph.visibleThreads.push(threadID);
+    this.threadsGraph.visibleThreads.push(threadID|0);
   };
 
   ThreadsLayout.prototype.hideThread = function(threadID) {
     this.threadsGraph.visibleThreads = this.threadsGraph.visibleThreads.filter(function (thread) { 
       return thread != threadID
     });
+  };
+
+  ThreadsLayout.prototype.refreshTable = function () {
+    var visibleThreads = this.threadsGraph.visibleThreads;
+    this.boxes[0].refresh(this.getSelectedThreads());
   };
 
   ThreadsLayout.prototype.refreshGraph = function() {

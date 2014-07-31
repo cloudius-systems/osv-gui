@@ -8,6 +8,8 @@ OSv.Boxes.CPUBox = (function() {
 
   CPUBox.prototype = new OSv.Boxes.GraphBox();
 
+  CPUBox.prototype.cpus = [];
+
   CPUBox.prototype.extraSettings = function() {
     return {
       title: "CPU",
@@ -20,26 +22,32 @@ OSv.Boxes.CPUBox = (function() {
           label: "Time"
         }
       },
-    series: [
-        {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: "cpu_ms",
-          size: 1
-        }
-      ],
+    series: this.cpus.map(function (cpu) {
+          return {
+            lineWidth: 1,
+            markerOptions: {
+              style: "circle"
+            },
+            label: cpu.name,
+            size: 1
+          }
+        })
+      ,
     }
   };
 
   CPUBox.prototype.fetchData = function() {
     var cpuData = OSv.API.OS.cpu();
-    if (cpuData.length === 0) {
-      cpuData = [ null ];
+    this.cpus = $.map(cpuData, function (cpu, id) {
+      return cpu;
+    });
+    var plots = this.cpus.map(function (cpu ) {
+      return cpu.plot;
+    });
+    if (plots.length == 0) {
+      plots = [ [ null ]];
     }
-
-    return $.Deferred().resolve([ cpuData ]);
+    return $.Deferred().resolve(plots);
   };
 
   return CPUBox;

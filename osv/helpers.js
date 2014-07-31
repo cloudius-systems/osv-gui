@@ -11,8 +11,17 @@ window.helpers = (function() {
   });
   
   Handlebars.registerHelper('if_contains', function(array, needle, options) {
-    return array.indexOf(needle) != -1 ? options.fn(this) : "";
+    return array.indexOf(needle|0) != -1 ? options.fn(this) : "";
   });
+
+  randomColor = function() {
+    var letters = '0123456789ABCDEF'.split('');
+      color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
   /**
    * Takes multiple promises and returns one promise that resolves to an array.
    * Solution taken from: http://stackoverflow.com/questions/5627284/pass-in-an-array-of-deferreds-to-when
@@ -71,7 +80,8 @@ window.helpers = (function() {
     whenAll: whenAll,
     renderTemplate: renderTemplate,
     apiPOSTCall: apiPOSTCall,
-    apiGETCall: apiGETCall
+    apiGETCall: apiGETCall,
+    randomColor: randomColor
   }
 
 }());
