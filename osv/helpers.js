@@ -1,6 +1,18 @@
 window.helpers = (function() {
 
-  var whenAll, renderTemplate, humanReadableByteSize;
+  var whenAll,
+    renderTemplate,
+    humanReadableByteSize,
+    apiGETCall,
+    apiPOSTCall;
+
+  Handlebars.registerHelper('log', function(msg) {
+    console.log(msg);
+  });
+  
+  Handlebars.registerHelper('if_contains', function(array, needle, options) {
+    return array.indexOf(needle) != -1 ? options.fn(this) : "";
+  });
   /**
    * Takes multiple promises and returns one promise that resolves to an array.
    * Solution taken from: http://stackoverflow.com/questions/5627284/pass-in-an-array-of-deferreds-to-when
@@ -40,10 +52,26 @@ window.helpers = (function() {
     return ( bytes / Math.pow(unit, exp)).toFixed(percision) + size;
   };
 
+  apiGETCall = function(path) {
+    return function() {
+      return $.get(OSv.Settings.BasePath + path).then(function (response) {
+        return typeof response == "string"? JSON.parse(response) : reesponse;
+      })
+    };
+  }
+
+  apiPOSTCall = function(path) {
+    return function(data) {
+      return $.post(OSv.Settings.BasePath + path, data);
+    }
+  }
+
   return {
     humanReadableByteSize: humanReadableByteSize,
     whenAll: whenAll,
-    renderTemplate: renderTemplate
+    renderTemplate: renderTemplate,
+    apiPOSTCall: apiPOSTCall,
+    apiGETCall: apiGETCall
   }
 
 }());

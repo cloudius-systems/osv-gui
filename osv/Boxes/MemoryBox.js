@@ -10,60 +10,51 @@ OSv.Boxes.MemoryBox = (function() {
 
   MemoryBox.prototype.title = "Memory";
 
-  MemoryBox.prototype.graphOptions = {
-      title: "Memory",
-      axes: {
-      xaxis: {
-        renderer: $.jqplot.DateAxisRenderer,
-        tickOptions: {
-          formatString: "%H:%M:%S"
+  MemoryBox.prototype.extraSettings = function() {
+    return {
+      title: "Memory",
+      axes: {
+        xaxis: {
+          renderer: $.jqplot.DateAxisRenderer,
+          tickOptions: {
+            formatString: "%H:%M:%S"
+          },
+          label: "Time"
         },
-        label: "Time"
-      },
-      yaxis: {
-        tickOptions: {
-          formatter: function(foramt, val) {
-            return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
+        yaxis: {
+          tickOptions: {
+            formatter: function(foramt, val) {
+              return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
+            }
           }
         }
-      }
-    },
-      series: [
-      {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
-        label: "Free",
-        size: 1
       },
-
-      {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
+      series: [
+        {
+          lineWidth: 1,
+          markerOptions: {
+            style: "circle"
+          },
+          label: "Free",
+          size: 1
         },
-        label: "Total"
-      }
 
-    ],
-    highlighter: {
-          show: true,
-          sizeAdjust: 7.5
-      },
-      legend: {
-        show: true,
-          location: "nw",
-          xoffset: 12,
-          yoffset: 12
-      }
+        {
+          lineWidth: 1,
+          markerOptions: {
+            style: "circle"
+          },
+          label: "Total"
+        }
 
-    };
+      ],
+    }
+  };
 
   MemoryBox.prototype.fetchData = function() {
     var MemoryHistory = OSv.API.OS.Memory.History,
-      free = MemoryHistory.free,
-      total = MemoryHistory.total;
+      free = MemoryHistory.free(),
+      total = MemoryHistory.total();
 
     // If there was no data fetched yet, the graph will break the whole application.
     // this is a workaround.
