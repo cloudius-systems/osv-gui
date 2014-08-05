@@ -60,11 +60,17 @@ OSv.Boxes.GraphBox = (function() {
     });
 
     if (setATimeout !== false) {
-      setTimeout(function() { self.renderGraph(selector) }, OSv.Settings.DataFetchingRate);
+      this.timeout = setTimeout(function() { self.renderGraph(selector) }, OSv.Settings.DataFetchingRate);
     }
   };
 
+  GraphBox.prototype.clear = function () {
+    clearTimeout(this.timeout)
+    $(this.selector).remove();
+  };
+
   GraphBox.prototype.postRender = function(selector) {
+    this.selector = selector;
     this.renderGraph(selector);
   };
 

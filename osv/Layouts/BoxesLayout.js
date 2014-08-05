@@ -7,7 +7,13 @@ OSv.Layouts.BoxesLayout = (function() {
     this.boxes = boxes;
     this.layoutContainerID = "dashboard";
     this.mainContainer = $("#main");
+    document.addEventListener("runRoute", this.clear.bind(this))
   }
+
+  BoxesLayout.prototype.clear = function () {
+    this.deleteLayoutContainer();
+    this.boxes && this.boxes.map(function (box) { box.clear && box.clear(); })
+  };
 
   BoxesLayout.prototype.layoutContainer = function() {
     return "<div id='"+this.layoutContainerID+"' class='row'>";
