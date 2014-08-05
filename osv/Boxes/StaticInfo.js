@@ -22,11 +22,11 @@ OSv.Boxes.StaticInfo = (function() {
 
   StaticInfo.prototype.parseData = function(hostname, totalMemory, freeMemory, uptime, version) {
     return [
-      { key: "Host name", value: hostname[0] },
-      { key: "Memory Total", value: totalMemory[0] },
-      { key: "Memory Free", value: freeMemory[0] },
-      { key: "Uptime", value: uptime[0] },
-      { key: "OSv version", value: version[0] }
+      { key: "Host name", value: hostname },
+      { key: "Memory Total", value: totalMemory },
+      { key: "Memory Free", value: freeMemory },
+      { key: "Uptime", value: uptime },
+      { key: "OSv version", value: version }
     ];
   };
 
