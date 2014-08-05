@@ -42,7 +42,7 @@ OSv.Boxes.CPUBox = (function() {
       return cpu;
     });
     var plots = this.cpus.map(function (cpu ) {
-      return cpu.plot;
+      return cpu.plot.slice(-1 * OSv.Settings.Graph.MaxTicks );
     });
     if (plots.length == 0) {
       plots = [ [ null ]];
