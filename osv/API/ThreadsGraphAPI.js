@@ -54,7 +54,7 @@ OSv.API.ThreadsGraphAPI = (function() {
       
       self.idles[ idle.id ] = self.idles[ idle.id ] || idle;
 
-      var percent = (100 * idle.diff) / (newTimems - self.timems);
+      var percent =(100 - (100 * idle.diff) / (newTimems - self.timems));
 
       self.idles[ idle.id ].plot = self.idles[ idle.id ].plot || [];
 
