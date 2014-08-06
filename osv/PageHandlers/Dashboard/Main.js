@@ -12,7 +12,7 @@ OSv.PageHandlers.Dashboard.Main = (function() {
   Main.prototype.handler = function() {
     this.layout = new OSv.Layouts.BoxesLayout([
       new Boxes.StaticInfo(), new Boxes.MemoryBox(),
-      new Boxes.CPUBox()
+      new Boxes.CPUBox(), new Boxes.CPUTableBox()
     ]);
     this.layout.render();
   };
