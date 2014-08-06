@@ -34,7 +34,7 @@ OSv.Boxes.CPUBox = (function() {
   };
 
   CPUBox.prototype.fetchData = function() {
-    var cpuData = OSv.API.OS.cpu();
+    var cpuData = OSv.API.OS.CPUAverage();
     var plots = cpuData.slice(-1 * OSv.Settings.Graph.MaxTicks )
     if (plots.length == 0) {
       plots = [ null ];

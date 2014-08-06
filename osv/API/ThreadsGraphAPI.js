@@ -89,11 +89,11 @@ OSv.API.ThreadsGraphAPI = (function() {
     return this.threads;
   };
 
-  ThreadsGraphAPI.prototype.avarageCpus = function(cpus) {
+  ThreadsGraphAPI.prototype.averageCpus = function(cpus) {
     cpus = $.map(cpus, function (cpu) { return cpu; })
     var plotLength = cpus[0].plot.length,
         cpusCount = cpus.length,
-        avaragePlot = [],
+        averagePlot = [],
         point = [],
         pointsSum,
         pointAvarge,
@@ -106,17 +106,17 @@ OSv.API.ThreadsGraphAPI = (function() {
         sum += cpus[cpuIdx].plot[plotIdx][1]
       }
       pointAvarge = sum / cpusCount;
-      avaragePlot.push([ timestamp, pointAvarge ]);
+      averagePlot.push([ timestamp, pointAvarge ]);
     }
 
-    return avaragePlot;
+    return averagePlot;
   };
 
   ThreadsGraphAPI.prototype.hasCPUData = function() {
     return Object.keys(this.data).length > 1;
   }
-  ThreadsGraphAPI.prototype.getIdles = function() {
-    return this.hasCPUData() ? this.avarageCpus(this.idles) : [];
+  ThreadsGraphAPI.prototype.getCpuAvergae = function() {
+    return this.hasCPUData() ? this.averageCpus(this.idles) : [];
   };
 
   ThreadsGraphAPI.prototype.getData = function () {
