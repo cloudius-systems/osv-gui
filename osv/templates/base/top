@@ -37,10 +37,8 @@
     <div class="container-fluid">
         <div class="main row">
                 <ul class="nav nav-tabs" role="tablist"  style="height: 34px; padding-left: 50px; background-color: #232323">
-                    <li><a href="#">Home</a></li>
-                    <li class="active"><a href="#">Profile</a></li>
-                    <li><a href="#">Messages</a></li>
-                    <p class="navbar-text navbar-right manageDashboardButton"><a href="#" class="navbar-link">Custom Dashboard</a></p>
+                    <li><a href="/dashboard">Main</a></li>
+                    <li><a href="/dashboard/threads">Threads</a></li>
                 </ul>
         </div>
     </div>

@@ -7,10 +7,10 @@ OSv.PageHandlers.Dashboard.Threads = (function() {
   var Boxes = OSv.Boxes;
 
   function Threads() {
-    this.layout = new OSv.Layouts.ThreadsLayout();
   }
 
   Threads.prototype.handler = function() {
+    this.layout = new OSv.Layouts.ThreadsLayout();
     this.layout.render();
   };
 
