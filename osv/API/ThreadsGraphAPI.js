@@ -123,8 +123,8 @@ OSv.API.ThreadsGraphAPI = (function() {
     return $.Deferred().resolve(this.getThreads());
   };
 
-  ThreadsGraphAPI.prototype.getIdle = function () {
-    
+  ThreadsGraphAPI.prototype.getCpu = function () {
+    return this.idles;
   };
 
   return ThreadsGraphAPI;

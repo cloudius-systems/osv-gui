@@ -32,7 +32,8 @@ OSv.API.OS = (function() {
     setHostname: apiPOSTCall("/os/hostname"),
     threads: apiGETCall("/os/threads"),
     threadsGraph: threadsGraph.getData.bind(threadsGraph),
-    CPUAverage: threadsGraph.getCpuAvergae.bind(threadsGraph)
+    CPUAverage: threadsGraph.getCpuAvergae.bind(threadsGraph),
+    CPU: threadsGraph.getCpu.bind(threadsGraph)
   };
 
 }());
