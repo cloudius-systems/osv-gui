@@ -26,17 +26,29 @@ OSv.Boxes.CPUTableBox = (function() {
     });
   };
 
-  CPUTableBox.prototype.postRender = function () {
-    console.log("HEY");
-  };
   CPUTableBox.prototype.fetchData = function () {
     var cpus = OSv.API.OS.CPU();
+    if (Object.keys(cpus).length == 0) {
+      return $.Deferred().resolve({
+        timePoints: [],
+        cpus: []
+      });
+    }
     var parsed = $.map(cpus, function (cpu) {
       cpu.name = cpu.name.replace("idle", "")
       cpu.usage = cpu.plot[ cpu.plot.length - 1 ][1].toFixed(2) + "%";
+      cpu.running = cpu.cpu_ms;
+      cpu.timeline = cpu.plot.slice(-5).map(function (point) { return "" })
       return cpu;
     });
-    return $.Deferred().resolve( parsed )
+    var timePoints = parsed[0].plot.map(function (point) {
+      var date = new Date(point[0]);
+      return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+    }).slice(-5);
+    return $.Deferred().resolve({
+      timePoints: timePoints,
+      cpus: parsed 
+    })
   };
 
   return CPUTableBox;
