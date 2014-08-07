@@ -1,6 +1,6 @@
 TEMPLATES=$(find osv/templates -type f -name '*.html' )
 
-INDEX_FILE="public/index.html"
+INDEX_FILE="public/dashboard/index.html"
 
 index_head () 
 {
