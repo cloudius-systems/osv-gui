@@ -16,12 +16,11 @@ OSv.Boxes.CPUTableBox = (function() {
     $(this.selector).remove();
   };
 
-  CPUTableBox.prototype.refresh = function (selected) {
+  CPUTableBox.prototype.refresh = function () {
     var container =$(this.selector),
       template = this.getTemplate();
 
     this.fetchData().then(function (ctx) {
-      console.log(ctx)
       container.html(template(ctx))
     });
   };
