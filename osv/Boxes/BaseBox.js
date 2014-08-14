@@ -8,6 +8,15 @@ OSv.Boxes.BaseBox = (function() {
 
   BaseBox.prototype.template = "/osv/templates/boxes/BaseBox.html";
 
+  BaseBox.prototype.refresh = function () {
+    var container =$(this.selector),
+      template = this.getTemplate();
+
+    this.fetchData().then(function (ctx) {
+      container.html(template(ctx))
+    });
+  };
+  
   BaseBox.prototype.fetchData = function() {
     return $.Deferred().resolve();
   };
