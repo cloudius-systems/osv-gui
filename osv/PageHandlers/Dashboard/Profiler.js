@@ -23,13 +23,11 @@ OSv.PageHandlers.Dashboard.Profiler = (function() {
     this.tracePointsBox.refresh();
   }
   Profiler.prototype.addTracePoint = function(id) {
-    OSv.API.Trace.addTrace(id);
-    this.refresh();
+    this.tracePointsBox.add(id);
   };
 
   Profiler.prototype.removeTracePoint = function(id) {
-    OSv.API.Trace.deleteTrace(id);
-    this.refresh();
+    this.tracePointsBox.remove(id);
   };
 
   Profiler.prototype.handler = function() {
