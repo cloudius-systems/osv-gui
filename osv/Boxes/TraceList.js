@@ -4,7 +4,6 @@ OSv.Boxes = OSv.Boxes || {};
 OSv.Boxes.TraceList = (function() {
 
   function TraceList() {
-    window.tl = this;
   }
 
 
