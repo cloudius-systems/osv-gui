@@ -11,7 +11,8 @@
     <link href="/dashboard_static/styles/jquery.jqplot.css" rel="stylesheet">
     <link href="/dashboard_static/styles/font-awesome.min.css" rel="stylesheet">
 	<script type="text/javascript" src="/dashboard_static/lib.js"></script>
-	<script type="text/javascript" src="/dashboard_static/out.js"></script>
+    <script type="text/javascript" src="/dashboard_static/out.js"></script>
+	<script type="text/javascript" src="/dashboard_static/smoothie.js"></script>
     <script src="/dashboard_static/library/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
