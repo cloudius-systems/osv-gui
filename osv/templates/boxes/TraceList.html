@@ -2,6 +2,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Possible Tracepoints</h3>
   </div>
+    <input class="form-control" id="filterTracepoints" placeholder="Search..">
     <ul class="list-group" style="max-height:500px; overflow:auto;">
       {{#each this}}
         <li data-tracepoint-name="{{@key}}" class="list-group-item">{{@key}}</li>
