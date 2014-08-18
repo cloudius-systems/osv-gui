@@ -27,7 +27,7 @@ OSv.API.Trace = (function() {
 
   counts = function () {
     return apiGETCall("/trace/count")().then(function (res) {
-
+      if (!res.list) return res;
       res.list = deleteDuplicates(res.list.map(function (point){
           var lastCount = lastCounts[ point.name ] || point.count ;
           point.change = point.count - lastCount;

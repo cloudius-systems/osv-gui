@@ -14,7 +14,7 @@ OSv.Boxes.TracePoints = (function() {
   TracePoints.prototype.lines = {};
 
   TracePoints.prototype.addGraph = function(point) {
-    var smoothie = new SmoothieChart({grid:{fillStyle:'#ffffff'}, labels:{disabled:true}}),
+    var smoothie = new SmoothieChart({millisPerPixel:100, grid:{fillStyle:'#ffffff'}, labels: {fillStyle:'#000000'}}),
       line =  new TimeSeries();
 
     this.lines[point.name] = line;
@@ -26,7 +26,7 @@ OSv.Boxes.TracePoints = (function() {
     var template = $("[data-template-path='/osv/templates/boxes/TracePointLine.html']").html();
     var view = Handlebars.compile(template);
     var html = view(point);
-    $(this.selector).find("ul").append(html);
+    $(this.selector).find("tbody").append(html);
     this.addGraph(point);
   };
 
