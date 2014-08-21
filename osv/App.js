@@ -3,6 +3,7 @@ var OSv = OSv || {};
 OSv.App = Davis(function() {
 
   var Handlers = OSv.PageHandlers,
+    baseHandler = new Handlers.BaseHandler(),
     mainHandler = new Handlers.Dashboard.Main(),
     threadsHandler = new Handlers.Dashboard.Threads(),
     profilerHandler = new Handlers.Dashboard.Profiler(),
