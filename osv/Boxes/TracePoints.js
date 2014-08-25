@@ -14,7 +14,7 @@ OSv.Boxes.TracePoints = (function() {
   TracePoints.prototype.lines = {};
 
   TracePoints.prototype.addGraph = function(point) {
-    var smoothie = new SmoothieChart({millisPerPixel:100, grid:{fillStyle:'#ffffff'}, labels: {fillStyle:'#000000'}}),
+    var smoothie = new SmoothieChart({minValue:0, millisPerPixel:100, grid:{fillStyle:'#ffffff'}, labels: {fillStyle:'#000000'}}),
       line =  new TimeSeries();
 
     this.lines[point.name] = line;
