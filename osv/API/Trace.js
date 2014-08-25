@@ -5,10 +5,12 @@ OSv.API.Trace = (function() {
 
   var apiGETCall = helpers.apiGETCall,
     apiPOSTCall = helpers.apiPOSTCall,
+    apiDELETECall = helpers.apiDELETECall,
     all,
     counts,
     addTrace,
     deleteTrace,
+    deleteAll,
     deleteDuplicates,
     lastCounts = {};
 
@@ -49,13 +51,16 @@ OSv.API.Trace = (function() {
     return apiPOSTCall("/trace/count/"+id)({
       enabled: false
     });
-  }
+  };
+
+  deleteAll = apiDELETECall("/trace/count");
 
   return { 
     all: all, 
     counts: counts,
     addTrace: addTrace,
-    deleteTrace: deleteTrace
+    deleteTrace: deleteTrace,
+    deleteAll: deleteAll
   };
 
 }());
