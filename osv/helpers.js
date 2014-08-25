@@ -4,7 +4,8 @@ window.helpers = (function() {
     renderTemplate,
     humanReadableByteSize,
     apiGETCall,
-    apiPOSTCall;
+    apiPOSTCall,
+    apiDELETECall;
 
   function CustomEvent(event, params) {
     params = params || { bubbles: false, cancelable: false, detail: undefined };
@@ -86,12 +87,21 @@ window.helpers = (function() {
     }
   }
 
+  apiDELETECall = function(path) {
+    return function() {
+      return $.ajax({
+        url: OSv.Settings.BasePath + path,
+        type: 'DELETE'
+      })
+    }
+  }
   return {
     humanReadableByteSize: humanReadableByteSize,
     whenAll: whenAll,
     renderTemplate: renderTemplate,
     apiPOSTCall: apiPOSTCall,
     apiGETCall: apiGETCall,
+    apiDELETECall: apiDELETECall,
     randomColor: randomColor
   }
 
