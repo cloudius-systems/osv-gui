@@ -61,6 +61,11 @@ OSv.Boxes.TracePoints = (function() {
     $("[data-tracepoint='"+id+"']").remove();
   };
 
+  TracePoints.prototype.removeAll = function(id) {
+    OSv.API.Trace.deleteAll();
+    $("[data-tracepoint]").remove();
+  };
+
   TracePoints.prototype.postRender = function() {
     this.refresh();
   };

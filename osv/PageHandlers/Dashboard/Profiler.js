@@ -18,10 +18,18 @@ OSv.PageHandlers.Dashboard.Profiler = (function() {
       self.removeTracePoint($(this).attr("data-id"));
     });
 
+    $(document).on("click", ".clearAll", function () {
+      self.clearAll();
+    });
+
     $(document).on("keyup", "#filterTracepoints", function () {
       self.filterTracepoints($(this).val());
     });
   }
+
+  Profiler.prototype.clearAll = function() {
+    this.tracePointsBox.removeAll();
+  };
 
   Profiler.prototype.filterTracepoints = function(keyword) {
     this.traceListBox.filter(keyword);
