@@ -20,6 +20,8 @@ OSv.API.ThreadsGraphAPI = (function() {
   ThreadsGraphAPI.prototype.threads = {};
 
   ThreadsGraphAPI.prototype.names = {};
+  
+  ThreadsGraphAPI.prototype.statuses = {};
 
   ThreadsGraphAPI.prototype.formatResponse = function (threads) { 
 
@@ -33,7 +35,7 @@ OSv.API.ThreadsGraphAPI = (function() {
     threads.list.forEach(function (thread) {
       
       self.names[ thread.id ] = thread.name; 
-
+      self.statuses[ thread.id ] = thread.status;
       if (self.timems) {
         diff[ thread.id ] = thread.cpu_ms - self.prevTime[ thread.id ];
       }
@@ -74,13 +76,20 @@ OSv.API.ThreadsGraphAPI = (function() {
       
       var percent = (100 * diff[1]) / (newTimems - self.timems);
       if (!self.threads[ id ]) {
-        self.threads[ id ] = {id : id, name: self.names[ id ], plot: [] }
+        self.threads[ id ] = {id : id, name: self.names[ id ], plot: [], statusTimeline: [] }
       }
+
+      self.threads[ id ].status = self.statuses[ id ];
+      
+      self.threads[ id ].statusTimeline.push({
+        time: timestamp,
+        status: self.statuses[ id ]
+      });
 
       self.threads[ id ].plot.push([
         timestamp,
         percent
-      ])
+      ]);
 
     });
 

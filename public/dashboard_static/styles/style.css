@@ -180,5 +180,25 @@ li{
         padding-left: 50px;
     }
 }
+.status {
+    height: 20px;  
+}
+.threadsTimeline {
+    width: 900px;
+    border: 1px solid #ddd;
+}
+.threadsTimeline>tbody>tr>td:not(:first-child) {
+    padding: 8px 0;
+}
+.threadsTimeline>tbody>tr>td:not(:last-child):not(:nth-child(1)) {
+    border-right:1px solid #ddd;
+}
+.status.waiting {background: #FFFED9}
+.status.queued {background: #FCE6D8}
+.status.running {background: #E2FED4}
 
+span.status { color: #333; font-size: 10px; vertical-align: top;}
 
+.colorMap {font-size: 10px;}
+.colorMap span { vertical-align: middle }
+.colorMap .status { height:10px; width: 10px; border: 1px solid #ddd; display: inline-block; vertical-align: middle}

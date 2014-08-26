@@ -6,15 +6,20 @@ OSv.Layouts.ThreadsLayout = (function() {
   var Boxes = OSv.Boxes;
 
   function ThreadsLayout() {
+    var self = this;
     OSv.Layouts.BoxesLayout.apply(this, arguments);
     this.setSelectedThreads();
     this.threadsGraph = new Boxes.ThreadsGraph();
-    this.boxes = [ new Boxes.ThreadsTableBox(), this.threadsGraph ]
+    this.threadsTimeline = new Boxes.ThreadsTimeline();
+    this.boxes = [ new Boxes.ThreadsTableBox(), this.threadsGraph, this.threadsTimeline ]
 
     $(document).on("change", "[data-thread] input", this.onCheckBoxChange.bind(this))
 
     this.refreshTable();
-    this.interval = setInterval(this.refreshTable.bind(this), 2000);
+    this.interval = setInterval(function () {
+      self.refreshTable();
+      self.refreshTimeline();
+    }, 2000);
   }
 
 
@@ -50,7 +55,10 @@ OSv.Layouts.ThreadsLayout = (function() {
     });
   };
 
-  ThreadsLayout.prototype.refreshTable = function () {
+  ThreadsLayout.prototype.refreshTimeline = function() {
+    this.boxes[2].refresh(this.getSelectedThreads());
+  }
+  ThreadsLayout.prototype.refreshTable = function() {
     var visibleThreads = this.threadsGraph.visibleThreads;
     this.boxes[0].refresh(this.getSelectedThreads());
   };
@@ -65,6 +73,7 @@ OSv.Layouts.ThreadsLayout = (function() {
     
     $checkbox.is(":checked") ? this.showThread(threadID) : this.hideThread(threadID);
     this.refreshGraph();
+    this.refreshTimeline();
   };
 
   return ThreadsLayout;
