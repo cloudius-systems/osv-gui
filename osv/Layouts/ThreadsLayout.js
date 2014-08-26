@@ -53,6 +53,7 @@ OSv.Layouts.ThreadsLayout = (function() {
 
   ThreadsLayout.prototype.refreshTable = function () {
     var visibleThreads = this.threadsGraph.visibleThreads;
+    this.boxes[2].refresh(this.getSelectedThreads());
     this.boxes[0].refresh(this.getSelectedThreads());
   };
 
