@@ -13,7 +13,8 @@ OSv.Boxes.ThreadsTimeline = (function() {
 
   ThreadsTimeline.prototype.fetchData = function (ids) {
     return OSv.API.OS.threadsGraph().then(function (res) {
-      return $.map(res, function(thread) {
+
+      var data =  $.map(res, function(thread) {
         return thread;
       }).filter(function (thread) {
         return ids.indexOf( thread.id ) != -1;
@@ -21,6 +22,13 @@ OSv.Boxes.ThreadsTimeline = (function() {
         thread.statusTimeline = thread.statusTimeline.slice(-10);
         return thread;
       });
+
+      if (data.length == 0) return data;
+      data.timeline = data[0].statusTimeline.map(function (status) {
+        return new Date(status.time).toTimeString().split(" ")[0];
+      });
+
+      return data;
 
     })
   };
