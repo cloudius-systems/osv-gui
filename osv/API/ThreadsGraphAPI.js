@@ -79,6 +79,8 @@ OSv.API.ThreadsGraphAPI = (function() {
         self.threads[ id ] = {id : id, name: self.names[ id ], plot: [], statusTimeline: [] }
       }
 
+      self.threads[ id ].status = self.statuses[ id ];
+      
       self.threads[ id ].statusTimeline.push({
         time: timestamp,
         status: self.statuses[ id ]
