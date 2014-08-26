@@ -8,10 +8,10 @@ OSv.Boxes.ThreadsTimeline = (function() {
 
   ThreadsTimeline.prototype = Object.create(OSv.Boxes.BaseBox.prototype);
 
-  ThreadsTimeline.prototype.template = "/osv/templates/boxes/EmptyBox.html";
+  ThreadsTimeline.prototype.template = "/osv/templates/boxes/ThreadsTimeline.html";
 
 
-  ThreadsTimeline.prototype.fetchData = function () {
+  ThreadsTimeline.prototype.fetchData = function (ids) {
     return OSv.API.OS.threadsGraph().then(function (res) {
       return $.map(res, function(thread) {
         return thread;
@@ -26,6 +26,12 @@ OSv.Boxes.ThreadsTimeline = (function() {
   };
 
   ThreadsTimeline.prototype.refresh = function(ids) {
+     var container =$(this.selector),
+      template = this.getTemplate();
+
+    this.fetchData(ids).then(function (ctx) {
+      container.html(template(ctx))
+    });
   };
 
   return ThreadsTimeline;
