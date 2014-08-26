@@ -9,7 +9,8 @@ OSv.Layouts.ThreadsLayout = (function() {
     OSv.Layouts.BoxesLayout.apply(this, arguments);
     this.setSelectedThreads();
     this.threadsGraph = new Boxes.ThreadsGraph();
-    this.boxes = [ new Boxes.ThreadsTableBox(), this.threadsGraph ]
+    this.threadsTimeline = new Boxes.ThreadsTimeline();
+    this.boxes = [ new Boxes.ThreadsTableBox(), this.threadsGraph, this.threadsTimeline ]
 
     $(document).on("change", "[data-thread] input", this.onCheckBoxChange.bind(this))
 
