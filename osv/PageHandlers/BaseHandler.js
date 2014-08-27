@@ -15,8 +15,17 @@ OSv.PageHandlers.BaseHandler = (function() {
     });
   };
 
+  BaseHandler.prototype.markSelectedTab = function() {
+    $(".nav li.active").removeClass("active");
+    $("a[href='"+window.location.pathname+"']").parents("li").addClass("active")
+  };
+
   BaseHandler.prototype.subscribe = function() {
-    $(document).on("runRoute", this.updateHostname)
+    var self = this;
+    $(document).on("runRoute", function () {
+      self.updateHostname();
+      self.markSelectedTab();
+    });
   };
 
   return BaseHandler;
