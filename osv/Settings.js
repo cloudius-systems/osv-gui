@@ -2,7 +2,7 @@ var OSv = OSv || {};
 
 OSv.Settings = {
 
-  BasePath: "http://192.168.122.89:8000",
+  BasePath: window.location.origin,
 
   DataFetchingRate: 2000,
 
