@@ -49,14 +49,20 @@ OSv.Boxes.GraphBox = (function() {
   };
 
   GraphBox.prototype.renderGraph = function(selector, setATimeout) {
-    var self = this;
+    var self = this,
+      settings = self.getSettings();
+
     selector = selector || this.selector;
     this.selector = selector;
     this.fetchData().then(function(data) {
       if (self.plot) {
         self.plot.destroy();
       }
-      self.plot = $.jqplot(selector, data, self.getSettings());
+      
+      if (data[0][0]) settings.axes.xaxis.min = data[0][0][0];
+      if (data[data.length-1][0]) settings.axes.xaxis.max = data[0][data[0].length-1][0];
+      
+      self.plot = $.jqplot(selector, data, settings);
     });
 
     if (setATimeout !== false) {
