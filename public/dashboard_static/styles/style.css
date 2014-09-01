@@ -1,4 +1,4 @@
-html,body{height:100%;}
+html,body{height:100%; background-color: #f8f8f8;}
 
 
 .osv_header {
@@ -6,11 +6,22 @@ html,body{height:100%;}
     height:40px;
 }
 
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a {
+    background-color: #f8f8f8;
+}
+
 
 .main {
     background:none;
     position:absolute; width:100%; top:40px; height: 34px;
 }
+
+.main_tabsholder {
+    margin-left: 50px;
+    height: 34px;
+    background-color: #232323;
+}
+
 
 .logo {
     float:left; width:307px;
@@ -33,9 +44,7 @@ li{
 .nav-tabs.nav>li{
     margin-right: 2px;
 }
-.nav-tabs.nav>li>a{
 
-}
 
 .nav-tabs>li>a{
     margin-right: 2px;
@@ -60,25 +69,33 @@ li{
 
 .sidebarOsv>.nav-tabs {
     border-bottom: none;
+
 }
 
-
 #leftNavOsv.nav>li{
-    width: 50px;
-    height: 50px;
-
+    width: 42px;
+    height: 35px;
+    -webkit-border-top-right-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    -moz-border-radius-topright: 8px;
+    -moz-border-radius-bottomright: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background: #4c6a85;
+    margin-bottom: 7px;
+    overflow: hidden;
 }
 
 #leftNavOsv.nav>li>a{
-    color:white !important;
     padding: 6px 20px;
     border-radius: 0 0 0 0;
     margin-right: 0px;
-    height: 50px;
+    color:#193044 !important;
     font-size: 20px;
     border: none;
     background: none;
 }
+
 #leftNavOsv.nav>li>a:hover{
     color:white !important;
     background: orange;
@@ -86,80 +103,115 @@ li{
 
 #leftNavOsv.nav>li.active{
     color:cadetblue !important;
-    background: white;
-}
-
-#leftNavOsv.nav>li.active>a{
-    color: #294d6d !important;
-    background: white;
+    background: #232323;
 }
 
 
 
-
-#leftNavOsv.nav>li>a>span{
-    top: 9px;
-    right: 5px;
+#leftNavOsv .active .icn_dashboard{
+    background-image:url('./../images/img_dashboard_selected.png') !important;
+    background-repeat: no-repeat  !important;
+    background-position:7px 9px !important;
+    width: 50px;
+}
+#leftNavOsv .icn_dashboard {
+    background-image:url('./../images/img_dashboard_unselected.png') !important;
+    background-repeat: no-repeat  !important;
+    background-position:7px 9px !important;
+    width: 50px;
 }
 
-.iconsAsTxt {
-    font-size: 12px;
-    margin-left: -7px;
+
+#leftNavOsv .active .icn_rest{
+    background-image:url('./../images/img_rest_selected.png') !important;
+    background-repeat: no-repeat  !important;
+    background-position:6px 13px !important;
+    width: 50px;
 }
+#leftNavOsv .icn_rest {
+    background-image:url('./../images/img_rest_unselected.png') !important;
+    background-repeat: no-repeat  !important;
+    background-position:6px 13px !important;
+    width: 50px;
+}
+
+
+
+
+
+
 .manageDashboardButton {
-    top: 12px;
+    margin-top: 0px !important;
 }
 
 .manageDashboardButton a {
-    color: white;
-    font-size: 11px;
-    padding-right: 25px;
+    color: #d4d4d4;
+    font-size: 12px;
+    padding-right: 5px;
+    text-decoration: underline;
 }
 
 #dashboard {
     position:absolute; width:1200px; top:90px; left:80px;
 }
-.graph_type_1 {
-    min-height: 260px;
-    border: none;
-    padding-right: 0px;
-    padding-top:20px;
-    width: 600px;
-}
-.graph_type_2 {
-    min-height: 260px;
-    border: none;
-    margin-right: 0px;
-    width: 600px;
-}
 
-.graph_type_2 h5 {
-    margin-bottom: 4px;
-    color: #666666;
-}
-
-.graphBorder{
+.graphHolder {
+    background-color: white;
+    min-height: 295px;
     border:1px #d4d4d4 solid;
-    height: 207px;
+    border-radius: 5px;
+    width: 580px;
+    -webkit-box-shadow: 0 0 3px 2px #f2f2f2;
+    box-shadow: 0 0 3px 2px #f2f2f2;
+    overflow: hidden;
+    margin-right: 15px;
+    margin-bottom: 15px;
 }
+
+.graph_header {
+    background-color: #f8f8f8;
+    display: block;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.confGraph a {
+    color: #666;
+}
+.confGraph a:hover{
+    color: #999;
+}
+
+.graphBodyLeft {
+
+}
+
+.graphBodyRight {
+    border-left:1px solid #e8e8e8;
+    height:100%;
+
+}
+
 .confGraph {
     text-align: right;
-    top:14px;
-    font-size:11px;
+    top:8px;
+    font-size:20px;
     text-decoration: underline;
     color:gray;
+    border-left: 1px rgb(224, 224, 224) solid;
 }
-.tableName {
 
+.table {
+    font-size: 20px;
+    color: #333;
 }
-.tableValue {
 
-}
 .table>tbody>tr:first-child>td  {
     border-top: none !important;
 }
+
 .table>tbody>tr>td:first-child  {
-    color: orange;
+    color: #294d6d;
 }
 
 @media (max-width: 480px) {
@@ -180,6 +232,7 @@ li{
         padding-left: 50px;
     }
 }
+
 .status {
     height: 20px;  
 }

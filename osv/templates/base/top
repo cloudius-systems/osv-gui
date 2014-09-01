@@ -23,12 +23,11 @@
 </div>
 
 <div id="main" style="height: 100%">
+    
     <div class="sidebarOsv">
         <ul class="nav nav-tabs" id="leftNavOsv">
-            <li class="active"><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-magnet"></span></a></li>
-            <li><a href="#"><span class="iconsAsTxt">Rest</span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-tasks"></span></a></li>
+            <li class="active"><a class="icn_dashboard" href="/dashboard">&nbsp;</a></li>
+            <li><a class="icn_rest" href="#">&nbsp;</a></li>
         </ul>
     </div>
 
@@ -38,7 +37,7 @@
 
     <div class="container-fluid">
         <div class="main row">
-                <ul class="nav nav-tabs" role="tablist"  style="height: 34px; padding-left: 50px; background-color: #232323">
+                <ul class="nav nav-tabs main_tabsholder" role="tablist">
                     <li><a href="/dashboard">Main</a></li>
                     <li><a href="/dashboard/threads">Threads</a></li>
                     <li><a href="/dashboard/profiler">Profiler</a></li>
@@ -46,4 +45,4 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container">
