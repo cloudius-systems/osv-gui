@@ -16,6 +16,8 @@ OSv.API.GraphAPI = (function() {
     return [ Date.now(), response / Math.pow(1024, 2) ];
   };
 
+  GraphAPI.prototype.rate = OSv.Settings.DataFetchingRate;
+  
   GraphAPI.prototype.fetchData = function() {
     var self = this,
       path = OSv.Settings.BasePath + this.path;
@@ -35,7 +37,7 @@ OSv.API.GraphAPI = (function() {
 
   GraphAPI.prototype.startPulling = function() {
     this.fetchData();
-    setInterval(this.fetchData.bind(this), OSv.Settings.DataFetchingRate);
+    setInterval(this.fetchData.bind(this), this.rate);
   };
 
   return GraphAPI;
