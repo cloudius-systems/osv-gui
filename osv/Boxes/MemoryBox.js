@@ -22,6 +22,7 @@ OSv.Boxes.MemoryBox = (function() {
           label: "Time"
         },
         yaxis: {
+          max: this.total,
           tickOptions: {
             formatter: function(foramt, val) {
               return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
@@ -56,6 +57,7 @@ OSv.Boxes.MemoryBox = (function() {
       free = MemoryHistory.free(),
       total = MemoryHistory.total();
 
+    this.total = total[ total.length - 1][1];
     // If there was no data fetched yet, the graph will break the whole application.
     // this is a workaround.
     if (free.length === 0) {
@@ -65,7 +67,7 @@ OSv.Boxes.MemoryBox = (function() {
       total = [ null ];
     }
 
-    return $.Deferred().resolve([ free, total ]);
+    return $.Deferred().resolve([ free ]);
   };
 
   return MemoryBox;
