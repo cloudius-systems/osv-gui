@@ -20,18 +20,43 @@ OSv.Boxes.StaticInfo = (function() {
     );
   };
 
+  StaticInfo.prototype.formatUptime = function(ms) {
+    var x, seconds, minutes, hours, days, uptime = "";
+    console.log(x, seconds, minutes, hours, days, uptime)
+    x = ms / 1000;
+    seconds = Math.round(x % 60);
+    console.log(x, seconds, minutes, hours, days, uptime, ms)
+    x /= 60;
+    minutes = Math.round(x % 60);
+    console.log(x, seconds, minutes, hours, days, uptime, ms)
+    x /= 60;
+    hours = Math.round(x % 24);
+    console.log(x, seconds, minutes, hours, days, uptime, ms)
+    x /= 24;
+    days = Math.round(x);
+    console.log(x, seconds, minutes, hours, days, uptime, ms)
+
+    uptime +=  days + " Days, ";
+    uptime +=  hours + " Hours, ";
+    uptime +=  minutes + " Minutes, ";
+    uptime +=  seconds + " Seconds. ";
+    console.log(x, seconds, minutes, hours, days, uptime, ms)
+    
+    return uptime;
+
+  }
   StaticInfo.prototype.parseData = function(hostname, totalMemory, freeMemory, uptime, version) {
     return [
       { key: "Host name", value: hostname },
       { key: "Memory Total", value: helpers.humanReadableByteSize(totalMemory) },
       { key: "Memory Free", value: helpers.humanReadableByteSize(freeMemory) },
-      { key: "Uptime", value: uptime },
+      { key: "Uptime", value: this.formatUptime(uptime * 1000) },
       { key: "OSv version", value: version }
     ];
   };
 
   StaticInfo.prototype.fetchData = function() {
-    return this.getData().then(this.parseData);
+    return this.getData().then(this.parseData.bind(this));
   };
 
   return StaticInfo;
