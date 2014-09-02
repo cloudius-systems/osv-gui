@@ -5,7 +5,8 @@ window.helpers = (function() {
     humanReadableByteSize,
     apiGETCall,
     apiPOSTCall,
-    apiDELETECall;
+    apiDELETECall,
+    averageArray;
 
   function CustomEvent(event, params) {
     params = params || { bubbles: false, cancelable: false, detail: undefined };
@@ -25,6 +26,13 @@ window.helpers = (function() {
   Handlebars.registerHelper('if_contains', function(array, needle, options) {
     return array.indexOf(needle|0) != -1 ? options.fn(this) : "";
   });
+
+  averageArray = function (arr) {
+    var sum = function (n1, n2) { return n1 + n2; }, 
+      len = arr.length;
+
+    return arr.reduce(sum) / len;
+  };
 
   randomColor = function() {
     var letters = '0123456789ABCDEF'.split('');
@@ -102,7 +110,8 @@ window.helpers = (function() {
     apiPOSTCall: apiPOSTCall,
     apiGETCall: apiGETCall,
     apiDELETECall: apiDELETECall,
-    randomColor: randomColor
+    randomColor: randomColor,
+    averageArray: averageArray
   }
 
 }());
