@@ -102,26 +102,16 @@ OSv.API.ThreadsGraphAPI = (function() {
   };
 
   ThreadsGraphAPI.prototype.averageCpus = function(cpus) {
-    cpus = $.map(cpus, function (cpu) { return cpu; })
-    var plotLength = cpus[0].plot.length,
-        cpusCount = cpus.length,
-        averagePlot = [],
-        point = [],
-        pointsSum,
-        pointAvarge,
-        timestamp;
-
-    for (var plotIdx = 0; plotIdx < plotLength - 1; plotIdx++) {
-      timestamp = cpus[0].plot[plotIdx][0];
-      sum = 0;
-      for (var cpuIdx = 0; cpuIdx < cpusCount - 1; cpuIdx++) {
-        sum += cpus[cpuIdx].plot[plotIdx][1]
-      }
-      pointAvarge = sum / cpusCount;
-      averagePlot.push([ timestamp, pointAvarge ]);
-    }
-
-    return averagePlot;
+    cpus = $.map(cpus, function (cpu) { return cpu; });
+    var timestamp, pointsToAverage;
+  
+    return cpus[0].plot.map(function (point, idx) {
+      timestamp = point[0];
+      pointsToAverage = cpus.map(function (cpu) {
+        return cpu.plot[idx][1];
+      });
+      return [ timestamp, helpers.averageArray(pointsToAverage) ];
+    });
   };
 
   ThreadsGraphAPI.prototype.hasCPUData = function() {
