@@ -74,6 +74,8 @@ OSv.API.ThreadsGraphAPI = (function() {
     }).forEach(function (diff) {
       var id = diff[0]|0;
       
+      if (self.names[ id ].indexOf("idle") != -1) return;
+
       var percent = (100 * diff[1]) / (newTimems - self.timems);
       if (!self.threads[ id ]) {
         self.threads[ id ] = {id : id, name: self.names[ id ], plot: [], statusTimeline: [] }
