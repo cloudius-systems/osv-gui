@@ -20,11 +20,17 @@ OSv.PageHandlers.BaseHandler = (function() {
     $("a[href='"+window.location.pathname+"']").parents("li").addClass("active")
   };
 
+  BaseHandler.prototype.setSwaggerLink = function() {
+    $("[data-swagger-href]").attr("href", OSv.Settings.BasePath);
+  };
+
   BaseHandler.prototype.subscribe = function() {
     var self = this;
+
     $(document).on("runRoute", function () {
       self.updateHostname();
       self.markSelectedTab();
+      self.setSwaggerLink();
     });
   };
 
