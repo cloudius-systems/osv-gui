@@ -6,6 +6,14 @@ OSv.API.Jolokia = (function() {
   var apiGETCall = helpers.apiGETCall,
     MBeans = {};
 
+  MBeans.attributes = function(name) {
+    return apiGETCall("/jolokia/read/"+name)().then(function (res) {
+      return $.map(res.value, function (value, key) {
+        return {value: value, key: key}
+      })
+    })
+  };
+
   MBeans.tree = function() {
 
     return apiGETCall("/jolokia/list")().then(function (res) {
