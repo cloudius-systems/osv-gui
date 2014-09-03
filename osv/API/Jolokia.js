@@ -6,7 +6,6 @@ OSv.API.Jolokia = (function() {
   var apiGETCall = helpers.apiGETCall,
     MBeans = {};
 
-
   MBeans.tree = function() {
 
     return apiGETCall("/jolokia/list")().then(function (res) {
@@ -21,18 +20,23 @@ OSv.API.Jolokia = (function() {
         $.map(MBeansObject, function (value, key) {
           var typeName = key.match(/type=(.*?)($|,)/)[1];
           var name = key.match(/name=(.*?)($|,)/);
+          var rawName = MBeansObjectName + ":" + key;
           if (!parsed.types[typeName]) {
             var type = {}
             type.objects = [];
             type.attr = value.attr;
+
             parsed.types[typeName] = type;
           } 
           if (name) {
             var object = {
               name: name[1],
-              attr: value.attr
+              attr: value.attr,
+              rawName:rawName
             }
             parsed.types[typeName].objects.push(object);
+          } else {
+            parsed.types[typeName].rawName = rawName;
           }
         });
 
