@@ -26,9 +26,16 @@ OSv.App = Davis(function() {
     profilerHandler.handler();
   });
 
-  this.get("/dashboard/jvm", function() {
-    jvmHandler.handler();
-  });
+  var self = this;
+  OSv.API.JVM.version()
+    .then(function () {
+      self.get("/dashboard/jvm", function() {
+          jvmHandler.handler();
+      });
+    })
+   .fail(function () {
+      baseHandler.removeJVMTab();
+   });
 
   this.bind('runRoute', function (data) {
     runRoute.initCustomEvent('runRoute', true, true, data);

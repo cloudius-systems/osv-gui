@@ -24,6 +24,10 @@ OSv.PageHandlers.BaseHandler = (function() {
     $("[data-swagger-href]").attr("href", OSv.Settings.BasePath);
   };
 
+  BaseHandler.prototype.removeJVMTab = function() {
+    $("a[href='/dashboard/jvm']").parent("li").remove();
+  };
+
   BaseHandler.prototype.subscribe = function() {
     var self = this;
 
