@@ -10,8 +10,10 @@ OSv.PageHandlers.Dashboard.JVM = (function() {
   }
 
   JVM.prototype.handler = function() {
+    this.MBeansBox = new Boxes.MBeansBox();
+    this.MBeansAttributesBox = new Boxes.MBeansAttributesBox();
     this.layout = new OSv.Layouts.BoxesLayout([ 
-      new Boxes.MBeansBox()
+      this.MBeansBox, this.MBeansAttributesBox
     ]);
     this.layout.render();
   };
