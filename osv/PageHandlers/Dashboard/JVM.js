@@ -20,10 +20,11 @@ OSv.PageHandlers.Dashboard.JVM = (function() {
   };
 
   JVM.prototype.MBeansClicked = function(event) {
-    console.log('clicked')
     var $li = $(event.currentTarget),
       name = $li.attr("data-rawName");
 
+    $(".MBeans .selected").removeClass("selected");
+    $li.addClass("selected");
     this.MBeansAttributesBox.name = name;
     this.MBeansAttributesBox.refresh();
   };
