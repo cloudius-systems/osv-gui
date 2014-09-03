@@ -7,6 +7,7 @@ OSv.PageHandlers.Dashboard.JVM = (function() {
   var Boxes = OSv.Boxes;
 
   function JVM() {
+    this.subscribe();
   }
 
   JVM.prototype.handler = function() {
@@ -18,5 +19,17 @@ OSv.PageHandlers.Dashboard.JVM = (function() {
     this.layout.render();
   };
 
+  JVM.prototype.MBeansClicked = function(event) {
+    console.log('clicked')
+    var $li = $(event.currentTarget),
+      name = $li.attr("data-rawName");
+
+    this.MBeansAttributesBox.name = name;
+    this.MBeansAttributesBox.refresh();
+  };
+
+  JVM.prototype.subscribe = function() {
+    $(document).on("click", ".MBeans [data-hasAttr]", this.MBeansClicked.bind(this));
+  };
   return JVM;
 }());

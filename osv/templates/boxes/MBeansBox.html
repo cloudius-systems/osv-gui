@@ -1,14 +1,14 @@
-<div class="graphHolder col-lg-6">
+<div class="graphHolder col-lg-6" style="width:300px">
   <h5>MBeans</h5>
   <ul class="MBeans">
     {{#each this}}
-    <li {{#if rawName}}data-rawName="{{rawName}}"{{/if}} class="parent">{{name}}</li> 
+    <li {{#if rawName}}data-hasAttr data-rawName="{{rawName}}"{{/if}} class="parent">{{name}}</li> 
     <ul class="hidden">
       {{#each types}}
-        <li {{#if rawName}}data-rawName="{{rawName}}"{{/if}} {{#if objects}}class="parent"{{/if}}>{{name}}</li>
+        <li {{#if rawName}}data-hasAttr data-rawName="{{rawName}}"{{/if}} {{#if objects}}class="parent"{{/if}}>{{name}}</li>
         <ul class="hidden">
           {{#each objects}}
-            <li {{#if rawName}}data-rawName="{{rawName}}"{{/if}}>{{name}}</li>
+            <li {{#if rawName}}data-hasAttr data-rawName="{{rawName}}"{{/if}}>{{name}}</li>
           {{/each}}
         </ul>
       {{/each}}
