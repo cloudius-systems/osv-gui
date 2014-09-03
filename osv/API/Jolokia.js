@@ -8,9 +8,22 @@ OSv.API.Jolokia = (function() {
 
   MBeans.attributes = function(name) {
     return apiGETCall("/jolokia/read/"+name)().then(function (res) {
-      return $.map(res.value, function (value, key) {
-        return {value: value, key: key}
+      
+      var attributes =  $.map(res.value, function (value, key) {
+        var tabular = jQuery.isPlainObject(value),
+          tabularSildes = Array.isArray(value) && value.filter(jQuery.isPlainObject).length == value.length,
+          isList = Array.isArray(value) && !tabularSildes,
+          isString = !tabular && !tabularSildes && !isList;
+
+        if (key == "ObjectName") {
+          value = value['objectName']
+          tabular = false;
+          isString = true;
+        };
+        return {value: value, key: key, tabularSildes: tabularSildes, tabular: tabular, isList: isList, isString: isString}
       })
+      
+      return attributes;
     })
   };
 
