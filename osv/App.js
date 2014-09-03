@@ -7,6 +7,7 @@ OSv.App = Davis(function() {
     mainHandler = new Handlers.Dashboard.Main(),
     threadsHandler = new Handlers.Dashboard.Threads(),
     profilerHandler = new Handlers.Dashboard.Profiler(),
+    jvmHandler = new Handlers.Dashboard.JVM(),
     runRoute = new CustomEvent('runRoute')
 
   this.configure(function() {
@@ -23,6 +24,10 @@ OSv.App = Davis(function() {
 
   this.get("/dashboard/profiler", function() {
     profilerHandler.handler();
+  });
+
+  this.get("/dashboard/jvm", function() {
+    jvmHandler.handler();
   });
 
   this.bind('runRoute', function (data) {

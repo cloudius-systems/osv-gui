@@ -18,7 +18,11 @@ window.helpers = (function() {
   CustomEvent.prototype = window.Event.prototype;
 
   window.CustomEvent = CustomEvent;
-  
+
+  Handlebars.registerHelper('stringify', function(json) {
+    return JSON.stringify(json);
+  });
+
   Handlebars.registerHelper('log', function(msg) {
     console.log(msg);
   });
