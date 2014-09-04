@@ -11,7 +11,8 @@ OSv.PageHandlers.Dashboard.Cassandra = (function() {
 
   Cassandra.prototype.handler = function() {
     this.layout = new OSv.Layouts.BoxesLayout([
-      new Boxes.StaticInfo(), new Boxes.LatencyGraph()
+      new Boxes.StaticInfo(), new Boxes.LatencyGraph(),
+      new Boxes.OperationsGraph()
     ]);
     this.layout.render();
   };
