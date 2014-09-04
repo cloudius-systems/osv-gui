@@ -48,7 +48,7 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
   };
 
   CassandraOperationsGraph.prototype.safePlot = function (plot) {
-    return plot.length > 0 ? plot : [[]];
+    return (plot.length > 0 ? plot : [[]]).slice(-9);
   }
   CassandraOperationsGraph.prototype.getData = function () {
     return [
@@ -60,7 +60,8 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
       this.safePlot(this.gossipCompletedTasks)
     ]
   };
-
-  return CassandraOperationsGraph;
+  
+  var singleton = new CassandraOperationsGraph();
+  return singleton;
 
 }());
