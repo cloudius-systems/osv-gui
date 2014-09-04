@@ -4,7 +4,7 @@ OSv.Boxes.Cassandra = OSv.Boxes.Cassandra || {};
 
 OSv.Boxes.Cassandra.StaticInfo = (function() {
 
-  var Cassandra = OSv.API.Applocations.Cassandra;
+  var Cassandra = OSv.API.Applications.Cassandra;
 
   function StaticInfo() {
 

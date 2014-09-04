@@ -8,7 +8,7 @@ OSv.App = Davis(function() {
     threadsHandler = new Handlers.Dashboard.Threads(),
     profilerHandler = new Handlers.Dashboard.Profiler(),
     jvmHandler = new Handlers.Dashboard.JVM(),
-    cassandraHandler = new Handlers.CassandraHandler(),
+    cassandraHandler = new Handlers.Dashboard.Cassandra(),
     runRoute = new CustomEvent('runRoute')
 
   this.configure(function() {
