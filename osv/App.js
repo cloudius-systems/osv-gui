@@ -8,6 +8,7 @@ OSv.App = Davis(function() {
     threadsHandler = new Handlers.Dashboard.Threads(),
     profilerHandler = new Handlers.Dashboard.Profiler(),
     jvmHandler = new Handlers.Dashboard.JVM(),
+    cassandraHandler = new Handlers.CassandraHandler(),
     runRoute = new CustomEvent('runRoute')
 
   this.configure(function() {
@@ -24,6 +25,10 @@ OSv.App = Davis(function() {
 
   this.get("/dashboard/profiler", function() {
     profilerHandler.handler();
+  });
+
+  this.get("/dashboard/cassandra", function() {
+    cassandraHandler.handler();
   });
 
   var self = this;
