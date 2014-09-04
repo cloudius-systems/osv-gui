@@ -32,6 +32,7 @@ OSv.Boxes.TracePoints = (function() {
 
   TracePoints.prototype.update = function(tracepoints) {
     var self = this;
+    if (typeof tracepoints == "undefined") return;
     $.map(tracepoints, function (point) {
       var $point = $("[data-tracepoint='"+point.name+"']"),
         rendered = $point.length > 0,
