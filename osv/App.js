@@ -31,17 +31,10 @@ OSv.App = Davis(function() {
     cassandraHandler.handler();
   });
 
-  var self = this;
-  OSv.API.JVM.version()
-    .then(function () {
-      self.get("/dashboard/jvm", function() {
-          jvmHandler.handler();
-      });
-    })
-   .fail(function () {
-      baseHandler.removeJVMTab();
-   });
-
+  this.get("/dashboard/jvm", function() {
+    jvmHandler.handler();
+  });
+  
   this.bind('runRoute', function (data) {
     runRoute.initCustomEvent('runRoute', true, true, data);
     document.dispatchEvent(runRoute);
