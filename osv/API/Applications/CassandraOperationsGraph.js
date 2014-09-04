@@ -11,28 +11,54 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
     this.startPulling();
   }
 
-  CassandraOperationsGraph.prototype.reads = [];
+  CassandraOperationsGraph.prototype.readsActiveCount = [];
   
-  CassandraOperationsGraph.prototype.writes = [];
+  CassandraOperationsGraph.prototype.readsCompletedTasks = [];
+
+  CassandraOperationsGraph.prototype.writesActiveCount = [];
   
-  CassandraOperationsGraph.prototype.gossip = [];
+  CassandraOperationsGraph.prototype.writesCompletedTasks = [];
+  
+  CassandraOperationsGraph.prototype.gossipActiveCount = [];
+  
+  CassandraOperationsGraph.prototype.gossipCompletedTasks = [];
 
   CassandraOperationsGraph.prototype.pullData = function () {
     var self = this;
     $.when(
-      Jolokia.read("org.apache.cassandra.internal/type=ReadStage"),
-      Jolokia.read("org.apache.cassandra.internal/type=MutationStage"),
-      Jolokia.read("org.apache.cassandra.internal/type=GossipStage")
+      Jolokia.read("org.apache.cassandra.request:type=ReadStage"),
+      Jolokia.read("org.apache.cassandra.request:type=MutationStage"),
+      Jolokia.read("org.apache.cassandra.internal:type=GossipStage")
     ).then(function (read, write, gossip) {
       var timestamp = Date.now();
-      self.reads.push([timestamp, read])
-      self.writes.push([timestamp, write])
-      self.gossip.push([timestamp, gossip])
+      
+      self.readsActiveCount.push([timestamp, read.ActiveCount]);
+      self.readsCompletedTasks.push([timestamp, read.CompletedTasks]);
+      
+      self.writesActiveCount.push([timestamp, write.ActiveCount])
+      self.writesCompletedTasks.push([timestamp, write.CompletedTasks])
+      
+      self.gossipActiveCount.push([timestamp, gossip.ActiveCount])
+      self.gossipCompletedTasks.push([timestamp, gossip.CompletedTasks])
     })
   };
 
   CassandraOperationsGraph.prototype.startPulling = function () {
     this.interval = setInterval(this.pullData.bind(this), 2000);
+  };
+
+  CassandraOperationsGraph.prototype.safePlot = function (plot) {
+    return plot.length > 0 ? plot : [[]];
+  }
+  CassandraOperationsGraph.prototype.getData = function () {
+    return [
+      this.safePlot(this.readsActiveCount),
+      this.safePlot(this.readsCompletedTasks),
+      this.safePlot(this.writesActiveCount),
+      this.safePlot(this.writesCompletedTasks),
+      this.safePlot(this.gossipActiveCount),
+      this.safePlot(this.gossipCompletedTasks)
+    ]
   };
 
   return CassandraOperationsGraph;
