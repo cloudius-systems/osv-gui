@@ -25,12 +25,38 @@ OSv.PageHandlers.BaseHandler = (function() {
   };
 
   BaseHandler.prototype.removeJVMTab = function() {
-    $("a[href='/dashboard/jvm']").parent("li").remove();
+    
+  };
+
+  BaseHandler.prototype.checkCassandraStatus = function () {
+    var $cassandraTab = $("a[href='/dashboard/cassandra']").parent("li");
+    OSv.API.Applications.Cassandra.ifIsRunning().then(function (isRunning) {
+       if (!isRunning) { 
+        $cassandraTab.remove();
+       } else {
+        $cassandraTab.removeClass("hidden");
+       }
+    })
+  };
+
+  BaseHandler.prototype.checkJVMStatus = function () {
+    var $jvmTab = $("a[href='/dashboard/jvm']").parent("li").remove();
+     OSv.API.JVM.version()
+      .then(function () {
+        $jvmTab.removeClass("hidden")
+      })
+      .fail(function () {
+        $jvmTab.remove();
+      })
   };
 
   BaseHandler.prototype.subscribe = function() {
     var self = this;
-
+    $(window).on("load", function () {
+      console.log('loaded');
+      self.checkCassandraStatus();
+      self.checkJVMStatus();
+    })
     $(document).on("runRoute", function () {
       self.updateHostname();
       self.markSelectedTab();

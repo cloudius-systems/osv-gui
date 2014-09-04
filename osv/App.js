@@ -8,6 +8,7 @@ OSv.App = Davis(function() {
     threadsHandler = new Handlers.Dashboard.Threads(),
     profilerHandler = new Handlers.Dashboard.Profiler(),
     jvmHandler = new Handlers.Dashboard.JVM(),
+    cassandraHandler = new Handlers.Dashboard.Cassandra(),
     runRoute = new CustomEvent('runRoute')
 
   this.configure(function() {
@@ -26,17 +27,14 @@ OSv.App = Davis(function() {
     profilerHandler.handler();
   });
 
-  var self = this;
-  OSv.API.JVM.version()
-    .then(function () {
-      self.get("/dashboard/jvm", function() {
-          jvmHandler.handler();
-      });
-    })
-   .fail(function () {
-      baseHandler.removeJVMTab();
-   });
+  this.get("/dashboard/cassandra", function() {
+    cassandraHandler.handler();
+  });
 
+  this.get("/dashboard/jvm", function() {
+    jvmHandler.handler();
+  });
+  
   this.bind('runRoute', function (data) {
     runRoute.initCustomEvent('runRoute', true, true, data);
     document.dispatchEvent(runRoute);

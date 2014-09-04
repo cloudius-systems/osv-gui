@@ -41,7 +41,8 @@
                     <li><a href="/dashboard">Main</a></li>
                     <li><a href="/dashboard/threads">Threads</a></li>
                     <li><a href="/dashboard/profiler">Profiler</a></li>
-                    <li><a href="/dashboard/jvm">JVM</a></li>
+                    <li class="hidden"><a href="/dashboard/jvm">JVM</a></li>
+                    <li class="hidden"><a href="/dashboard/cassandra">Cassandra</a></li>
                 </ul>
         </div>
     </div>
