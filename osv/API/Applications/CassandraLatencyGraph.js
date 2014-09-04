@@ -8,7 +8,7 @@ OSv.API.Applications.CassandraLatencyGraph = (function() {
 
 
   function CassandraLatencyGraph() {
-    this.startPulling();
+    OSv.API.Applications.Cassandra.ifIsRunning().then(this.startPulling.bind(this));
   }
 
   CassandraLatencyGraph.prototype.range = [];

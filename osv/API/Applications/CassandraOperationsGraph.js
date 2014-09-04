@@ -8,7 +8,7 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
 
 
   function CassandraOperationsGraph() {
-    this.startPulling();
+    OSv.API.Applications.Cassandra.ifIsRunning().then(this.startPulling.bind(this));
   }
 
   CassandraOperationsGraph.prototype.readsActiveCount = [];

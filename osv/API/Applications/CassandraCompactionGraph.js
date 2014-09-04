@@ -8,7 +8,7 @@ OSv.API.Applications.CassandraCompactionGraph = (function() {
 
 
   function CassandraCompactionGraph() {
-    this.startPulling();
+    OSv.API.Applications.Cassandra.ifIsRunning().then(this.startPulling.bind(this));
   }
 
   CassandraCompactionGraph.prototype.bytesCompacted = [];

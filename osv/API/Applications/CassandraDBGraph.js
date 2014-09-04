@@ -8,7 +8,7 @@ OSv.API.Applications.CassandraDBGraph = (function() {
 
 
   function CassandraDBGraph() {
-    this.startPulling();
+    OSv.API.Applications.Cassandra.ifIsRunning().then(this.startPulling.bind(this));
   }
 
   CassandraDBGraph.prototype.completedTasksLastRead = null;
