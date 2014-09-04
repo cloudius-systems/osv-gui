@@ -4,7 +4,14 @@ OSv.API = OSv.API || {};
 OSv.API.Jolokia = (function() {
 
   var apiGETCall = helpers.apiGETCall,
-    MBeans = {};
+    MBeans = {},
+    read;
+
+  read = function (name) {
+    return apiGETCall("/jolokia/read/"+name)().then(function(res) {
+      return res.value
+    });
+  };
 
   MBeans.attributes = function(name) {
     return apiGETCall("/jolokia/read/"+name)().then(function (res) {
@@ -74,7 +81,8 @@ OSv.API.Jolokia = (function() {
 
 
   return { 
-    MBeans: MBeans
+    MBeans: MBeans,
+    read: read
   };
 
 }());
