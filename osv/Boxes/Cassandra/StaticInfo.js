@@ -22,10 +22,10 @@ OSv.Boxes.Cassandra.StaticInfo = (function() {
   };
 
   StaticInfo.prototype.parseData = function(liveNodes, loadMap) {
-    return [
-      { key: "Live Nodes", value: liveNodes },
-      { key: "loadMap", value: loadMap }
-    ];
+    return {
+      liveNodes: liveNodes,
+      loadMap: loadMap
+    }
   };
 
   StaticInfo.prototype.fetchData = function() {
