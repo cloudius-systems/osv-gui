@@ -19,11 +19,11 @@ OSv.API.Applications.CassandraCompactionGraph = (function() {
     var self = this;
     $.when(
       Jolokia.read("org.apache.cassandra.metrics:name=BytesCompacted,type=Compaction"),
-      Jolokia.read("org.apache.cassandra.metrics:name=BytesTotalInProgress,type=Compaction")
+      Jolokia.read("org.apache.cassandra.metrics:name=TotalCompactionsCompleted,type=Compaction")
     ).then(function (bytesCompacted, bytesTotalInProgress) {
       var timestamp = Date.now();
-      self.bytesCompacted.push([timestamp, bytesCompacted])
-      self.bytesTotalInProgress.push([timestamp, bytesTotalInProgress])
+      self.bytesCompacted.push([timestamp, bytesCompacted.Count])
+      self.bytesTotalInProgress.push([timestamp, bytesTotalInProgress.Count])
     })
   };
 
