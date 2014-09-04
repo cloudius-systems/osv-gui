@@ -34,7 +34,6 @@ OSv.API.Applications.Cassandra = (function() {
           promise.resolve(isRunning)
         })
     }
-    console.log(isRunning)
     return promise;
   }
 
