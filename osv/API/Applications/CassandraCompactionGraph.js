@@ -16,6 +16,7 @@ OSv.API.Applications.CassandraCompactionGraph = (function() {
 
   CassandraCompactionGraph.prototype.bytesCompacted = [];
   
+  CassandraCompactionGraph.prototype.bytesTotalInProgressLastRead = null;
   CassandraCompactionGraph.prototype.bytesTotalInProgress = [];
 
   CassandraCompactionGraph.prototype.pullData = function () {
@@ -26,7 +27,12 @@ OSv.API.Applications.CassandraCompactionGraph = (function() {
     ).then(function (bytesCompacted, bytesTotalInProgress) {
       var timestamp = Date.now();
       self.bytesCompacted.push([timestamp, bytesCompacted.Count])
-      self.bytesTotalInProgress.push([timestamp, bytesTotalInProgress.Count])
+      if (self.bytesTotalInProgressLastRead == null) {
+        self.bytesTotalInProgress.push([timestamp, 0])
+      } else {
+        self.bytesTotalInProgress.push([timestamp, bytesTotalInProgressLastRead - bytesTotalInProgress.Count])
+      }
+      self.bytesTotalInProgressLastRead = bytesTotalInProgress.Count;
     })
   };
 
