@@ -37,7 +37,6 @@ OSv.API.Applications.Cassandra = (function() {
     console.log(isRunning)
     return promise;
   }
-  apiGETCall("/jolokia/read/org.apache.cassandra.metrics:*")
 
   return { 
     liveNodes: liveNodes,
