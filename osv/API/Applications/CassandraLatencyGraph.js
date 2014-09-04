@@ -33,9 +33,9 @@ OSv.API.Applications.CassandraLatencyGraph = (function() {
 
   CassandraLatencyGraph.prototype.getData = function() {
     return [
-      this.range.length > 0? this.range : [[]],
-      this.read.length > 0? this.read : [[]],
-      this.write.length > 0? this.write : [[]],
+      (this.range.length > 0? this.range : [[]]).slice(-9),
+      (this.read.length > 0? this.read : [[]]).slice(-9),
+      (this.write.length > 0? this.write : [[]]).slice(-9),
     ]
   }
   CassandraLatencyGraph.prototype.startPulling = function () {
