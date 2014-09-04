@@ -25,14 +25,15 @@ OSv.API.Applications.CassandraCompactionGraph = (function() {
       Jolokia.read("org.apache.cassandra.metrics:name=BytesCompacted,type=Compaction"),
       Jolokia.read("org.apache.cassandra.metrics:name=TotalCompactionsCompleted,type=Compaction")
     ).then(function (bytesCompacted, bytesTotalInProgress) {
-      var timestamp = Date.now();
-      self.bytesCompacted.push([timestamp, bytesCompacted.Count])
+      
+      self.bytesCompacted.push([bytesCompacted.timestamp, bytesCompacted.value.Count])
+
       if (self.bytesTotalInProgressLastRead == null) {
-        self.bytesTotalInProgress.push([timestamp, 0])
+        self.bytesTotalInProgress.push([bytesTotalInProgress.timestamp, 0])
       } else {
-        self.bytesTotalInProgress.push([timestamp, bytesTotalInProgressLastRead - bytesTotalInProgress.Count])
+        self.bytesTotalInProgress.push([bytesTotalInProgress.timestamp, self.bytesTotalInProgressLastRead - bytesTotalInProgress.value.Count])
       }
-      self.bytesTotalInProgressLastRead = bytesTotalInProgress.Count;
+      self.bytesTotalInProgressLastRead = bytesTotalInProgress.value.Count;
     })
   };
 

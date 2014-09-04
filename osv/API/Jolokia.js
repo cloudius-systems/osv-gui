@@ -8,9 +8,7 @@ OSv.API.Jolokia = (function() {
     read;
 
   read = function (name) {
-    return apiGETCall("/jolokia/read/"+name)().then(function(res) {
-      return res.value
-    });
+    return apiGETCall("/jolokia/read/"+name)();
   };
 
   MBeans.attributes = function(name) {

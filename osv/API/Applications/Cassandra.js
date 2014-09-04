@@ -11,11 +11,15 @@ OSv.API.Applications.Cassandra = (function() {
     loadMap;
 
   liveNodes = function () {
-    return Jolokia.read("org.apache.cassandra.db:type=StorageService/LiveNodes");
+    return Jolokia.read("org.apache.cassandra.db:type=StorageService/LiveNodes").then(function (res) {
+      return res.value;
+    });
   };
 
   loadMap = function () {
-    return Jolokia.read("org.apache.cassandra.db:type=StorageService/LoadMap");
+    return Jolokia.read("org.apache.cassandra.db:type=StorageService/LoadMap").then(function (res) {
+      return res.value;
+    });
   };
 
   ifIsRunning = function () {

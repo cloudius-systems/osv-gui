@@ -27,6 +27,7 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
   CassandraOperationsGraph.prototype.gossipCompletedTasks = [];
   
 
+
   CassandraOperationsGraph.prototype.pullData = function () {
     var self = this;
     $.when(
@@ -34,34 +35,32 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
       Jolokia.read("org.apache.cassandra.request:type=MutationStage"),
       Jolokia.read("org.apache.cassandra.internal:type=GossipStage")
     ).then(function (read, write, gossip) {
-      var timestamp = Date.now();
-      
-      self.readsActiveCount.push([timestamp, read.ActiveCount]);
+      self.readsActiveCount.push([read.timestamp, read.value.ActiveCount]);
 
       if (self.readsCompletedTasksLastRead == null) {
-        self.readsCompletedTasks.push([timestamp, 0]);
+        self.readsCompletedTasks.push([read.timestamp, 0]);
       } else {
-        self.readsCompletedTasks.push([timestamp, read.CompletedTasks - self.readsCompletedTasksLastRead]);
+        self.readsCompletedTasks.push([read.timestamp, read.value.CompletedTasks - self.readsCompletedTasksLastRead]);
       }
-      self.readsCompletedTasksLastRead = read.CompletedTasks;
+      self.readsCompletedTasksLastRead = read.value.CompletedTasks;
 
-      self.writesActiveCount.push([timestamp, write.ActiveCount])
+      self.writesActiveCount.push([write.timestamp, write.value.ActiveCount])
       
       if (self.readsCompletedTasksLastRead == null) {
-        self.writesCompletedTasks.push([timestamp, 0]);
+        self.writesCompletedTasks.push([write.timestamp, 0]);
       } else {
-        self.writesCompletedTasks.push([timestamp, write.CompletedTasks - self.writesCompletedTasksLastRead]);
+        self.writesCompletedTasks.push([write.timestamp, write.value.CompletedTasks - self.writesCompletedTasksLastRead]);
       }
-      self.writesCompletedTasksLastRead = write.CompletedTasks;
+      self.writesCompletedTasksLastRead = write.value.CompletedTasks;
       
-      self.gossipActiveCount.push([timestamp, gossip.ActiveCount])
+      self.gossipActiveCount.push([gossip.timestamp, gossip.value.ActiveCount])
 
       if (self.gossipCompletedTasksLastRead == null) {
-        self.gossipCompletedTasks.push([timestamp, 0])
+        self.gossipCompletedTasks.push([gossip.timestamp, 0])
       } else {
-        self.gossipCompletedTasks.push([timestamp, gossip.CompletedTasks - self.gossipCompletedTasksLastRead])
+        self.gossipCompletedTasks.push([gossip.timestamp, gossip.value.CompletedTasks - self.gossipCompletedTasksLastRead])
       }
-      self.gossipCompletedTasksLastRead  = gossip.CompletedTasks;
+      self.gossipCompletedTasksLastRead  = gossip.value.CompletedTasks;
     })
   };
 

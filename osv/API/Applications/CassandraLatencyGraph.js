@@ -27,10 +27,9 @@ OSv.API.Applications.CassandraLatencyGraph = (function() {
       Jolokia.read("org.apache.cassandra.db:type=StorageProxy/RecentReadLatencyMicros"),
       Jolokia.read("org.apache.cassandra.db:type=StorageProxy/RecentWriteLatencyMicros")
     ).then(function (range, read, write) {
-      var timestamp = Date.now();
-      self.range.push([timestamp, range])
-      self.read.push([timestamp, read])
-      self.write.push([timestamp, write])
+      self.range.push([range.timestamp, range.value])
+      self.read.push([read.timestamp, read.value])
+      self.write.push([write.timestamp, write.value])
     })
   };
 

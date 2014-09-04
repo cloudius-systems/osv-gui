@@ -22,13 +22,12 @@ OSv.API.Applications.CassandraDBGraph = (function() {
     $.when(
       Jolokia.read("org.apache.cassandra.db:type=Commitlog")
     ).then(function (Commitlog) {
-      var timestamp = Date.now();
       if (self.completedTasksLastRead == null) {
-        self.completedTasks.push([timestamp, 0])
+        self.completedTasks.push([Commitlog.timestamp, 0])
       } else {
-        self.completedTasks.push([timestamp, Commitlog.CompletedTasks - self.completedTasksLastRead])
+        self.completedTasks.push([Commitlog.timestamp, Commitlog.value.CompletedTasks - self.completedTasksLastRead])
       }
-      self.completedTasksLastRead = Commitlog.CompletedTasks;
+      self.completedTasksLastRead = Commitlog.value.CompletedTasks;
     })
   };
 
