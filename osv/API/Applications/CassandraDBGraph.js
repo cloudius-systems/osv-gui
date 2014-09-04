@@ -8,7 +8,10 @@ OSv.API.Applications.CassandraDBGraph = (function() {
 
 
   function CassandraDBGraph() {
-    OSv.API.Applications.Cassandra.ifIsRunning().then(this.startPulling.bind(this));
+    var self = this;
+    OSv.API.Applications.Cassandra.ifIsRunning().then(function (isRunning) {
+      if (isRunning) self.startPulling();
+    });
   }
 
   CassandraDBGraph.prototype.completedTasksLastRead = null;

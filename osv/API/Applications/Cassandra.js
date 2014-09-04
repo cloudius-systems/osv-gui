@@ -19,22 +19,23 @@ OSv.API.Applications.Cassandra = (function() {
   };
 
   ifIsRunning = function () {
-    var self = this;
-    if (self.isRunning == null) {
-      return Jolokia.read("org.apache.cassandra.db:type=StorageService/LiveNodes")
+    var promise = $.Deferred();
+
+    if (isRunning !== null) {
+      promise.resolve(isRunning)
+    } else {
+      Jolokia.read("org.apache.cassandra.db:type=StorageService/LiveNodes")
         .then(function () {
-          self.isRunning = true;
+          isRunning = true;
+          promise.resolve(isRunning)
         })
         .fail(function () {
-          self.isRunning = false;
-        });
+          isRunning = false;
+          promise.resolve(isRunning)
+        })
     }
-    if (isRunning) {
-      return $.Deferred().resolve(true);
-    } else {
-      return $.Deferred().reject();
-    }
-
+    console.log(isRunning)
+    return promise;
   }
   apiGETCall("/jolokia/read/org.apache.cassandra.metrics:*")
 
