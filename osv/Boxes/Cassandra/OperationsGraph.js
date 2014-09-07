@@ -8,7 +8,7 @@ OSv.Boxes.Cassandra.OperationsGraph = (function() {
 
   }
 
-  OperationsGraph.prototype = new OSv.Boxes.GraphBox();
+  OperationsGraph.prototype = new OSv.Boxes.SideTextGraphBox();
 
   OperationsGraph.prototype.title = "Completed Tasks";
 
@@ -52,12 +52,34 @@ OSv.Boxes.Cassandra.OperationsGraph = (function() {
       ],
     }
   };
+  OperationsGraph.prototype.getSideText = function () {
+    return [
+      {
+        label: "Read - Active",
+        value: OSv.API.Applications.CassandraOperationsGraph.readsActiveCount,
+        unit: ""
+      },
+
+      {
+        label: "Write - Active",
+        value: OSv.API.Applications.CassandraOperationsGraph.writesActiveCount,
+        unit: ""
+      },
+
+      {
+        label: "Gossip - Active",
+        value: OSv.API.Applications.CassandraOperationsGraph.gossipActiveCount,
+        unit: ""
+      },
+
+    ];
+  };
 
   OperationsGraph.prototype.fetchData = function() {
     var data = OSv.API.Applications.CassandraOperationsGraph.getData();
     return $.Deferred().resolve(data);
-      
   };
+
 
   return OperationsGraph;
 }());

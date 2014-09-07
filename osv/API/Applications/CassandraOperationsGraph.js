@@ -14,15 +14,15 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
     });
   }
 
-  CassandraOperationsGraph.prototype.readsActiveCount = [];
+  CassandraOperationsGraph.prototype.readsActiveCount = 0;
   CassandraOperationsGraph.prototype.readsCompletedTasksLastRead = null;
   CassandraOperationsGraph.prototype.readsCompletedTasks = [];
 
-  CassandraOperationsGraph.prototype.writesActiveCount = [];
+  CassandraOperationsGraph.prototype.writesActiveCount = 0;
   CassandraOperationsGraph.prototype.writesCompletedTasksLastRead = null;
   CassandraOperationsGraph.prototype.writesCompletedTasks = [];
   
-  CassandraOperationsGraph.prototype.gossipActiveCount = [];
+  CassandraOperationsGraph.prototype.gossipActiveCount = 0;
   CassandraOperationsGraph.prototype.gossipCompletedTasksLastRead = null;
   CassandraOperationsGraph.prototype.gossipCompletedTasks = [];
   
@@ -35,8 +35,7 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
       Jolokia.read("org.apache.cassandra.request:type=MutationStage"),
       Jolokia.read("org.apache.cassandra.internal:type=GossipStage")
     ).then(function (read, write, gossip) {
-      self.readsActiveCount.push([read.timestamp, read.value.ActiveCount]);
-
+      self.readsActiveCount =  read.value.ActiveCount;
       if (self.readsCompletedTasksLastRead == null) {
         self.readsCompletedTasks.push([read.timestamp, 0]);
       } else {
@@ -44,7 +43,7 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
       }
       self.readsCompletedTasksLastRead = read.value.CompletedTasks;
 
-      self.writesActiveCount.push([write.timestamp, write.value.ActiveCount])
+      self.writesActiveCount = write.value.ActiveCount;
       
       if (self.readsCompletedTasksLastRead == null) {
         self.writesCompletedTasks.push([write.timestamp, 0]);
@@ -53,7 +52,7 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
       }
       self.writesCompletedTasksLastRead = write.value.CompletedTasks;
       
-      self.gossipActiveCount.push([gossip.timestamp, gossip.value.ActiveCount])
+      self.gossipActiveCount =  gossip.value.ActiveCount;
 
       if (self.gossipCompletedTasksLastRead == null) {
         self.gossipCompletedTasks.push([gossip.timestamp, 0])
