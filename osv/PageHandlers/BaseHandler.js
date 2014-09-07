@@ -40,12 +40,14 @@ OSv.PageHandlers.BaseHandler = (function() {
   };
 
   BaseHandler.prototype.checkJVMStatus = function () {
-    var $jvmTab = $("a[href='/dashboard/jvm']").parent("li").remove();
+    var $jvmTab = $("a[href='/dashboard/jvm']").parent("li");
      OSv.API.JVM.version()
       .then(function () {
         $jvmTab.removeClass("hidden")
       })
       .fail(function () {
+        console.log9('failed!');
+        debug;
         $jvmTab.remove();
       })
   };
@@ -53,7 +55,6 @@ OSv.PageHandlers.BaseHandler = (function() {
   BaseHandler.prototype.subscribe = function() {
     var self = this;
     $(window).on("load", function () {
-      console.log('loaded');
       self.checkCassandraStatus();
       self.checkJVMStatus();
     })
