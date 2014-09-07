@@ -3,12 +3,15 @@ OSv.API = OSv.API || {};
 
 OSv.API.GraphAPI = (function() {
   
-  function GraphAPI (path, formatter) {
+  function GraphAPI (path, formatter, getData) {
     this.path = path;
     this.data = [];
     this.startPulling();
     if (formatter) {
       this.formatResponse = formatter;
+    } 
+    if (getData) {
+      this.getData = getData.bind(this);
     }
   };
 
@@ -27,7 +30,7 @@ OSv.API.GraphAPI = (function() {
        return typeof response == "string"? JSON.parse(response) : response;
      })
      .then(this.formatResponse.bind(this)).then(function (res) {
-       self.data.push(res)
+       if (res) self.data.push(res)
     });
   };
 
