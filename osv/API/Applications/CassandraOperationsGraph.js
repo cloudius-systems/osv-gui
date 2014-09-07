@@ -73,11 +73,8 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
   }
   CassandraOperationsGraph.prototype.getData = function () {
     return [
-      this.safePlot(this.readsActiveCount),
       this.safePlot(this.readsCompletedTasks),
-      this.safePlot(this.writesActiveCount),
       this.safePlot(this.writesCompletedTasks),
-      this.safePlot(this.gossipActiveCount),
       this.safePlot(this.gossipCompletedTasks)
     ]
   };
