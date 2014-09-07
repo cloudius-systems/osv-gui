@@ -38,7 +38,7 @@ OSv.Boxes.Cassandra.OperationsGraph = (function() {
           markerOptions: {
             style: "circle"
           },
-          label: "Write"
+          label: "Mutation"
         },
 
         {
@@ -61,8 +61,8 @@ OSv.Boxes.Cassandra.OperationsGraph = (function() {
       },
 
       {
-        label: "Write - Active",
-        value: OSv.API.Applications.CassandraOperationsGraph.writesActiveCount,
+        label: "Mutation - Active",
+        value: OSv.API.Applications.CassandraOperationsGraph.mutationsActiveCount,
         unit: ""
       },
 

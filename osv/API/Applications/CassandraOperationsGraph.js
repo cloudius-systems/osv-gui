@@ -18,9 +18,9 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
   CassandraOperationsGraph.prototype.readsCompletedTasksLastRead = null;
   CassandraOperationsGraph.prototype.readsCompletedTasks = [];
 
-  CassandraOperationsGraph.prototype.writesActiveCount = 0;
-  CassandraOperationsGraph.prototype.writesCompletedTasksLastRead = null;
-  CassandraOperationsGraph.prototype.writesCompletedTasks = [];
+  CassandraOperationsGraph.prototype.mutationsActiveCount = 0;
+  CassandraOperationsGraph.prototype.mutationsCompletedTasksLastRead = null;
+  CassandraOperationsGraph.prototype.mutationsCompletedTasks = [];
   
   CassandraOperationsGraph.prototype.gossipActiveCount = 0;
   CassandraOperationsGraph.prototype.gossipCompletedTasksLastRead = null;
@@ -34,7 +34,7 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
       Jolokia.read("org.apache.cassandra.request:type=ReadStage"),
       Jolokia.read("org.apache.cassandra.request:type=MutationStage"),
       Jolokia.read("org.apache.cassandra.internal:type=GossipStage")
-    ).then(function (read, write, gossip) {
+    ).then(function (read, mutation, gossip) {
       self.readsActiveCount =  read.value.ActiveCount;
       if (self.readsCompletedTasksLastRead == null) {
         self.readsCompletedTasks.push([read.timestamp, 0]);
@@ -43,14 +43,14 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
       }
       self.readsCompletedTasksLastRead = read.value.CompletedTasks;
 
-      self.writesActiveCount = write.value.ActiveCount;
+      self.mutationsActiveCount = mutation.value.ActiveCount;
       
       if (self.readsCompletedTasksLastRead == null) {
-        self.writesCompletedTasks.push([write.timestamp, 0]);
+        self.mutationsCompletedTasks.push([mutation.timestamp, 0]);
       } else {
-        self.writesCompletedTasks.push([write.timestamp, write.value.CompletedTasks - self.writesCompletedTasksLastRead]);
+        self.mutationsCompletedTasks.push([mutation.timestamp, mutation.value.CompletedTasks - self.mutationsCompletedTasksLastRead]);
       }
-      self.writesCompletedTasksLastRead = write.value.CompletedTasks;
+      self.mutationsCompletedTasksLastRead = mutation.value.CompletedTasks;
       
       self.gossipActiveCount =  gossip.value.ActiveCount;
 
@@ -73,7 +73,7 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
   CassandraOperationsGraph.prototype.getData = function () {
     return [
       this.safePlot(this.readsCompletedTasks),
-      this.safePlot(this.writesCompletedTasks),
+      this.safePlot(this.mutationsCompletedTasks),
       this.safePlot(this.gossipCompletedTasks)
     ]
   };
