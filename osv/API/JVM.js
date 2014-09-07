@@ -47,7 +47,6 @@ OSv.API.JVM = (function() {
 
     var HeapMemoryUsageGraph = new OSv.API.GraphAPI("/jolokia/read/java.lang:type=Memory/HeapMemoryUsage/used", function (res) {
       var point = [res.timestamp * 1000, res.value / Math.pow(1024, 2) ]
-      console.log(res.value)
       return point;
     },
     function () {
