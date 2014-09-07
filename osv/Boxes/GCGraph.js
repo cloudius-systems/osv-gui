@@ -22,6 +22,7 @@ OSv.Boxes.GCGraph = (function() {
           label: "Time"
         },
         yaxis: {
+          min: 0,
           max: this.total
         }
       },

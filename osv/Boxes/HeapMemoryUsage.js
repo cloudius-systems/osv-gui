@@ -23,6 +23,7 @@ OSv.Boxes.HeapMemoryUsage = (function() {
         },
         yaxis: {
           max: this.total,
+          min: 0,
           tickOptions: {
             formatter: function(foramt, val) {
               return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
