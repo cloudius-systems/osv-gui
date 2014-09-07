@@ -38,7 +38,34 @@ OSv.API.JVM = (function() {
       });
     };
 
-     
+
+    MemoryPoolGraph.prototype = Object.create( OSv.API.GraphAPI.prototype );
+    function MemoryPoolGraph () {
+      this.startPulling();
+    }
+
+    MemoryPoolGraph.prototype.path = "/jolokia/read/java.lang:type=MemoryPool,name=*?ignoreErrors=true";
+    MemoryPoolGraph.prototype.labels = [];
+    MemoryPoolGraph.prototype.pools = [];
+    MemoryPoolGraph.prototype.data = [];
+
+    MemoryPoolGraph.prototype.formatResponse = function (res) {
+      var self = this;
+      var idx = 0;
+      $.map(res.value, function (pool, name) {
+        self.labels[idx] = pool.Name;
+        if (!self.pools[idx]) self.pools[idx] = [];
+        self.pools[idx].push([ res.timestamp, pool.Usage.committed]);
+        idx += 1;
+      })
+      return res;
+    };
+
+
+    MemoryPoolGraph.prototype.getData = function () {
+      return this.pools.map(function (plot) { return plot.slice(-9); });
+    };
+
     var HeapMemoryUsed = function () {
       return apiGETCall("/jolokia/read%2Fjava.lang%3Atype%3DMemory%2FHeapMemoryUsage%2Fused")().then(function (res) {
         return res.value;
@@ -70,6 +97,7 @@ OSv.API.JVM = (function() {
 
   return { 
     version: version,
+    MemoryPoolGraph: new MemoryPoolGraph(),
     HeapMemoryUsageGraph: HeapMemoryUsageGraph,
     GCGraphAPI: new GCGraphAPI(),
     HeapMemoryUsed: HeapMemoryUsed,
