@@ -28,9 +28,6 @@ OSv.Boxes.JVMStaticInfo = (function() {
     });
   }
 
-  JVMStaticInfo.prototype.postRender = function(selector) {
-    $("#"+selector).css("float", "none");
-  };
   return JVMStaticInfo;
 
 }());
