@@ -22,12 +22,7 @@ OSv.Boxes.GCGraph = (function() {
           label: "Time"
         },
         yaxis: {
-          max: this.total,
-          tickOptions: {
-            formatter: function(foramt, val) {
-              return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
-            }
-          }
+          max: this.total
         }
       },
       series: OSv.API.JVM.GCGraphAPI.labels.map(function (label) {

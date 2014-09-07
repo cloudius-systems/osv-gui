@@ -52,7 +52,7 @@ OSv.API.JVM = (function() {
     },
     function () {
       if (this.data.length && isNaN(this.data[0][1])) this.data.shift();
-      return this.data;
+      return this.data.slice(-9);
     });
 
     var classesCount = function () {
