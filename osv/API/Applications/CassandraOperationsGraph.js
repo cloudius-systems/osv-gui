@@ -4,6 +4,7 @@ OSv.API.Applications = OSv.API.Applications || {};
 OSv.API.Applications.CassandraOperationsGraph = (function() {
 
   var Jolokia = OSv.API.Jolokia,
+    CassandraGraph = OSv.API.Applications.CassandraGraph,
     apiGETCall = helpers.apiGETCall
 
 
@@ -13,6 +14,8 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
       if (isRunning) self.startPulling();
     });
   }
+
+  CassandraOperationsGraph.prototype = Object.create(CassandraGraph.prototype);
 
   CassandraOperationsGraph.prototype.readsActiveCount = 0;
   CassandraOperationsGraph.prototype.readsCompletedTasksLastRead = null;
@@ -26,8 +29,6 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
   CassandraOperationsGraph.prototype.gossipCompletedTasksLastRead = null;
   CassandraOperationsGraph.prototype.gossipCompletedTasks = [];
   
-
-
   CassandraOperationsGraph.prototype.pullData = function () {
     var self = this;
     $.when(
@@ -35,22 +36,29 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
       Jolokia.read("org.apache.cassandra.request:type=MutationStage"),
       Jolokia.read("org.apache.cassandra.internal:type=GossipStage")
     ).then(function (read, mutation, gossip) {
+
       self.readsActiveCount =  read.value.ActiveCount;
       if (self.readsCompletedTasksLastRead == null) {
         self.readsCompletedTasks.push([read.timestamp, 0]);
       } else {
-        self.readsCompletedTasks.push([read.timestamp, read.value.CompletedTasks - self.readsCompletedTasksLastRead]);
+        self.readsCompletedTasks.push([
+          read.timestamp, 
+          (read.value.CompletedTasks - self.readsCompletedTasksLastRead[1]) / (read.timestamp - self.readsCompletedTasksLastRead[0])
+          ]);
       }
-      self.readsCompletedTasksLastRead = read.value.CompletedTasks;
+      self.readsCompletedTasksLastRead = [read.timestamp, read.value.CompletedTasks];
 
       self.mutationsActiveCount = mutation.value.ActiveCount;
       
-      if (self.readsCompletedTasksLastRead == null) {
+      if (self.mutationsCompletedTasksLastRead == null) {
         self.mutationsCompletedTasks.push([mutation.timestamp, 0]);
       } else {
-        self.mutationsCompletedTasks.push([mutation.timestamp, mutation.value.CompletedTasks - self.mutationsCompletedTasksLastRead]);
+        self.mutationsCompletedTasks.push([
+          mutation.timestamp, 
+          (mutation.value.CompletedTasks - self.mutationsCompletedTasksLastRead[1]) / (mutation.timestamp - self.mutationsCompletedTasksLastRead[0])
+          ]);
       }
-      self.mutationsCompletedTasksLastRead = mutation.value.CompletedTasks;
+      self.mutationsCompletedTasksLastRead = [mutation.timestamp, mutation.value.CompletedTasks];
       
       self.gossipActiveCount =  gossip.value.ActiveCount;
 
@@ -63,13 +71,7 @@ OSv.API.Applications.CassandraOperationsGraph = (function() {
     })
   };
 
-  CassandraOperationsGraph.prototype.startPulling = function () {
-    this.interval = setInterval(this.pullData.bind(this), 2000);
-  };
 
-  CassandraOperationsGraph.prototype.safePlot = function (plot) {
-    return (plot.length > 0 ? plot : [[]]).slice(-9);
-  }
   CassandraOperationsGraph.prototype.getData = function () {
     return [
       this.safePlot(this.readsCompletedTasks),

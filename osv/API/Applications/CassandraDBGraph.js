@@ -4,6 +4,7 @@ OSv.API.Applications = OSv.API.Applications || {};
 OSv.API.Applications.CassandraDBGraph = (function() {
 
   var Jolokia = OSv.API.Jolokia,
+    CassandraGraph = OSv.API.Applications.CassandraGraph,
     apiGETCall = helpers.apiGETCall
 
 
@@ -14,6 +15,8 @@ OSv.API.Applications.CassandraDBGraph = (function() {
     });
   }
 
+  CassandraDBGraph.prototype = Object.create(CassandraGraph.prototype);
+  
   CassandraDBGraph.prototype.completedTasksLastRead = null;
   CassandraDBGraph.prototype.completedTasks = [];
 
@@ -25,21 +28,21 @@ OSv.API.Applications.CassandraDBGraph = (function() {
       if (self.completedTasksLastRead == null) {
         self.completedTasks.push([Commitlog.timestamp, 0])
       } else {
-        self.completedTasks.push([Commitlog.timestamp, Commitlog.value.CompletedTasks - self.completedTasksLastRead])
+        self.completedTasks.push([
+          Commitlog.timestamp, 
+          (Commitlog.value.CompletedTasks - self.completedTasksLastRead[1]) / (Commitlog.timestamp - self.completedTasksLastRead[0])
+        ])
       }
-      self.completedTasksLastRead = Commitlog.value.CompletedTasks;
+      self.completedTasksLastRead = [Commitlog.timestamp, Commitlog.value.CompletedTasks];
     })
   };
 
   CassandraDBGraph.prototype.getData = function() {
     return [
-      (this.completedTasks.length > 0? this.completedTasks : [[]]).slice(-9),
+      this.safePlot(this.completedTasks)
     ]
   }
-  
-  CassandraDBGraph.prototype.startPulling = function () {
-    this.interval = setInterval(this.pullData.bind(this), 2000);
-  };
+
 
   var singleton = new CassandraDBGraph();
   

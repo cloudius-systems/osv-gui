@@ -4,6 +4,7 @@ OSv.API.Applications = OSv.API.Applications || {};
 OSv.API.Applications.CassandraCompactionGraph = (function() {
 
   var Jolokia = OSv.API.Jolokia,
+    CassandraGraph = OSv.API.Applications.CassandraGraph,
     apiGETCall = helpers.apiGETCall
 
 
@@ -14,9 +15,11 @@ OSv.API.Applications.CassandraCompactionGraph = (function() {
     });
   }
 
+  CassandraCompactionGraph.prototype = Object.create(CassandraGraph.prototype);
+
   CassandraCompactionGraph.prototype.bytesCompacted = [];
-  
-  CassandraCompactionGraph.prototype.bytesTotalInProgressLastRead = null;
+  CassandraCompactionGraph.prototype.bytesCompactedLastRead = null;
+
   CassandraCompactionGraph.prototype.bytesTotalInProgress = [];
 
   CassandraCompactionGraph.prototype.pullData = function () {
@@ -26,19 +29,18 @@ OSv.API.Applications.CassandraCompactionGraph = (function() {
       Jolokia.read("org.apache.cassandra.metrics:name=TotalCompactionsCompleted,type=Compaction")
     ).then(function (bytesCompacted, bytesTotalInProgress) {
       
-      self.bytesCompacted.push([bytesCompacted.timestamp, bytesCompacted.value.Count])
-
-      if (self.bytesTotalInProgressLastRead == null) {
-        self.bytesTotalInProgress.push([bytesTotalInProgress.timestamp, 0])
+      if (this.bytesCompactedLastRead == null) {
+        self.bytesCompacted.push([bytesCompacted.timestamp, 0])
       } else {
-        self.bytesTotalInProgress.push([bytesTotalInProgress.timestamp, self.bytesTotalInProgressLastRead - bytesTotalInProgress.value.Count])
+        self.bytesCompacted.push([
+          bytesCompacted.timestamp,
+          (bytesCompacted.value.Count - self.bytesCompactedLastRead[1]) / (bytesCompacted.timestamp - self.bytesCompactedLastRead[0])
+        ]);
       }
-      self.bytesTotalInProgressLastRead = bytesTotalInProgress.value.Count;
-    })
-  };
+      self.bytesCompactedLastRead = [bytesCompacted.timestamp, bytesCompacted.value.Count];
+      self.bytesTotalInProgress.push([bytesTotalInProgress.timestamp, bytesTotalInProgress.value.Count])
 
-  CassandraCompactionGraph.prototype.safePlot = function (plot) {
-    return (plot.length > 0 ? plot : [[]]).slice(-9);
+    })
   };
 
   CassandraCompactionGraph.prototype.getData = function() {
@@ -47,10 +49,6 @@ OSv.API.Applications.CassandraCompactionGraph = (function() {
       this.safePlot(this.bytesTotalInProgress)
     ]
   }
-  
-  CassandraCompactionGraph.prototype.startPulling = function () {
-    this.interval = setInterval(this.pullData.bind(this), 2000);
-  };
 
   var singleton = new CassandraCompactionGraph();
   
