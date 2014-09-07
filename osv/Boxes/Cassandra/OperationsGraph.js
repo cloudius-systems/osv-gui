@@ -8,13 +8,13 @@ OSv.Boxes.Cassandra.OperationsGraph = (function() {
 
   }
 
-  OperationsGraph.prototype = new OSv.Boxes.GraphBox();
+  OperationsGraph.prototype = new OSv.Boxes.SideTextGraphBox();
 
-  OperationsGraph.prototype.title = "Operations";
+  OperationsGraph.prototype.title = "Completed Tasks";
 
   OperationsGraph.prototype.extraSettings = function() {
     return {
-      title: "Operations",
+      title: "Completed Tasks",
       axes: {
         xaxis: {
           renderer: $.jqplot.DateAxisRenderer,
@@ -30,8 +30,7 @@ OSv.Boxes.Cassandra.OperationsGraph = (function() {
           markerOptions: {
             style: "circle"
           },
-          label: "Read - Active Count",
-          size: 1
+          label: "Read"
         },
 
         {
@@ -39,7 +38,7 @@ OSv.Boxes.Cassandra.OperationsGraph = (function() {
           markerOptions: {
             style: "circle"
           },
-          label: "Read - Completed Tasks"
+          label: "Mutation"
         },
 
         {
@@ -47,42 +46,40 @@ OSv.Boxes.Cassandra.OperationsGraph = (function() {
           markerOptions: {
             style: "circle"
           },
-          label: "Write - Active Count"
-        },
-
-        {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: "Write - Completed Tasks"
-        },
-
-        {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: "Gossip - Active Count"
-        },
-
-        {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: "Gossip - Completed Count"
+          label: "Gossip"
         }
 
       ],
     }
   };
+  OperationsGraph.prototype.getSideText = function () {
+    return [
+      {
+        label: "Read - Active",
+        value: OSv.API.Applications.CassandraOperationsGraph.readsActiveCount,
+        unit: ""
+      },
+
+      {
+        label: "Mutation - Active",
+        value: OSv.API.Applications.CassandraOperationsGraph.mutationsActiveCount,
+        unit: ""
+      },
+
+      {
+        label: "Gossip - Active",
+        value: OSv.API.Applications.CassandraOperationsGraph.gossipActiveCount,
+        unit: ""
+      },
+
+    ];
+  };
 
   OperationsGraph.prototype.fetchData = function() {
     var data = OSv.API.Applications.CassandraOperationsGraph.getData();
     return $.Deferred().resolve(data);
-      
   };
+
 
   return OperationsGraph;
 }());

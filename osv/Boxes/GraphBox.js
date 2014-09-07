@@ -55,6 +55,7 @@ OSv.Boxes.GraphBox = (function() {
     selector = selector || this.selector;
     this.selector = selector;
     this.fetchData().then(function(data) {
+      if (self.onUpdate) self.onUpdate();
       if (self.plot) {
         self.plot.destroy();
       }
@@ -62,7 +63,7 @@ OSv.Boxes.GraphBox = (function() {
       if (data[0][0]) settings.axes.xaxis.min = data[0][0][0];
       if (data[data.length-1][0]) settings.axes.xaxis.max = data[0][data[0].length-1][0];
       
-      self.plot = $.jqplot(selector, data, settings);
+      self.plot = $.jqplot(selector + " .jqplot", data, settings);
     });
 
     if (setATimeout !== false) {
