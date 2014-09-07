@@ -55,6 +55,7 @@ OSv.Boxes.GraphBox = (function() {
     selector = selector || this.selector;
     this.selector = selector;
     this.fetchData().then(function(data) {
+      if (self.onUpdate) self.onUpdate();
       if (self.plot) {
         self.plot.destroy();
       }
