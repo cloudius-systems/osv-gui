@@ -46,8 +46,6 @@ OSv.PageHandlers.BaseHandler = (function() {
         $jvmTab.removeClass("hidden")
       })
       .fail(function () {
-        console.log9('failed!');
-        debug;
         $jvmTab.remove();
       })
   };
