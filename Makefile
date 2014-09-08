@@ -1,6 +1,6 @@
 TEMPLATE_SRCS=$(shell find osv/templates/ -type f -name '*.html')
 JAVASCRIPT_LIBS=$(shell find lib/ -type f -name '*.js' | sort)
-JAVASCRIPT_SRCS_BASE=osv/helpers.js osv/Settings.js osv/API/GraphAPI.js osv/API/ThreadsGraphAPI.js osv/API/*.js osv/API/Applications/Cassandra.js osv/API/Applications/*.js osv/Boxes/BaseBox.js osv/Boxes/StaticBox.js osv/Boxes/StaticInfo.js osv/Boxes/GraphBox.js osv/Boxes/ThreadsGraph.js osv/Layouts/BoxesLayout.js osv/Layouts/ThreadsLayout.js osv/Boxes/ThreadsTableBox.js osv/PageHandlers/Dashboard/*
+JAVASCRIPT_SRCS_BASE=osv/helpers.js osv/Settings.js osv/API/GraphAPI.js osv/API/ThreadsGraphAPI.js osv/API/*.js osv/API/Applications/CassandraGraph.js osv/API/Applications/*.js osv/Boxes/BaseBox.js osv/Boxes/StaticBox.js osv/Boxes/StaticInfo.js osv/Boxes/GraphBox.js  osv/Boxes/SideTextGraphBox.js osv/Boxes/ThreadsGraph.js osv/Layouts/BoxesLayout.js osv/Layouts/ThreadsLayout.js osv/Boxes/ThreadsTableBox.js osv/PageHandlers/* osv/PageHandlers/Dashboard/*
 JAVASCRIPT_SRCS=$(filter-out $(JAVASCRIPT_SRCS_BASE),$(shell find osv/ -type f -name '*.js'))
 
 MAIN_INDEX=public/dashboard/index.html
