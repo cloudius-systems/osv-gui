@@ -4,11 +4,16 @@ OSv.Boxes = OSv.Boxes || {};
 OSv.Boxes.GraphBox = (function() {
 
   function GraphBox() {
-
+    this.subscribe();
   }
 
   GraphBox.prototype = new OSv.Boxes.BaseBox();
 
+  GraphBox.prototype.subscribe = function () {
+    $(document).on("play", this.play.bind(this));
+    $(document).on("pause", this.pause.bind(this));
+
+  }
   GraphBox.prototype.baseSettings = function() {
     return {
       highlighter: {
@@ -81,7 +86,7 @@ OSv.Boxes.GraphBox = (function() {
   };
 
   GraphBox.prototype.play = function () {
-    this.renderGraph(this.selector, true);
+    if (this.selector) this.renderGraph(this.selector, true);
   };
 
   GraphBox.prototype.postRender = function(selector) {
