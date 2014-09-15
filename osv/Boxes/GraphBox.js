@@ -70,8 +70,8 @@ OSv.Boxes.GraphBox = (function() {
       
       self.plot = $.jqplot(selector + " .jqplot", data, settings);
     });
-
-    if (setATimeout !== false) {
+    this.isViewed = true;
+    if (setATimeout !== false && !window.globalPause) {
       this.timeout = setTimeout(function() { self.renderGraph(selector) }, OSv.Settings.DataFetchingRate);
     }
   };
@@ -79,14 +79,15 @@ OSv.Boxes.GraphBox = (function() {
   GraphBox.prototype.clear = function () {
     clearTimeout(this.timeout)
     $(this.selector).remove();
+    this.isViewed = false;
   };
 
   GraphBox.prototype.pause = function () {
-    clearTimeout(this.timeout);
+   // clearTimeout(this.timeout);
   };
 
   GraphBox.prototype.play = function () {
-    if (this.selector) this.renderGraph(this.selector, true);
+   if (this.selector && this.isViewed) this.renderGraph(this.selector, true);
   };
 
   GraphBox.prototype.postRender = function(selector) {
