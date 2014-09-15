@@ -76,6 +76,14 @@ OSv.Boxes.GraphBox = (function() {
     $(this.selector).remove();
   };
 
+  GraphBox.prototype.pause = function () {
+    clearTimeout(this.timeout);
+  };
+
+  GraphBox.prototype.play = function () {
+    this.renderGraph(this.selector, true);
+  };
+
   GraphBox.prototype.postRender = function(selector) {
     this.selector = selector;
     this.renderGraph(selector);
