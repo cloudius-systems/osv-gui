@@ -5,10 +5,10 @@ OSv.Boxes.Cassandra = OSv.Boxes.Cassandra || {};
 OSv.Boxes.Cassandra.OperationsGraph = (function() {
 
   function OperationsGraph() {
-
+    OSv.Boxes.SideTextGraphBox.call(this, arguments)
   }
 
-  OperationsGraph.prototype = new OSv.Boxes.SideTextGraphBox();
+  OperationsGraph.prototype = Object.create(OSv.Boxes.SideTextGraphBox.prototype);
 
   OperationsGraph.prototype.title = "Completed Tasks";
 

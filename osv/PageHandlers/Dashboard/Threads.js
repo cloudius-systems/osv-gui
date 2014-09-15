@@ -10,7 +10,7 @@ OSv.PageHandlers.Dashboard.Threads = (function() {
   }
 
   Threads.prototype.handler = function() {
-    this.layout = new OSv.Layouts.ThreadsLayout();
+    this.layout = this.layout || new OSv.Layouts.ThreadsLayout();
     this.layout.render();
   };
 

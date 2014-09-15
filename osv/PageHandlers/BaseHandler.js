@@ -61,6 +61,26 @@ OSv.PageHandlers.BaseHandler = (function() {
       self.markSelectedTab();
       self.setSwaggerLink();
     });
+
+    $(document).on("click", "[data-global-play]", function () {
+      var playEvent = new CustomEvent('play')
+      playEvent.initCustomEvent('play', true, true);
+      document.dispatchEvent(playEvent);
+    });
+    
+    $(document).on("click", "[data-global-pause]", function () {
+      var pauseEvent = new CustomEvent('pause')
+      pauseEvent.initCustomEvent('pause', true, true);
+      document.dispatchEvent(pauseEvent);
+    });
+
+    $(document).on("play", function () {
+      window.globalPause = false;
+    });
+
+    $(document).on("pause", function () {
+      window.globalPause = true;
+    });
   };
 
   return BaseHandler;

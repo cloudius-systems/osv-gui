@@ -5,10 +5,10 @@ OSv.Boxes.Cassandra = OSv.Boxes.Cassandra || {};
 OSv.Boxes.Cassandra.DBGraph = (function() {
 
   function DBGraph() {
-
+    OSv.Boxes.GraphBox.call(this, arguments);
   }
 
-  DBGraph.prototype = new OSv.Boxes.GraphBox();
+  DBGraph.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
 
   DBGraph.prototype.title = "DB";
 

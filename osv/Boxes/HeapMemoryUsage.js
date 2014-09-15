@@ -3,10 +3,10 @@ var OSv = OSv || {};
 OSv.Boxes.HeapMemoryUsage = (function() {
 
   function HeapMemoryUsage() {
-
+    OSv.Boxes.GraphBox.call(this, arguments)
   }
 
-  HeapMemoryUsage.prototype = new OSv.Boxes.GraphBox();
+  HeapMemoryUsage.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
 
   HeapMemoryUsage.prototype.title = "Heap Memory Usage";
 
