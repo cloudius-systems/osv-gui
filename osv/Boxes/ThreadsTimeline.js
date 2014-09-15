@@ -17,6 +17,7 @@ OSv.Boxes.ThreadsTimeline = (function() {
       var data =  $.map(res, function(thread) {
         return thread;
       }).filter(function (thread) {
+        if (!ids) return false;
         return ids.indexOf( thread.id ) != -1;
       }).map(function (thread) {
         thread.statusTimeline = thread.statusTimeline.slice(-10);
