@@ -3,10 +3,10 @@ var OSv = OSv || {};
 OSv.Boxes.GCGraph = (function() {
 
   function GCGraph() {
-
+    OSv.Boxes.GraphBox.call(this, arguments)
   }
 
-  GCGraph.prototype = new OSv.Boxes.GraphBox();
+  GCGraph.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
 
   GCGraph.prototype.title = "Garbage Collection";
 

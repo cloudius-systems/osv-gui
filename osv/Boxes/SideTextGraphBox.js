@@ -4,10 +4,10 @@ OSv.Boxes = OSv.Boxes || {};
 OSv.Boxes.SideTextGraphBox = (function() {
 
   function SideTextGraphBox() {
-
+    OSv.Boxes.GraphBox.call(this, arguments)
   }
 
-  SideTextGraphBox.prototype = new OSv.Boxes.GraphBox();
+  SideTextGraphBox.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
 
   SideTextGraphBox.prototype.template = "/osv/templates/boxes/SideTextGraphBox.html";
 

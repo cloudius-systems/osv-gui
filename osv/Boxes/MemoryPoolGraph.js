@@ -3,10 +3,10 @@ var OSv = OSv || {};
 OSv.Boxes.MemoryPoolGraph = (function() {
 
   function MemoryPoolGraph() {
-
+    OSv.Boxes.GraphBox.call(this, arguments)
   }
 
-  MemoryPoolGraph.prototype = new OSv.Boxes.GraphBox();
+  MemoryPoolGraph.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
 
   MemoryPoolGraph.prototype.title = "Memory Pools";
 

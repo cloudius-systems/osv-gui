@@ -3,10 +3,10 @@ var OSv = OSv || {};
 OSv.Boxes.CPUBox = (function() {
 
   function CPUBox() {
-
+    OSv.Boxes.GraphBox.call(this, arguments)
   }
 
-  CPUBox.prototype = new OSv.Boxes.GraphBox();
+  CPUBox.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
 
   CPUBox.prototype.cpus = [];
 

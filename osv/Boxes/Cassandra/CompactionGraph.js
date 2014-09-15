@@ -5,10 +5,10 @@ OSv.Boxes.Cassandra = OSv.Boxes.Cassandra || {};
 OSv.Boxes.Cassandra.CompactionGraph = (function() {
 
   function CompactionGraph() {
-
+    OSv.Boxes.GraphBox.call(this, arguments)
   }
 
-  CompactionGraph.prototype = new OSv.Boxes.GraphBox();
+  CompactionGraph.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
 
   CompactionGraph.prototype.title = "Compaction";
 

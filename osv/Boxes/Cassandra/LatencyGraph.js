@@ -5,10 +5,10 @@ OSv.Boxes.Cassandra = OSv.Boxes.Cassandra || {};
 OSv.Boxes.Cassandra.LatencyGraph = (function() {
 
   function LatencyGraph() {
-
+    OSv.Boxes.GraphBox.call(this, arguments)
   }
 
-  LatencyGraph.prototype = new OSv.Boxes.GraphBox();
+  LatencyGraph.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
 
   LatencyGraph.prototype.title = "Latency";
 
