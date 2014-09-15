@@ -14,12 +14,6 @@ OSv.Layouts.ThreadsLayout = (function() {
     this.boxes = [ new Boxes.ThreadsTableBox(), this.threadsGraph, this.threadsTimeline ]
 
     $(document).on("change", "[data-thread] input", this.onCheckBoxChange.bind(this))
-
-    this.refreshTable();
-    this.interval = setInterval(function () {
-      self.refreshTable();
-      self.refreshTimeline();
-    }, 2000);
   }
 
 
@@ -36,6 +30,16 @@ OSv.Layouts.ThreadsLayout = (function() {
     })
   }
 
+  ThreadsLayout.prototype.render = function () {
+    var self = this;
+    OSv.Layouts.BoxesLayout.prototype.render.call(this, arguments);
+    this.refreshTable();
+    this.refreshTimeline();
+    this.interval = setInterval(function () {
+      self.refreshTable();
+      self.refreshTimeline();
+    }, 2000);
+  }
   ThreadsLayout.prototype.clear = function() {
     OSv.Layouts.BoxesLayout.prototype.clear.apply(this, arguments);
     clearInterval(this.interval)
