@@ -19,9 +19,16 @@ OSv.Boxes.ThreadsGraph = (function() {
       title: "THREADS",
       axes: {
         xaxis: {
-          renderer: $.jqplot.DateAxisRenderer,
           tickOptions: {
-            formatString: "%H:%M:%S"
+            formatter: function (_, t) {
+              // before any data comes to the graph jqplot tries rendering weird values.
+              // this fixes the issue by returning an empty string in case a value below 1 shows up
+              // on the x axis.
+              if (t <= 1) return "";
+              var now = Date.now();
+              var secondsAgo = ((now - t) / 1000).toFixed(0);
+              return "-" + secondsAgo + "s";
+            }
           },
           label: "Time"
         }
