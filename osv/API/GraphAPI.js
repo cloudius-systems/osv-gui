@@ -22,6 +22,8 @@ OSv.API.GraphAPI = (function() {
   GraphAPI.prototype.rate = OSv.Settings.DataFetchingRate;
   
   GraphAPI.prototype.fetchData = function() {
+    if (window.globalPause) return;
+    
     var self = this,
       path = OSv.Settings.BasePath + this.path;
 

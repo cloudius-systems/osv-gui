@@ -23,6 +23,7 @@ OSv.API.Applications.CassandraCompactionGraph = (function() {
   CassandraCompactionGraph.prototype.bytesTotalInProgress = [];
 
   CassandraCompactionGraph.prototype.pullData = function () {
+    if (window.globalPause) return;
     var self = this;
     $.when(
       Jolokia.read("org.apache.cassandra.metrics:name=BytesCompacted,type=Compaction"),

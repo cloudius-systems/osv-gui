@@ -3,12 +3,13 @@ var OSv = OSv || {};
 OSv.Boxes.ThreadsGraph = (function() {
 
   function ThreadsGraph() {
+    OSv.Boxes.GraphBox.call(this, arguments);
     for (var i = 0; i < 256; i++) {
       this.colors[i] = helpers.randomColor();
     }
   }
 
-  ThreadsGraph.prototype = new OSv.Boxes.GraphBox();
+  ThreadsGraph.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
 
   ThreadsGraph.prototype.visibleThreads = []
   ThreadsGraph.prototype.threads = [];
