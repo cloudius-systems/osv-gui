@@ -10,9 +10,10 @@ OSv.Boxes.CPUBox = (function() {
 
   CPUBox.prototype.cpus = [];
 
+  CPUBox.prototype.title = "CPU";
+  
   CPUBox.prototype.extraSettings = function() {
     return {
-      title: "CPU",
       axes: {
         xaxis: {
           renderer: $.jqplot.DateAxisRenderer,

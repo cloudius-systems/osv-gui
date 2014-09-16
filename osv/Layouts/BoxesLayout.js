@@ -5,7 +5,7 @@ OSv.Layouts.BoxesLayout = (function() {
 
   function BoxesLayout(boxes) {
     this.boxes = boxes;
-    this.layoutContainerID = "dashboard";
+    this.layoutContainerID = "osvContainer";
     this.mainContainer = $("#main");
     document.addEventListener("runRoute", this.clear.bind(this))
   }
@@ -16,7 +16,7 @@ OSv.Layouts.BoxesLayout = (function() {
   };
 
   BoxesLayout.prototype.layoutContainer = function() {
-    return "<div id='"+this.layoutContainerID+"' class='row'>";
+    return "<div id='"+this.layoutContainerID+"'>";
   };
 
   BoxesLayout.prototype.getLayoutContainer = function() {
@@ -44,12 +44,15 @@ OSv.Layouts.BoxesLayout = (function() {
     }
   };
 
+  BoxesLayout.prototype.preRender = $.noop;
 
   BoxesLayout.prototype.render = function() {
     var self = this;
 
     this.deleteLayoutContainer();
     this.mainContainer.append(this.layoutContainer());
+
+    this.preRender();
 
     return helpers.whenAll( this.allBoxesHtml() ).then(function(boxesHtml) {
       boxesHtml.forEach(self.renderBoxHtml.bind(self));

@@ -12,7 +12,6 @@ OSv.Boxes.HeapMemoryUsage = (function() {
 
   HeapMemoryUsage.prototype.extraSettings = function() {
     return {
-      title: "Heap Memory Usage",
       axes: {
         xaxis: {
           renderer: $.jqplot.DateAxisRenderer,

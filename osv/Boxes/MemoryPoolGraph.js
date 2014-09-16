@@ -12,7 +12,6 @@ OSv.Boxes.MemoryPoolGraph = (function() {
 
   MemoryPoolGraph.prototype.extraSettings = function() {
     return {
-      title: "Memory Pools",
       axes: {
         xaxis: {
           renderer: $.jqplot.DateAxisRenderer,

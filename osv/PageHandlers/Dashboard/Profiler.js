@@ -47,12 +47,23 @@ OSv.PageHandlers.Dashboard.Profiler = (function() {
     this.tracePointsBox.remove(id);
   };
 
+  Profiler.prototype.setContainer = function() {
+    this.getLayoutContainer().append(
+      '<div class="row" style="height: inherit;">' +
+                '<div id="profiler" class="roundedContainer col-lg-12">' +
+                '</div>' +
+      '</div>'
+    );
+    this.layoutContainerID = "profiler";
+  };
+
   Profiler.prototype.handler = function() {
     this.tracePointsBox = new Boxes.TracePoints;
     this.traceListBox = new Boxes.TraceList
     this.layout = new OSv.Layouts.BoxesLayout([
-      this.traceListBox, this.tracePointsBox
+      this.tracePointsBox, this.traceListBox
     ]);
+    this.layout.preRender = this.setContainer.bind(this.layout);
     this.layout.render();
   };
 
