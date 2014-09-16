@@ -182,9 +182,7 @@ html,body{height:100%; background-color: #f8f8f8;}
 }
 
 .graphBodyRight {
-    border-left:1px solid #e8e8e8;
     height:100%;
-
 }
 
 .confGraph {
@@ -295,4 +293,41 @@ span.status { color: #333; font-size: 10px; vertical-align: top;}
 }
 .MBeans .selected {
     color: #4599E4;
+}
+.roundedContainer {
+    background-color: white;
+    border: 1px #d4d4d4 solid;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 3px 2px #f2f2f2;
+    box-shadow: 0 0 3px 2px #f2f2f2;
+    overflow: hidden;
+    height: inherit;
+}
+#osvContainer {
+    position: absolute;
+    width: 1160px;
+    top: 87px;
+    left: 80px;
+    height: 100%;
+}
+#profiler {
+    padding: 15px 15px 15px 30px;
+    height: 100%;
+}
+.rightBoxCheckElements {
+    border: 1px solid rgb(207, 207, 207);
+    padding: 10px;
+    margin-top: 10px;
+    height: calc(100% - 40px);
+}
+
+.rightBoxCheckElements > div {
+    max-height: calc(100% - 73px);
+    overflow: auto;
+}
+.smallGraph {
+    width: calc(50% - 15px);
+    height: 325px;
+    margin-right: 15px;
+    margin-bottom: 15px;
 }
