@@ -14,10 +14,11 @@ OSv.Boxes.ThreadsGraph = (function() {
   ThreadsGraph.prototype.visibleThreads = []
   ThreadsGraph.prototype.threads = [];
   ThreadsGraph.prototype.colors = {};
+  ThreadsGraph.prototype.title = "Threads";
+  
   ThreadsGraph.prototype.extraSettings = function() {
     var self = this;
     return {
-      title: "THREADS",
       axes: {
         xaxis: {
           tickOptions: {

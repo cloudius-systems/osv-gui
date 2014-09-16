@@ -8,12 +8,16 @@ OSv.Boxes.DiskUsageBox = (function() {
 
   DiskUsageBox.prototype = Object.create(OSv.Boxes.BaseBox.prototype);
 
-  DiskUsageBox.prototype.template = "/osv/templates/boxes/EmptyBox.html";
+  DiskUsageBox.prototype.template = "/osv/templates/boxes/GraphBox.html";
+
+  DiskUsageBox.prototype.fetchData = function() {
+    return $.Deferred().resolve({title: "Disk Usage"});
+  };
 
   DiskUsageBox.prototype.postRender = function() {
     var self = this;
     OSv.API.FS.free().then(function (free) {
-      jQuery.jqplot (self.selector.replace("#",""),  
+      jQuery.jqplot (self.selector.replace("#","") + " .jqplot",  
         [
           [            
             ['Free', free], 
@@ -21,7 +25,6 @@ OSv.Boxes.DiskUsageBox = (function() {
           ]
         ], 
         { 
-          title: "Disk Usage",
           seriesDefaults: {
             renderer: jQuery.jqplot.PieRenderer, 
             rendererOptions: {

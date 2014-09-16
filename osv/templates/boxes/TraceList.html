@@ -1,12 +1,39 @@
-<div class="panel panel-default" style="width:300px; display: inline-block; vertical-align: top">
-  <div class="panel-heading">
-    <h3 class="panel-title">Possible Tracepoints</h3>
-  </div>
-    <input class="form-control" id="filterTracepoints" placeholder="Search..">
-    <ul class="list-group" style="max-height:500px; overflow:auto;">
-      {{#each this}}
-        <li data-tracepoint-name="{{@key}}" class="list-group-item">{{@key}}</li>
-      {{/each}}
-    </ul>
-</div>
+<div class="graphBodyRight col-xs-5">
 
+    <button type="button" class="btn btn-default clearAll">Remove All</button>
+
+
+    <div class="rightBoxCheckElements">
+
+
+        <input type="text" id="filterTracepoints" class="form-control" placeholder="Search...">
+<!-- 
+        <div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" checked><span class="selectedThreads">Clear_pte</span>
+                </label>
+            </div>
+            <hr style="margin:0px"/>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" checked><span class="selectedThreads">Cloud_init</span>
+                </label>
+            </div>
+        </div> -->
+        <hr style="border: solid 2px gray;"/>
+        <div>
+          {{#each this}}
+            <div data-tracepoint-name="{{@key}}">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> {{@key}}
+                    </label>
+                </div>
+                <hr style="margin:0px"/>
+            </div>
+          {{/each}}
+        </div>
+    </div>
+</div>
+</div>

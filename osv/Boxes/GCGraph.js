@@ -12,7 +12,6 @@ OSv.Boxes.GCGraph = (function() {
 
   GCGraph.prototype.extraSettings = function() {
     return {
-      title: "Garbage Collection",
       axes: {
         xaxis: {
           renderer: $.jqplot.DateAxisRenderer,

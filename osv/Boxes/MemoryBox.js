@@ -12,7 +12,6 @@ OSv.Boxes.MemoryBox = (function() {
 
   MemoryBox.prototype.extraSettings = function() {
     return {
-      title: "Memory",
       axes: {
         xaxis: {
           renderer: $.jqplot.DateAxisRenderer,
