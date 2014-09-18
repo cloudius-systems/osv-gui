@@ -10,12 +10,12 @@ OSv.PageHandlers.Dashboard.Profiler = (function() {
 
     var self =this;
     
-    $(document).on("click", "[data-tracepoint-name]", function () {
+    $(document).on("click", "[data-tracepoint-name][data-add-trace]", function () {
       self.addTracePoint($(this).attr("data-tracepoint-name"));
     });
 
-    $(document).on("click", ".removeTrace", function () {
-      self.removeTracePoint($(this).attr("data-id"));
+    $(document).on("click", "[data-tracepoint-name][data-remove-trace]", function () {
+      self.removeTracePoint($(this).attr("data-tracepoint-name"));
     });
 
     $(document).on("click", ".clearAll", function () {
@@ -41,10 +41,12 @@ OSv.PageHandlers.Dashboard.Profiler = (function() {
 
   Profiler.prototype.addTracePoint = function(id) {
     this.tracePointsBox.add(id);
+    this.traceListBox.add(id);
   };
 
   Profiler.prototype.removeTracePoint = function(id) {
     this.tracePointsBox.remove(id);
+    this.traceListBox.remove(id);
   };
 
   Profiler.prototype.setContainer = function() {

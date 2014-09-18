@@ -7,24 +7,15 @@
 
 
         <input type="text" id="filterTracepoints" class="form-control" placeholder="Search...">
-<!-- 
-        <div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" checked><span class="selectedThreads">Clear_pte</span>
-                </label>
-            </div>
-            <hr style="margin:0px"/>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" checked><span class="selectedThreads">Cloud_init</span>
-                </label>
-            </div>
-        </div> -->
+ 
+        <div class="selectedTracepoints">
+
+        </div>
+
         <hr style="border: solid 2px gray;"/>
-        <div>
+        <div class="traceList">
           {{#each this}}
-            <div data-tracepoint-name="{{@key}}">
+            <div data-tracepoint-name="{{@key}}" data-add-trace>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox"> {{@key}}
