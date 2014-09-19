@@ -4,21 +4,83 @@ OSv.Boxes = OSv.Boxes || {};
 OSv.Boxes.ThreadsTableBox = (function() {
 
   function ThreadsTableBox() {
+    var self = this;
+    $(document).on("keyup", ".filterThreads", function (event) {
+      var value = $(event.target).val();
+      self.filterThreads(value)
+    });
   }
+
 
   ThreadsTableBox.prototype = new OSv.Boxes.StaticBox();
 
   ThreadsTableBox.prototype.template = "/osv/templates/boxes/ThreadsTable.html";
 
+  ThreadsTableBox.prototype.drawUpdates = function (thread) {
+    var $thread = $(".threadsList [data-thread-id='"+thread.id+"']");
+    $thread.find(".cpuUsage").html(thread.percent)
+    $thread.next(".bar").css("width", thread.percent+"%")
+  };
+
+  ThreadsTableBox.prototype.draw = function (thread) {
+    if ($("[data-thread-id='"+thread.id+"']").length) {
+      this.drawUpdates(thread);
+    } else {
+      var source = $("[data-template-path='/osv/templates/boxes/ThreadListItem.html']").html(),
+        template = Handlebars.compile(source),
+        html;
+      thread.selected = this.selected.indexOf(parseInt(thread.id, 0)) != -1;
+      html = template(thread);
+      if (thread.selected) {
+        $(".selectedThreads").append(html);
+      } else {
+        $(".unselectedThreads").append(html);
+      }
+    }
+  };
+
   ThreadsTableBox.prototype.refresh = function (selected) {
     var self = this;
-    this.fetchData().then(function (ctx) {
-      ctx.selected = selected;
-      var tmpl =  self.getTemplate();
-      return tmpl(ctx);
-    }).then(function ($html) {
-      var boxContaienr = $("#Box0");
-      boxContaienr.html($html);
+    this.selected = selected;
+
+    this.fetchData().then(function (res) {
+      res.threads.forEach(self.draw.bind(self));
+    });
+  };
+
+  ThreadsTableBox.prototype.selected = [];
+  
+  ThreadsTableBox.prototype.moveThread = function(id, newParentSelector) {
+    var $thread = $(".threadsList [data-thread-id='"+id+"']").parents(".thread")
+    $thread.find(".toggleThread").toggleClass("checked")
+    $thread.next("hr").remove();
+    $thread.detach();
+    $thread.appendTo(newParentSelector);
+    var checkbox = $thread.find(":checkbox");
+    checkbox.attr("checked", !checkbox.is(":checked"))
+    $(".threadsList [data-thread-id='"+id+"']").parents(".thread").after("<hr style='margin-top:0px'>");
+
+  };
+
+  ThreadsTableBox.prototype.select = function (id) {
+    this.moveThread(id, ".selectedThreads");
+  };
+
+  ThreadsTableBox.prototype.unselect = function (id) {
+    this.moveThread(id, ".unselectedThreads");
+  };
+
+  ThreadsTableBox.prototype.filterThreads = function (val) {
+    if (!val) val = "";
+    $(".threadsList .thread").each(function () {
+      var $el = $(this);
+      if ($el.attr("data-thread-name").indexOf(val) == -1) {
+        $el.hide();
+        $el.next().hide();
+      } else {
+        $el.show();
+        $el.next().show()
+      }
     })
   };
 
@@ -31,9 +93,7 @@ OSv.Boxes.ThreadsTableBox = (function() {
           id: id,
           percent: thread.plot[thread.plot.length - 1][1].toFixed(1)
         }
-      }).sort(function(t1, t2) {
-        return t1.percent > t2.percent ? -1 : 1;
-      })
+      });
       
       return { 
           threads: threads, 

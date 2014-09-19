@@ -1,17 +1,13 @@
-    <table class="roundedContainer smallGraph col-lg-6 table">
-      <thead>
-      <tr><td></td> <td> name </td> <td> ID </td> <td> %CPU </td> </tr>
-      </thead>
-    {{#each threads }}
-      <tr> 
-        <td data-thread>
-          <input type="checkbox" 
-                 data-thread-id="{{id}}" 
-                 {{#if_contains ../selected  id }}checked="checked"{{/if_contains}}/> 
-        </td> 
-        <td>{{ name }}</td>  
-        <td>{{ id }}</td> 
-        <td>{{ percent }}</td>  
-      </tr>
-    {{/each}}
-    </table>
+<div class="rightBoxCheckElements threadsList">
+
+
+  <input type="text" class="form-control filterThreads" placeholder="Search...">
+
+  <div class="selectedThreads">
+      
+  </div>
+  <hr style="border: solid 2px gray;"/>
+  <div class="unselectedThreads">
+    
+  </div>
+</div>

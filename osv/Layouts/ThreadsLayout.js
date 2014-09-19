@@ -13,7 +13,7 @@ OSv.Layouts.ThreadsLayout = (function() {
     this.threadsTimeline = new Boxes.ThreadsTimeline();
     this.boxes = [ new Boxes.ThreadsTableBox(), this.threadsGraph, this.threadsTimeline ]
 
-    $(document).on("change", "[data-thread] input", this.onCheckBoxChange.bind(this))
+    $(document).on("click", ".thread .toggleThread", this.onToggleThreadClick.bind(this))
   }
 
 
@@ -51,9 +51,11 @@ OSv.Layouts.ThreadsLayout = (function() {
 
   ThreadsLayout.prototype.showThread = function(threadID) {
     this.threadsGraph.visibleThreads.push(threadID|0);
+    this.boxes[0].select(threadID);
   };
 
   ThreadsLayout.prototype.hideThread = function(threadID) {
+    this.boxes[0].unselect(threadID);
     this.threadsGraph.visibleThreads = this.threadsGraph.visibleThreads.filter(function (thread) { 
       return thread != threadID
     });
@@ -71,13 +73,18 @@ OSv.Layouts.ThreadsLayout = (function() {
     this.threadsGraph.renderGraph(false, false)
   };
   
-  ThreadsLayout.prototype.onCheckBoxChange = function(event) {
-    var $checkbox = $(event.target),
+  ThreadsLayout.prototype.onToggleThreadClick = function(event) {
+    var $checkbox = $(event.target).parent("[data-thread]"),
       threadID = $checkbox.attr("data-thread-id")|0;
-    
-    $checkbox.is(":checked") ? this.showThread(threadID) : this.hideThread(threadID);
+
+    if ( $checkbox.is(".checked") ) {
+      this.hideThread(threadID);
+    } else {
+      this.showThread(threadID);
+    }
     this.refreshGraph();
     this.refreshTimeline();
+    return false;
   };
 
   return ThreadsLayout;
