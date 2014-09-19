@@ -51,22 +51,28 @@ OSv.Boxes.ThreadsTableBox = (function() {
   ThreadsTableBox.prototype.selected = [];
   
   ThreadsTableBox.prototype.moveThread = function(id, newParentSelector) {
+    console.log(id, this.selected)
     var $thread = $(".threadsList [data-thread-id='"+id+"']").parents(".thread")
     $thread.find(".toggleThread").toggleClass("checked")
     $thread.next("hr").remove();
     $thread.detach();
     $thread.appendTo(newParentSelector);
     var checkbox = $thread.find(":checkbox");
-    checkbox.attr("checked", !checkbox.is(":checked"))
+    checkbox.prop("checked", this.selected.indexOf(parseInt(id, 10)) != -1)
     $(".threadsList [data-thread-id='"+id+"']").parents(".thread").after("<hr style='margin-top:0px'>");
 
   };
 
   ThreadsTableBox.prototype.select = function (id) {
+    id = parseInt(id,10);
+    if (this.selected.indexOf(id) == -1) this.selected.push();
     this.moveThread(id, ".selectedThreads");
   };
 
   ThreadsTableBox.prototype.unselect = function (id) {
+    id = parseInt(id,10);
+    var idx = this.selected.indexOf(id);
+    this.selected.splice(idx);
     this.moveThread(id, ".unselectedThreads");
   };
 
