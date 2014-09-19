@@ -10,12 +10,13 @@ OSv.Boxes.ThreadsGraph = (function() {
   }
 
   ThreadsGraph.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
-
+  ThreadsGraph.prototype.template = "/osv/templates/boxes/ThreadsGraph.html";
   ThreadsGraph.prototype.visibleThreads = []
   ThreadsGraph.prototype.threads = [];
   ThreadsGraph.prototype.colors = {};
   ThreadsGraph.prototype.title = "Threads";
-  
+  ThreadsGraph.prototype.renderTo = "#left";
+
   ThreadsGraph.prototype.extraSettings = function() {
     var self = this;
     return {

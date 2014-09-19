@@ -8,12 +8,12 @@
 
         <input type="text" id="filterTracepoints" class="form-control" placeholder="Search...">
  
-        <div class="selectedTracepoints">
+        <div class="selectedTracepoints" style="max-height:calc(50% - 40px); overflow:auto;">
 
         </div>
 
         <hr style="border: solid 2px gray;"/>
-        <div class="traceList">
+        <div class="traceList" style="max-height: calc(50% - 40px); overflow:auto;">
           {{#each this}}
             <div data-tracepoint-name="{{@key}}" data-add-trace>
                 <div class="checkbox">

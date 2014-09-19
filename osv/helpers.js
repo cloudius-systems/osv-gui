@@ -31,6 +31,10 @@ window.helpers = (function() {
     return array.indexOf(needle|0) != -1 ? options.fn(this) : "";
   });
 
+  Handlebars.registerHelper('if_not_contains', function(array, needle, options) {
+    return array.indexOf(needle|0) == -1 ? options.fn(this) : "";
+  });
+
   averageArray = function (arr) {
     var sum = function (n1, n2) { return n1 + n2; }, 
       len = arr.length;

@@ -35,9 +35,15 @@ OSv.Layouts.BoxesLayout = (function() {
 
   BoxesLayout.prototype.renderBoxHtml = function(html, id) {
     var uniuqeID = "Box" + id,
+      container,
       $html = $(html).attr("id", uniuqeID);
 
-    this.getLayoutContainer().append($html);
+    if (this.boxes[id].renderTo) {
+      container = $(this.boxes[id].renderTo)
+    } else {
+      container = this.getLayoutContainer()
+    }
+    container.append($html);
     this.boxes[id].selector = "#" + uniuqeID;
     if (this.boxes[id].postRender) {
       this.boxes[id].postRender(uniuqeID);

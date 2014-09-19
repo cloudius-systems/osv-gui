@@ -37,7 +37,9 @@ OSv.Boxes.TraceList = (function() {
 
   };
   TraceList.prototype.remove = function(id) {
-    $(".selectedTracepoints [data-tracepoint-name='"+id+"']").remove();
+    $trace = $(".selectedTracepoints [data-tracepoint-name='"+id+"']")
+    $trace.next().remove();
+    $trace.remove();
     this.refreshListFromAPI();
   };
 

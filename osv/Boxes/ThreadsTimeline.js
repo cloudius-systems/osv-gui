@@ -10,6 +10,7 @@ OSv.Boxes.ThreadsTimeline = (function() {
 
   ThreadsTimeline.prototype.template = "/osv/templates/boxes/ThreadsTimeline.html";
 
+  ThreadsTimeline.prototype.renderTo = "#left";
 
   ThreadsTimeline.prototype.fetchData = function (ids) {
     return OSv.API.OS.threadsGraph().then(function (res) {
