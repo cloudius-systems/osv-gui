@@ -11,7 +11,8 @@ OSv.Layouts.ThreadsLayout = (function() {
     this.setSelectedThreads();
     this.threadsGraph = new Boxes.ThreadsGraph();
     this.threadsTimeline = new Boxes.ThreadsTimeline();
-    this.boxes = [ new Boxes.ThreadsTableBox(), this.threadsGraph, this.threadsTimeline ]
+    this.threadsTablebox = new Boxes.ThreadsTableBox();
+    this.boxes = [ this.threadsGraph, this.threadsTablebox, this.threadsTimeline ]
 
     $(document).on("click", ".thread .toggleThread", this.onToggleThreadClick.bind(this))
   }
@@ -19,6 +20,16 @@ OSv.Layouts.ThreadsLayout = (function() {
 
   ThreadsLayout.prototype = new OSv.Layouts.BoxesLayout();
   
+  ThreadsLayout.prototype.preRender = function() {
+    this.getLayoutContainer().append(
+      '<div class="row" style="height: inherit;">' +
+                '<div id="profiler" class="roundedContainer col-lg-12">' +
+                  '<div class="col-xs-8" id="left"></div>' +
+                '</div>' +
+      '</div>'
+    );
+    this.layoutContainerID = "profiler";
+  };
   ThreadsLayout.prototype.setSelectedThreads = function () {
     var self = this;
     return OSv.API.OS.threads().then(function (threads) {
@@ -51,22 +62,22 @@ OSv.Layouts.ThreadsLayout = (function() {
 
   ThreadsLayout.prototype.showThread = function(threadID) {
     this.threadsGraph.visibleThreads.push(threadID|0);
-    this.boxes[0].select(threadID);
+    this.threadsTablebox.select(threadID);
   };
 
   ThreadsLayout.prototype.hideThread = function(threadID) {
-    this.boxes[0].unselect(threadID);
+    this.threadsTablebox.unselect(threadID);
     this.threadsGraph.visibleThreads = this.threadsGraph.visibleThreads.filter(function (thread) { 
       return thread != threadID
     });
   };
 
   ThreadsLayout.prototype.refreshTimeline = function() {
-    this.boxes[2].refresh(this.getSelectedThreads());
+    this.threadsTimeline.refresh(this.getSelectedThreads());
   }
   ThreadsLayout.prototype.refreshTable = function() {
     var visibleThreads = this.threadsGraph.visibleThreads;
-    this.boxes[0].refresh(this.getSelectedThreads());
+    this.threadsTablebox.refresh(this.getSelectedThreads());
   };
 
   ThreadsLayout.prototype.refreshGraph = function() {
