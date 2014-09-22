@@ -56,7 +56,7 @@ OSv.API.Applications.Tomcat.Requests = (function() {
   Requests.prototype.getPlots = function () {
     if (this.plots == null) return [[null]];
     return $.map(this.plots, function (plot) {
-      return [plot];
+      return [plot.getPlot().slice(-9)];
     });
   };
 
