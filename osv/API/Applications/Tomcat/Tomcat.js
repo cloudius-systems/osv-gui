@@ -1,26 +1,11 @@
 var OSv = OSv || {};
 OSv.API = OSv.API || {};
 OSv.API.Applications = OSv.API.Applications || {};
-OSv.API.Applications.Cassandra = (function() {
+OSv.API.Applications.Tomcat = (function () {
 
   var Jolokia = OSv.API.Jolokia,
-    apiGETCall = helpers.apiGETCall, 
-    liveNodes,
     isRunning = null,
-    ifIsRunning,
-    loadMap;
-
-  liveNodes = function () {
-    return Jolokia.read("org.apache.cassandra.db:type=StorageService/LiveNodes").then(function (res) {
-      return res.value;
-    });
-  };
-
-  loadMap = function () {
-    return Jolokia.read("org.apache.cassandra.db:type=StorageService/LoadMap").then(function (res) {
-      return res.value;
-    });
-  };
+    ifIsRunning;
 
   ifIsRunning = function () {
     var promise = $.Deferred();
@@ -28,7 +13,7 @@ OSv.API.Applications.Cassandra = (function() {
     if (isRunning !== null) {
       promise.resolve(isRunning)
     } else {
-      Jolokia.read("org.apache.cassandra.db:type=StorageService/LiveNodes")
+      Jolokia.read("Catalina:type=StringCache")
         .then(function (res) {
           if (res.status == 200) {
             isRunning = true;
@@ -43,12 +28,9 @@ OSv.API.Applications.Cassandra = (function() {
         })
     }
     return promise;
-  }
-
-  return { 
-    liveNodes: liveNodes,
-    loadMap: loadMap,
-    ifIsRunning: ifIsRunning
   };
 
+  return {
+    ifIsRunning: ifIsRunning
+  }
 }());

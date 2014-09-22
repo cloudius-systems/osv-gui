@@ -29,8 +29,15 @@ OSv.PageHandlers.BaseHandler = (function() {
     $("[data-swagger-href]").attr("href", OSv.Settings.BasePath);
   };
 
-  BaseHandler.prototype.removeJVMTab = function() {
-    
+  BaseHandler.prototype.checkTomcatStatus = function () {
+    var $tomcatTab = $("a[href='/dashboard/tomcat']").parent("li");
+    OSv.API.Applications.Tomcat.ifIsRunning().then(function (isRunning) {
+       if (!isRunning) { 
+        $tomcatTab.remove();
+       } else {
+        $tomcatTab.removeClass("hidden");
+       }
+    })
   };
 
   BaseHandler.prototype.checkCassandraStatus = function () {
@@ -60,6 +67,7 @@ OSv.PageHandlers.BaseHandler = (function() {
     $(window).on("load", function () {
       self.checkCassandraStatus();
       self.checkJVMStatus();
+      self.checkTomcatStatus();
     })
     $(document).on("runRoute", function () {
       self.updateHostname();

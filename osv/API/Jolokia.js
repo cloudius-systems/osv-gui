@@ -44,7 +44,13 @@ OSv.API.Jolokia = (function() {
         };
 
         $.map(MBeansObject, function (value, key) {
-          var typeName = key.match(/type=(.*?)($|,)/)[1];
+          var typeName = key.match(/type=(.*?)($|,)/i);
+          if (typeName) {
+            typeName = typeName[1]
+          } else {
+
+            return;
+          }
           var name = key.match(/name=(.*?)($|,)/);
           var rawName = MBeansObjectName + ":" + key;
           if (!parsed.types[typeName]) {
