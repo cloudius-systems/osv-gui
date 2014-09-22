@@ -26,7 +26,6 @@ OSv.API.Applications.Tomcat.Threads = (function() {
     Jolokia.read("Catalina:type=ThreadPool,name=*?ignoreErrors=true")
     .then(function (res) {
       if (self.plots == null) self.plots = {};
-      console.log("Got data for Tomcat/Threads graph, current data: ", self.plots)
       var timestamp = res.timestamp * 1000;
       $.map(res.value, function (value, key) {
         var name = value.name, //key.match(/name=(.*?)($|,)/)[1],

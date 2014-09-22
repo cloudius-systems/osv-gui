@@ -40,7 +40,6 @@ OSv.Boxes.Tomcat.Threads = (function() {
 
   Threads.prototype.fetchData = function() {
     var data = Tomcat.Threads.getPlots();
-    console.log("Tomcat Threads box updating with data: ", data)
     return $.Deferred().resolve(data);
       
   };
