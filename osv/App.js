@@ -9,6 +9,7 @@ OSv.App = Davis(function() {
     tracesHandler = new Handlers.Dashboard.Traces(),
     jvmHandler = new Handlers.Dashboard.JVM(),
     cassandraHandler = new Handlers.Dashboard.Cassandra(),
+    tomcatHandler = new Handlers.Dashboard.Tomcat(),
     runRoute = new CustomEvent('runRoute')
 
   this.configure(function() {
@@ -33,6 +34,10 @@ OSv.App = Davis(function() {
 
   this.get("/dashboard/jvm", function() {
     jvmHandler.handler();
+  });
+
+  this.get("/dashboard/tomcat", function() {
+    tomcatHandler.handler();
   });
   
   this.bind('runRoute', function (data) {
