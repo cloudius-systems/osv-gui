@@ -110,8 +110,36 @@ window.helpers = (function() {
         type: 'DELETE'
       })
     }
+  };
+
+  function DerivativePlot () {
+    this.latestValue = null;
+    this.latestTimestamp = null;
+    this.plot = [];
+  };
+
+  DerivativePlot.prototype.add = function (timestamp, value) {
+    var latestValue = this.latestValue,
+      latestTimestamp = this.latestTimestamp,
+      newPlotPoint;
+
+    if (latestValue) {
+      newValue = (value - latestValue) / (timestamp - latestTimestamp);
+      newPlotPoint = [timestamp, newValue];
+      this.plot.push(newPlotPoint);
+    } else {
+      this.plot.push([null])
+    }
+    this.latestValue = value;
+    this.latestTimestamp = timestamp;
+  };
+
+  DerivativePlot.prototype.getPlot = function () {
+    return this.plot;
   }
+
   return {
+    DerivativePlot: DerivativePlot,
     humanReadableByteSize: humanReadableByteSize,
     whenAll: whenAll,
     renderTemplate: renderTemplate,
