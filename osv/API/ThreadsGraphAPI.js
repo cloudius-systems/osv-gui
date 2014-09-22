@@ -117,7 +117,7 @@ OSv.API.ThreadsGraphAPI = (function() {
   };
 
   ThreadsGraphAPI.prototype.hasCPUData = function() {
-    return Object.keys(this.data).length > 1;
+    return Object.keys(this.threads).length > 1;
   }
   ThreadsGraphAPI.prototype.getCpuAvergae = function() {
     return this.hasCPUData() ? this.averageCpus(this.idles) : [];
