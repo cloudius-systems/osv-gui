@@ -18,6 +18,11 @@ OSv.PageHandlers.BaseHandler = (function() {
   BaseHandler.prototype.markSelectedTab = function() {
     $(".nav li.active").removeClass("active");
     $("a[href='"+window.location.pathname+"']").parents("li").addClass("active")
+    if (window.location.href.indexOf("/dashboard") != -1) {
+      $("[data-dashboard-link").addClass("active");
+    } else {
+      $("[data-dashboard-link").removeClass("active");
+    }
   };
 
   BaseHandler.prototype.setSwaggerLink = function() {

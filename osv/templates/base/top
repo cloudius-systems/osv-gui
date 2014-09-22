@@ -30,7 +30,7 @@
     
     <div class="sidebarOsv">
         <ul class="nav nav-tabs" id="leftNavOsv">
-            <li class="active"><a class="icn_dashboard" href="/dashboard">&nbsp;</a></li>
+            <li class="active" data-dashboard-link> <a class="icn_dashboard" href="/dashboard">&nbsp;</a></li>
             <li><a class="icn_rest" data-swagger-href>&nbsp;</a></li>
         </ul>
     </div>
