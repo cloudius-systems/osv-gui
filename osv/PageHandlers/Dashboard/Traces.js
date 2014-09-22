@@ -2,11 +2,11 @@ var OSv = OSv || {};
 OSv.PageHandlers = OSv.PageHandlers || {};
 OSv.PageHandlers.Dashboard = OSv.PageHandlers.Dashboard || {};
 
-OSv.PageHandlers.Dashboard.Profiler = (function() {
+OSv.PageHandlers.Dashboard.Traces = (function() {
  
   var Boxes = OSv.Boxes;
 
-  function Profiler() {
+  function Traces() {
 
     var self =this;
     
@@ -27,29 +27,29 @@ OSv.PageHandlers.Dashboard.Profiler = (function() {
     });
   }
 
-  Profiler.prototype.clearAll = function() {
+  Traces.prototype.clearAll = function() {
     this.tracePointsBox.removeAll();
   };
 
-  Profiler.prototype.filterTracepoints = function(keyword) {
+  Traces.prototype.filterTracepoints = function(keyword) {
     this.traceListBox.filter(keyword);
   };
 
-  Profiler.prototype.refresh = function() {
+  Traces.prototype.refresh = function() {
     this.tracePointsBox.refresh();
   };
 
-  Profiler.prototype.addTracePoint = function(id) {
+  Traces.prototype.addTracePoint = function(id) {
     this.tracePointsBox.add(id);
     this.traceListBox.add(id);
   };
 
-  Profiler.prototype.removeTracePoint = function(id) {
+  Traces.prototype.removeTracePoint = function(id) {
     this.tracePointsBox.remove(id);
     this.traceListBox.remove(id);
   };
 
-  Profiler.prototype.setContainer = function() {
+  Traces.prototype.setContainer = function() {
     this.getLayoutContainer().append(
       '<div class="row" style="height: inherit;">' +
                 '<div id="profiler" class="roundedContainer col-lg-12">' +
@@ -59,7 +59,7 @@ OSv.PageHandlers.Dashboard.Profiler = (function() {
     this.layoutContainerID = "profiler";
   };
 
-  Profiler.prototype.handler = function() {
+  Traces.prototype.handler = function() {
     this.tracePointsBox = new Boxes.TracePoints;
     this.traceListBox = new Boxes.TraceList
     this.layout = new OSv.Layouts.BoxesLayout([
@@ -69,5 +69,5 @@ OSv.PageHandlers.Dashboard.Profiler = (function() {
     this.layout.render();
   };
 
-  return Profiler;
+  return Traces;
 }());
