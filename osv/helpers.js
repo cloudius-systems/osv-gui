@@ -119,6 +119,7 @@ window.helpers = (function() {
   };
 
   DerivativePlot.prototype.add = function (timestamp, value) {
+    if (timestamp.toString().length < 11 ) timestamp = timestamp * 1000;
     var latestValue = this.latestValue,
       latestTimestamp = this.latestTimestamp,
       newPlotPoint;
