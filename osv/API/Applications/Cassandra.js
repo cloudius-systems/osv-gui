@@ -29,8 +29,12 @@ OSv.API.Applications.Cassandra = (function() {
       promise.resolve(isRunning)
     } else {
       Jolokia.read("org.apache.cassandra.db:type=StorageService/LiveNodes")
-        .then(function () {
-          isRunning = true;
+        .then(function (res) {
+          if (res.status == 200) {
+            isRunning = true;
+          } else {
+            isRunning = false;
+          }
           promise.resolve(isRunning)
         })
         .fail(function () {
