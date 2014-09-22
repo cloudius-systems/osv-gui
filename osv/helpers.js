@@ -124,7 +124,7 @@ window.helpers = (function() {
       latestTimestamp = this.latestTimestamp,
       newPlotPoint;
 
-    if (latestValue) {
+    if (latestValue != null) {
       newValue = (value - latestValue) / (timestamp - latestTimestamp);
       newPlotPoint = [timestamp, newValue];
       this.plot.push(newPlotPoint);
