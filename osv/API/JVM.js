@@ -55,7 +55,7 @@ OSv.API.JVM = (function() {
       $.map(res.value, function (pool, name) {
         self.labels[idx] = pool.Name;
         if (!self.pools[idx]) self.pools[idx] = [];
-        self.pools[idx].push([ res.timestamp, pool.Usage.committed]);
+        self.pools[idx].push([ res.timestamp * 1000, pool.Usage.committed]);
         idx += 1;
       })
       return res;
