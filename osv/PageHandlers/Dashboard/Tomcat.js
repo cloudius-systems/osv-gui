@@ -11,7 +11,8 @@ OSv.PageHandlers.Dashboard.Tomcat = (function() {
 
   Tomcat.prototype.handler = function() {
     this.layout = new OSv.Layouts.BoxesLayout([
-      new Boxes.Threads(), new Boxes.Requests()
+      new Boxes.Threads(), new Boxes.Requests(),
+      new Boxes.Sessions()
     ]);
     this.layout.render();
   };
