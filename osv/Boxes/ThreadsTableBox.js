@@ -13,7 +13,7 @@ OSv.Boxes.ThreadsTableBox = (function() {
 
 
   ThreadsTableBox.prototype = new OSv.Boxes.StaticBox();
-
+  ThreadsTableBox.prototype.renderTo = "#profiler";
   ThreadsTableBox.prototype.template = "/osv/templates/boxes/ThreadsTable.html";
 
   ThreadsTableBox.prototype.drawUpdates = function (thread) {
