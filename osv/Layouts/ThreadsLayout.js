@@ -20,15 +20,15 @@ OSv.Layouts.ThreadsLayout = (function() {
 
   ThreadsLayout.prototype = new OSv.Layouts.BoxesLayout();
   
-  ThreadsLayout.prototype.preRender = function() {
-    this.getLayoutContainer().append(
-      '<div class="row" style="height: inherit;">' +
-                '<div id="profiler" class="roundedContainer col-lg-12">' +
-                  '<div class="col-xs-8" id="left"></div>' +
-                '</div>' +
+  ThreadsLayout.prototype.layoutContainerID = "profiler";
+  ThreadsLayout.prototype.layoutContainer = function() {
+    return "<div id='osvContainer'>" +
+        '<div class="row" style="height: inherit;">' +
+                  '<div id="profiler" class="roundedContainer col-lg-12">' +
+                    '<div class="col-xs-8" id="left"></div>' +
+                  '</div>' +
+        '</div>' +
       '</div>'
-    );
-    this.layoutContainerID = "profiler";
   };
   ThreadsLayout.prototype.setSelectedThreads = function () {
     var self = this;
