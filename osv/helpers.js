@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 var Settings = require("./Settings"),
-  BatchRequests = require("./API/BatchRequests"),
+  BatchRequests = require("./API/BatchRequest"),
   whenAll,
   renderTemplate,
   humanReadableByteSize,
