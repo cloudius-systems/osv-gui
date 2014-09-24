@@ -4,7 +4,7 @@ OSv.API = OSv.API || {};
 OSv.API.JVM = (function() {
 
   var apiGETCall = helpers.apiGETCall,
-    version = apiGETCall("/jvm/version");
+    version = apiGETCall("jvm/version");
 
 
     GCGraphAPI.prototype = Object.create( OSv.API.GraphAPI.prototype );
@@ -12,7 +12,7 @@ OSv.API.JVM = (function() {
       this.startPulling();
     };
 
-    GCGraphAPI.prototype.path = "/jvm/memory/gc";
+    GCGraphAPI.prototype.path = "jvm/memory/gc";
     GCGraphAPI.prototype.data = [];
     GCGraphAPI.prototype.labels = [];
     GCGraphAPI.prototype.memoryManagers = [];
@@ -44,7 +44,7 @@ OSv.API.JVM = (function() {
       this.startPulling();
     }
 
-    MemoryPoolGraph.prototype.path = "/jolokia/read/java.lang:type=MemoryPool,name=*?ignoreErrors=true";
+    MemoryPoolGraph.prototype.path = "jolokia/read/java.lang:type=MemoryPool,name=*?ignoreErrors=true";
     MemoryPoolGraph.prototype.labels = [];
     MemoryPoolGraph.prototype.pools = [];
     MemoryPoolGraph.prototype.data = [];
@@ -67,12 +67,13 @@ OSv.API.JVM = (function() {
     };
 
     var HeapMemoryUsed = function () {
-      return apiGETCall("/jolokia/read%2Fjava.lang%3Atype%3DMemory%2FHeapMemoryUsage%2Fused")().then(function (res) {
+      return;
+      return apiGETCall("jolokia/read%2Fjava.lang%3Atype%3DMemory%2FHeapMemoryUsage%2Fused")().then(function (res) {
         return res.value;
       })
     };
 
-    var HeapMemoryUsageGraph = new OSv.API.GraphAPI("/jolokia/read/java.lang:type=Memory/HeapMemoryUsage/used", function (res) {
+    var HeapMemoryUsageGraph = new OSv.API.GraphAPI("jolokia/read/java.lang:type=Memory/HeapMemoryUsage/used", function (res) {
       var point = [res.timestamp * 1000, res.value / Math.pow(1024, 2) ]
       return point;
     },
@@ -82,18 +83,18 @@ OSv.API.JVM = (function() {
     });
 
     var classesCount = function () {
-      return apiGETCall("/jolokia/read/java.lang:type=ClassLoading")().then(function (res) {
+      return apiGETCall("jolokia/read/java.lang:type=ClassLoading")().then(function (res) {
         return res.value.TotalLoadedClassCount;
       })
     };
     
     var threadsCount = function () {
-      return apiGETCall("/jolokia/read/java.lang:type=Threading/ThreadCount")().then(function (res) {
+      return apiGETCall("jolokia/read/java.lang:type=Threading/ThreadCount")().then(function (res) {
         return res.value;
       })
     };
 
-    exists = apiGETCall("/jvm/version");
+    exists = apiGETCall("jvm/version");
 
   return { 
     version: version,

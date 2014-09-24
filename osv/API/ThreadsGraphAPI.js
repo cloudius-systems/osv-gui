@@ -4,7 +4,7 @@ OSv.API = OSv.API || {};
 OSv.API.ThreadsGraphAPI = (function() {
 
   function ThreadsGraphAPI() {
-    this.path = "/os/threads";
+    this.path = "os/threads";
     this.data = [];
     this.startPulling();
   };

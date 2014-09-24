@@ -25,9 +25,9 @@ OSv.API.GraphAPI = (function() {
     if (window.globalPause) return;
     
     var self = this,
-      path = OSv.Settings.BasePath + this.path;
+      path = this.path;
 
-    $.get(path)
+    helpers.apiGETCall(path)()
      .then(function (response) {
        return typeof response == "string"? JSON.parse(response) : response;
      })

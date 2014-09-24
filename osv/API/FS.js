@@ -4,7 +4,7 @@ OSv.API = OSv.API || {};
 OSv.API.FS = (function() {
 
   var apiGETCall = helpers.apiGETCall, 
-    df = apiGETCall("/fs/df/"),
+    df = apiGETCall("fs/df/"),
     free;
 
 
