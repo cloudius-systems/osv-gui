@@ -4,10 +4,24 @@ OSv.Boxes = OSv.Boxes || {};
 OSv.Boxes.StaticInfo = (function() {
 
   function StaticInfo() {
-
+    this.interval = setInterval(this.refresh.bind(this), OSv.Settings.DataFetchingRate)
   }
 
   StaticInfo.prototype = new OSv.Boxes.StaticBox();
+
+  StaticInfo.prototype.refresh = function () {
+    var container = $(this.selector);
+    this.fetchData().then(function (data) {
+      data.forEach(function (obj) {
+        container.find("[data-key='"+obj.key+"']").html(obj.value);
+      })
+    });
+  };
+  
+  StaticInfo.prototype.clear = function() {
+    clearInterval(this.interval);
+    $(this.selector).remove();
+  };
 
   StaticInfo.prototype.getData = function() {
     var OS = OSv.API.OS;
