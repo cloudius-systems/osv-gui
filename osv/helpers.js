@@ -1,4 +1,6 @@
+<<<<<<< HEAD
 var Settings = require("./Settings"),
+  BatchRequests = require("./API/BatchRequests"),
   whenAll,
   renderTemplate,
   humanReadableByteSize,
@@ -88,17 +90,29 @@ humanReadableByteSize = function(bytes, percision) {
   return ( bytes / Math.pow(unit, exp)).toFixed(percision) + size;
 };
 
+humanReadableByteSize = function(bytes, percision) {
+  var unit = 1024,
+    exp,
+    size;
+
+  percision = percision || 1;
+  if (bytes < unit) {
+    return bytes + "B";
+  }
+  exp = parseInt( Math.log(bytes) / Math.log(unit), 10)
+  size = "KMGTP".charAt(exp - 1);
+  return ( bytes / Math.pow(unit, exp)).toFixed(percision) + size;
+};
+
 apiGETCall = function(path) {
   return function() {
-    return $.get(Settings.BasePath + path).then(function (response) {
-      return typeof response == "string"? JSON.parse(response) : reesponse;
-    })
+    return BatchRequests.get(path);
   };
 }
 
 apiPOSTCall = function(path) {
   return function(data) {
-    return $.post(Settings.BasePath + path, data);
+    return $.post(OSv.Settings.BasePath + path, data);
   }
 }
 
