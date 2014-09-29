@@ -1,7 +1,5 @@
 TEMPLATES=$(find osv/templates -type f -name '*.html' )
 
-INDEX_FILE="public/dashboard/index.html"
-
 index_head () 
 {
 	cat "osv/templates/base/top"
@@ -28,9 +26,9 @@ index_body ()
 
 build_index ()
 {
-	index_head > $INDEX_FILE;
-	index_body >> $INDEX_FILE;
-	index_bottom >> $INDEX_FILE;
+	index_head;
+	index_body;
+	index_bottom;
 }
 
 build_index

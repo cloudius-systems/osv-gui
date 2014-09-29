@@ -12,6 +12,7 @@ ALL=$(MAIN_INDEX) $(MAIN_JS) $(LIB_JS)
 all: $(ALL)
 
 $(MAIN_INDEX): $(TEMPLATE_SRCS)
+	mkdir -p public/dashboard;
 	scripts/build_index.sh > $@
 
 $(MAIN_JS): $(JAVASCRIPT_SRCS) $(JAVASCRIPT_SRCS_BASE)
