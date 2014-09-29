@@ -39,6 +39,7 @@ OSv.API.BatchRequests = window.BatchRequests = (function() {
   };
 
   BatchRequests.prototype.resolve = function (promises, responses) {
+    
     this.parseResponses(responses).forEach(function (response, idx) {
       if (response.code == 200) {
         promises[idx].resolve(response.body);
@@ -89,24 +90,42 @@ OSv.API.BatchRequests = window.BatchRequests = (function() {
     this.resetQueue();
     this.postData(formData)
     .then(function (responses) {
-      self.resolve(promises, responses);
+      if (window.globalPause) {
+        $(document).on("play", function () {
+          self.resolve(promises, responses);
+        })
+      } else {
+          self.resolve(promises, responses);
+      }
     })
     .fail(function (error) {
       self.reject(promises, error)  
     });
   };
 
-  BatchRequests.prototype.get = function (path) {
+  BatchRequests.prototype.ajax = function (method, path) {
     return this.addRequest({
-      method: "GET",
+      method: method,
       path: path
     });
+  }
+  BatchRequests.prototype.get = function (path) {
+    return this.ajax("GET", path);
   };
 
+  BatchRequests.prototype.post = function (path, data) {
+    data = "?" + $.map(data, function (value, key) {
+      return key + "=" + value;
+    }).join("&")
+    return this.ajax("POST", path + data);
+  };
+
+  BatchRequests.prototype.delete = function (path) {
+    return this.ajax("DELETE", path);
+  };
+  
   var singleton = new BatchRequests(OSv.Settings.BasePath, "/api/batch");
   
-  return {
-    get: singleton.get.bind(singleton)
-  }
+  return singleton;
 
 }());
