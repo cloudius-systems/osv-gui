@@ -63,13 +63,15 @@ OSv.Layouts.ThreadsLayout = (function() {
   ThreadsLayout.prototype.showThread = function(threadID) {
     this.threadsGraph.visibleThreads.push(threadID|0);
     this.threadsTablebox.select(threadID);
+    this.refreshGraph();
   };
 
   ThreadsLayout.prototype.hideThread = function(threadID) {
-    this.threadsTablebox.unselect(threadID);
     this.threadsGraph.visibleThreads = this.threadsGraph.visibleThreads.filter(function (thread) { 
-      return thread != threadID
+      return thread != threadID;
     });
+    this.threadsTablebox.unselect(threadID);
+    this.refreshGraph();
   };
 
   ThreadsLayout.prototype.refreshTimeline = function() {
