@@ -97,18 +97,15 @@ window.helpers = (function() {
   }
 
   apiPOSTCall = function(path) {
-    return function(data) {
-      return $.post(OSv.Settings.BasePath + path, data);
-    }
+   return function(data) {
+      return BatchRequests.post(path, data);
+    };
   }
 
   apiDELETECall = function(path) {
     return function() {
-      return $.ajax({
-        url: OSv.Settings.BasePath + path,
-        type: 'DELETE'
-      })
-    }
+      return BatchRequests.delete(path);
+    };
   };
 
   function DerivativePlot () {
@@ -118,7 +115,7 @@ window.helpers = (function() {
   };
 
   DerivativePlot.prototype.add = function (timestamp, value) {
-    if (timestamp.toString().length < 11 ) timestamp = timestamp * 1000;
+    if (timestamp < Math.pow(10,12) ) timestamp = timestamp * 1000;
     var latestValue = this.latestValue,
       latestTimestamp = this.latestTimestamp,
       newPlotPoint;
