@@ -37,7 +37,7 @@ OSv.Boxes.TraceList = (function() {
 
   };
   TraceList.prototype.remove = function(id) {
-    $trace = $(".selectedTracepoints [data-tracepoint-name='"+id+"']")
+    var $trace = $(".selectedTracepoints [data-tracepoint-name='"+id+"']");
     $trace.next().remove();
     $trace.remove();
     this.refreshListFromAPI();
