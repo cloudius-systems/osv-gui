@@ -51,8 +51,7 @@ OSv.Boxes.ThreadsTableBox = (function() {
   ThreadsTableBox.prototype.selected = [];
   
   ThreadsTableBox.prototype.moveThread = function(id, newParentSelector) {
-    console.log(id, this.selected)
-    var $thread = $(".threadsList [data-thread-id='"+id+"']").parents(".thread")
+    var $thread = $(".threadsList [data-thread-id='"+id+"']").parents(".thread");
     $thread.find(".toggleThread").toggleClass("checked")
     $thread.next("hr").remove();
     $thread.detach();
