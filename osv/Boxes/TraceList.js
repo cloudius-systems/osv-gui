@@ -37,15 +37,27 @@ OSv.Boxes.TraceList = (function() {
 
   };
   TraceList.prototype.remove = function(id) {
+    console.log("removing", id);
     $trace = $(".selectedTracepoints [data-tracepoint-name='"+id+"']")
     $trace.next().remove();
     $trace.remove();
     this.refreshListFromAPI();
   };
 
+  TraceList.prototype.removeAll = function () {
+    var selected = $(".selectedTracepoints")
+    .find("[data-tracepoint-name]")
+    .map(function () {
+      return $(this).attr("data-tracepoint-name");
+    })
+    .toArray()
+    .map(this.remove.bind(this));
+  };
+
   TraceList.prototype.refreshListFromAPI = function () {
     var self = this;
     OSv.API.Trace.counts().then(function (a) {
+      if (!a.list) return;
       $.map(a.list, function (data, id) {
         self.add(id);
       });

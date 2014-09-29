@@ -28,7 +28,10 @@ OSv.PageHandlers.Dashboard.Traces = (function() {
   }
 
   Traces.prototype.clearAll = function() {
-    this.tracePointsBox.removeAll();
+    var self = this;
+    this.tracePointsBox.removeAll().then(function () {
+      self.traceListBox.removeAll();
+    });
   };
 
   Traces.prototype.filterTracepoints = function(keyword) {
