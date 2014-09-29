@@ -31,7 +31,7 @@ OSv.Boxes.TraceList = (function() {
                     '<input type="checkbox" checked><span class="selectedThreads">' + id + '</span>' +
                 '</label>' + 
             '</div>' +
-            '<hr style="margin:0px"/>'
+            '<hr style="margin:0px"/>';
     $(".traceList [data-tracepoint-name='"+id+"'], .traceList [data-tracepoint-name='"+id+"'] + hr").remove();
     $(".selectedTracepoints").append(selectedTmpl);
 
@@ -40,6 +40,14 @@ OSv.Boxes.TraceList = (function() {
     var $trace = $(".selectedTracepoints [data-tracepoint-name='"+id+"']");
     $trace.next().remove();
     $trace.remove();
+    var unselectedTmpl = '<div class="checkbox" data-add-trace data-tracepoint-name="' + id + '">' +
+        '<label>' +
+            '<input type="checkbox"><span class="unselectedThreads">' + id + '</span>' +
+        '</label>' + 
+    '</div>' +
+    '<hr style="margin:0px"/>';
+
+    $(".traceList").append(unselectedTmpl);
     this.refreshListFromAPI();
   };
 
