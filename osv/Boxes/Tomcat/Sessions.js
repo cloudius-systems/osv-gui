@@ -1,48 +1,42 @@
-var OSv = OSv || {};
-OSv.Boxes = OSv.Boxes || {};
-OSv.Boxes.Tomcat = OSv.Boxes.Tomcat || {};
+var GraphBox = require("../GraphBox"),
+    SessionsAPI = require("../../API/Applications/Tomcat/Sessions");
 
-OSv.Boxes.Tomcat.Sessions = (function() {
+function Sessions() {
+  GraphBox.call(this, arguments);
+}
 
-  var Tomcat = OSv.API.Applications.Tomcat;
+Sessions.prototype = Object.create(GraphBox.prototype);
 
-  function Sessions() {
-    OSv.Boxes.GraphBox.call(this, arguments);
-  }
+Sessions.prototype.title = "Sessions";
 
-  Sessions.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
-
-  Sessions.prototype.title = "Sessions";
-
-  Sessions.prototype.extraSettings = function() {
-    return {
-      axes: {
-        xaxis: {
-          renderer: $.jqplot.DateAxisRenderer,
-          tickOptions: {
-            formatString: "%H:%M:%S"
-          },
-          label: "Time"
+Sessions.prototype.extraSettings = function() {
+  return {
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.DateAxisRenderer,
+        tickOptions: {
+          formatString: "%H:%M:%S"
         },
+        label: "Time"
       },
-      series: Tomcat.Sessions.getLabels().map(function (label) {
-        return {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: label,
-          size: 1
-        }
-      }),
-    }
-  };
+    },
+    series: Tomcat.SessionsAPI.getLabels().map(function (label) {
+      return {
+        lineWidth: 1,
+        markerOptions: {
+          style: "circle"
+        },
+        label: label,
+        size: 1
+      }
+    }),
+  }
+};
 
-  Sessions.prototype.fetchData = function() {
-    var data = Tomcat.Sessions.getPlots();
-    return $.Deferred().resolve(data);
-      
-  };
+Sessions.prototype.fetchData = function() {
+  var data = Tomcat.SessionsAPI.getPlots();
+  return $.Deferred().resolve(data);
+    
+};
 
-  return Sessions;
-}());
+module.exports = Sessions;

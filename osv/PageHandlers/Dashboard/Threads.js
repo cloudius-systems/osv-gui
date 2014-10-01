@@ -1,18 +1,11 @@
-var OSv = OSv || {};
-OSv.PageHandlers = OSv.PageHandlers || {};
-OSv.PageHandlers.Dashboard = OSv.PageHandlers.Dashboard || {};
+var ThreadsLayout = require("../../Layouts/ThreadsLayout");
 
-OSv.PageHandlers.Dashboard.Threads = (function() {
+function Threads() {
+}
 
-  var Boxes = OSv.Boxes;
+Threads.prototype.handler = function() {
+	this.layout = this.layout || new ThreadsLayout();
+	this.layout.render();
+};
 
-  function Threads() {
-  }
-
-  Threads.prototype.handler = function() {
-    this.layout = this.layout || new OSv.Layouts.ThreadsLayout();
-    this.layout.render();
-  };
-
-  return Threads;
-}());
+module.exports = Threads;

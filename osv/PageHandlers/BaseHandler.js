@@ -1,100 +1,98 @@
-var OSv = OSv || {};
-OSv.PageHandlers = OSv.PageHandlers || {};
+var OS = require("../API/OS"),
+    JVM = require("../API/JVM"),
+    Settings = require("../Settings"),
+    Cassandra = require("../API/Applications/Cassandra"),
+    Tomcat = require("../API/Applications/Tomcat/Tomcat");
 
-OSv.PageHandlers.BaseHandler = (function() {
+function BaseHandler() {
+  this.subscribe();
+}
 
-  var OS = OSv.API.OS;
+BaseHandler.prototype.updateHostname = function() {
+  OS.getHostname().then(function (hostname) {
+    $("[data-hostname]").html(hostname);
+  });
+};
 
-  function BaseHandler() {
-    this.subscribe();
+BaseHandler.prototype.markSelectedTab = function() {
+  $(".nav li.active").removeClass("active");
+  $("a[href='"+window.location.pathname+"']").parents("li").addClass("active")
+  if (window.location.href.indexOf("/dashboard") != -1) {
+    $("[data-dashboard-link").addClass("active");
+  } else {
+    $("[data-dashboard-link").removeClass("active");
   }
+};
 
-  BaseHandler.prototype.updateHostname = function() {
-    OS.getHostname().then(function (hostname) {
-      $("[data-hostname]").html(hostname);
-    });
-  };
+BaseHandler.prototype.setSwaggerLink = function() {
+  $("[data-swagger-href]").attr("href", Settings.BasePath);
+};
 
-  BaseHandler.prototype.markSelectedTab = function() {
-    $(".nav li.active").removeClass("active");
-    $("a[href='"+window.location.pathname+"']").parents("li").addClass("active")
-    if (window.location.href.indexOf("/dashboard") != -1) {
-      $("[data-dashboard-link").addClass("active");
-    } else {
-      $("[data-dashboard-link").removeClass("active");
-    }
-  };
+BaseHandler.prototype.checkTomcatStatus = function () {
+  var $tomcatTab = $("a[href='/dashboard/tomcat']").parent("li");
+  Tomcat.ifIsRunning().then(function (isRunning) {
+     if (!isRunning) { 
+      $tomcatTab.remove();
+     } else {
+      $tomcatTab.removeClass("hidden");
+     }
+  })
+};
 
-  BaseHandler.prototype.setSwaggerLink = function() {
-    $("[data-swagger-href]").attr("href", OSv.Settings.BasePath);
-  };
+BaseHandler.prototype.checkCassandraStatus = function () {
+  var $cassandraTab = $("a[href='/dashboard/cassandra']").parent("li");
+  Cassandra.ifIsRunning().then(function (isRunning) {
+     if (!isRunning) { 
+      $cassandraTab.remove();
+     } else {
+      $cassandraTab.removeClass("hidden");
+     }
+  })
+};
 
-  BaseHandler.prototype.checkTomcatStatus = function () {
-    var $tomcatTab = $("a[href='/dashboard/tomcat']").parent("li");
-    OSv.API.Applications.Tomcat.ifIsRunning().then(function (isRunning) {
-       if (!isRunning) { 
-        $tomcatTab.remove();
-       } else {
-        $tomcatTab.removeClass("hidden");
-       }
+BaseHandler.prototype.checkJVMStatus = function () {
+  var $jvmTab = $("a[href='/dashboard/jvm']").parent("li");
+   JVM.version()
+    .then(function () {
+      $jvmTab.removeClass("hidden")
     })
-  };
-
-  BaseHandler.prototype.checkCassandraStatus = function () {
-    var $cassandraTab = $("a[href='/dashboard/cassandra']").parent("li");
-    OSv.API.Applications.Cassandra.ifIsRunning().then(function (isRunning) {
-       if (!isRunning) { 
-        $cassandraTab.remove();
-       } else {
-        $cassandraTab.removeClass("hidden");
-       }
+    .fail(function () {
+      $jvmTab.remove();
     })
-  };
+};
 
-  BaseHandler.prototype.checkJVMStatus = function () {
-    var $jvmTab = $("a[href='/dashboard/jvm']").parent("li");
-     OSv.API.JVM.version()
-      .then(function () {
-        $jvmTab.removeClass("hidden")
-      })
-      .fail(function () {
-        $jvmTab.remove();
-      })
-  };
+BaseHandler.prototype.subscribe = function() {
+  var self = this;
+  $(window).on("load", function () {
+    self.checkCassandraStatus();
+    self.checkJVMStatus();
+    self.checkTomcatStatus();
+  })
+  $(document).on("runRoute", function () {
+    self.updateHostname();
+    self.markSelectedTab();
+    self.setSwaggerLink();
+  });
 
-  BaseHandler.prototype.subscribe = function() {
-    var self = this;
-    $(window).on("load", function () {
-      self.checkCassandraStatus();
-      self.checkJVMStatus();
-      self.checkTomcatStatus();
-    })
-    $(document).on("runRoute", function () {
-      self.updateHostname();
-      self.markSelectedTab();
-      self.setSwaggerLink();
-    });
+  $(document).on("click", "[data-global-play]", function () {
+    var playEvent = new CustomEvent('play')
+    playEvent.initCustomEvent('play', true, true);
+    document.dispatchEvent(playEvent);
+  });
+  
+  $(document).on("click", "[data-global-pause]", function () {
+    var pauseEvent = new CustomEvent('pause')
+    pauseEvent.initCustomEvent('pause', true, true);
+    document.dispatchEvent(pauseEvent);
+  });
 
-    $(document).on("click", "[data-global-play]", function () {
-      var playEvent = new CustomEvent('play')
-      playEvent.initCustomEvent('play', true, true);
-      document.dispatchEvent(playEvent);
-    });
-    
-    $(document).on("click", "[data-global-pause]", function () {
-      var pauseEvent = new CustomEvent('pause')
-      pauseEvent.initCustomEvent('pause', true, true);
-      document.dispatchEvent(pauseEvent);
-    });
+  $(document).on("play", function () {
+    window.globalPause = false;
+  });
 
-    $(document).on("play", function () {
-      window.globalPause = false;
-    });
+  $(document).on("pause", function () {
+    window.globalPause = true;
+  });
+};
 
-    $(document).on("pause", function () {
-      window.globalPause = true;
-    });
-  };
-
-  return BaseHandler;
-}());
+module.exports = BaseHandler;

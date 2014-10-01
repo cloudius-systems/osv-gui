@@ -1,38 +1,33 @@
-var OSv = OSv || {};
-OSv.PageHandlers = OSv.PageHandlers || {};
-OSv.PageHandlers.Dashboard = OSv.PageHandlers.Dashboard || {};
+var Boxes = require("../../Boxes/Boxes"),
+    BoxesLayout = require("../../Layouts/BoxesLayout");
 
-OSv.PageHandlers.Dashboard.JVM = (function() {
+function JVM() {
+  this.subscribe();
+}
 
-  var Boxes = OSv.Boxes;
+JVM.prototype.handler = function() {
+  this.MBeansBox = new Boxes.MBeansBox();
+  this.MBeansAttributesBox = new Boxes.MBeansAttributesBox();
+  this.layout = new BoxesLayout([ 
+    new OSv.Boxes.JVMStaticInfo(), new OSv.Boxes.GCGraph(),
+    new OSv.Boxes.HeapMemoryUsage(), new OSv.Boxes.MemoryPoolGraph(),
+    this.MBeansBox, this.MBeansAttributesBox
+  ]);
+  this.layout.render();
+};
 
-  function JVM() {
-    this.subscribe();
-  }
+JVM.prototype.MBeansClicked = function(event) {
+  var $li = $(event.currentTarget),
+    name = $li.attr("data-rawName");
 
-  JVM.prototype.handler = function() {
-    this.MBeansBox = new Boxes.MBeansBox();
-    this.MBeansAttributesBox = new Boxes.MBeansAttributesBox();
-    this.layout = new OSv.Layouts.BoxesLayout([ 
-      new OSv.Boxes.JVMStaticInfo(), new OSv.Boxes.GCGraph(),
-      new OSv.Boxes.HeapMemoryUsage(), new OSv.Boxes.MemoryPoolGraph(),
-      this.MBeansBox, this.MBeansAttributesBox
-    ]);
-    this.layout.render();
-  };
+  $(".MBeans .selected").removeClass("selected");
+  $li.addClass("selected");
+  this.MBeansAttributesBox.name = name;
+  this.MBeansAttributesBox.refresh();
+};
 
-  JVM.prototype.MBeansClicked = function(event) {
-    var $li = $(event.currentTarget),
-      name = $li.attr("data-rawName");
+JVM.prototype.subscribe = function() {
+  $(document).on("click", ".MBeans [data-hasAttr]", this.MBeansClicked.bind(this));
+};
 
-    $(".MBeans .selected").removeClass("selected");
-    $li.addClass("selected");
-    this.MBeansAttributesBox.name = name;
-    this.MBeansAttributesBox.refresh();
-  };
-
-  JVM.prototype.subscribe = function() {
-    $(document).on("click", ".MBeans [data-hasAttr]", this.MBeansClicked.bind(this));
-  };
-  return JVM;
-}());
+module.exports = JVM;

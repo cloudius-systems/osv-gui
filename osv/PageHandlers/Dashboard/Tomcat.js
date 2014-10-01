@@ -1,21 +1,15 @@
-var OSv = OSv || {};
-OSv.PageHandlers = OSv.PageHandlers || {};
-OSv.PageHandlers.Dashboard = OSv.PageHandlers.Dashboard || {};
+var Boxes = require("../../Boxes/Tomcat/Boxes"),
+    BoxesLayout = require("../../Layouts/BoxesLayout");
 
-OSv.PageHandlers.Dashboard.Tomcat = (function() {
+function Tomcat() {
+}
 
-  var Boxes = OSv.Boxes.Tomcat;
+Tomcat.prototype.handler = function() {
+  this.layout = new BoxesLayout([
+    new Boxes.Threads(), new Boxes.Requests(),
+    new Boxes.Sessions()
+  ]);
+  this.layout.render();
+};
 
-  function Tomcat() {
-  }
-
-  Tomcat.prototype.handler = function() {
-    this.layout = new OSv.Layouts.BoxesLayout([
-      new Boxes.Threads(), new Boxes.Requests(),
-      new Boxes.Sessions()
-    ]);
-    this.layout.render();
-  };
-
-  return Tomcat;
-}());
+module.exports = Tomcat;

@@ -1,53 +1,52 @@
-var OSv = OSv || {};
+var GraphBox = require("./GraphBox"),
+    helpers = require("../helpers"),
+    JVM = require("../API/JVM");
+    
+function HeapMemoryUsage() {
+  GraphBox.call(this, arguments)
+}
 
-OSv.Boxes.HeapMemoryUsage = (function() {
+HeapMemoryUsage.prototype = Object.create(GraphBox.prototype);
 
-  function HeapMemoryUsage() {
-    OSv.Boxes.GraphBox.call(this, arguments)
-  }
+HeapMemoryUsage.prototype.title = "Heap Memory Usage";
 
-  HeapMemoryUsage.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
-
-  HeapMemoryUsage.prototype.title = "Heap Memory Usage";
-
-  HeapMemoryUsage.prototype.extraSettings = function() {
-    return {
-      axes: {
-        xaxis: {
-          renderer: $.jqplot.DateAxisRenderer,
-          tickOptions: {
-            formatString: "%H:%M:%S"
-          },
-          label: "Time"
+HeapMemoryUsage.prototype.extraSettings = function() {
+  return {
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.DateAxisRenderer,
+        tickOptions: {
+          formatString: "%H:%M:%S"
         },
-        yaxis: {
-          max: this.total,
-          min: 0,
-          tickOptions: {
-            formatter: function(foramt, val) {
-              return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
-            }
+        label: "Time"
+      },
+      yaxis: {
+        max: this.total,
+        min: 0,
+        tickOptions: {
+          formatter: function(foramt, val) {
+            return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
           }
         }
-      },
-      series: [{
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: "Memory",
-          size: 1
-      }],
-    }
-  };
+      }
+    },
+    series: [{
+        lineWidth: 1,
+        markerOptions: {
+          style: "circle"
+        },
+        label: "Memory",
+        size: 1
+    }],
+  }
+};
 
-  HeapMemoryUsage.prototype.fetchData = function() {
-    var memoryUsage = OSv.API.JVM.HeapMemoryUsageGraph.getData();
-    if (memoryUsage.length == 0) {
-      memoryUsage = [ null ]
-    } 
-    return $.Deferred().resolve([ memoryUsage ]);
-  };
+HeapMemoryUsage.prototype.fetchData = function() {
+  var memoryUsage = JVM.HeapMemoryUsageGraph.getData();
+  if (memoryUsage.length == 0) {
+    memoryUsage = [ null ]
+  } 
+  return $.Deferred().resolve([ memoryUsage ]);
+};
 
-  return HeapMemoryUsage;
-}());
+module.exports = HeapMemoryUsage;

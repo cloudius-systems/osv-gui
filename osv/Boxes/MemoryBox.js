@@ -1,73 +1,72 @@
-var OSv = OSv || {};
+var GraphBox = require("./GraphBox"),
+    helpers = require("../helpers"),
+    OS = require("../API/OS");
+    
+function MemoryBox() {
+  GraphBox.call(this, arguments);
+}
 
-OSv.Boxes.MemoryBox = (function() {
+MemoryBox.prototype = Object.create(GraphBox.prototype);
 
-  function MemoryBox() {
-    OSv.Boxes.GraphBox.call(this, arguments);
-  }
+MemoryBox.prototype.title = "Memory";
 
-  MemoryBox.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
-
-  MemoryBox.prototype.title = "Memory";
-
-  MemoryBox.prototype.extraSettings = function() {
-    return {
-      axes: {
-        xaxis: {
-          renderer: $.jqplot.DateAxisRenderer,
-          tickOptions: {
-            formatString: "%H:%M:%S"
-          },
-          label: "Time"
+MemoryBox.prototype.extraSettings = function() {
+  return {
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.DateAxisRenderer,
+        tickOptions: {
+          formatString: "%H:%M:%S"
         },
-        yaxis: {
-          max: this.total,
-          tickOptions: {
-            formatter: function(foramt, val) {
-              return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
-            }
+        label: "Time"
+      },
+      yaxis: {
+        max: this.total,
+        tickOptions: {
+          formatter: function(foramt, val) {
+            return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
           }
         }
-      },
-      series: [
-        {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: "Free",
-          size: 1
+      }
+    },
+    series: [
+      {
+        lineWidth: 1,
+        markerOptions: {
+          style: "circle"
         },
+        label: "Free",
+        size: 1
+      },
 
-        {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: "Total"
-        }
+      {
+        lineWidth: 1,
+        markerOptions: {
+          style: "circle"
+        },
+        label: "Total"
+      }
 
-      ],
-    }
-  };
+    ],
+  }
+};
 
-  MemoryBox.prototype.fetchData = function() {
-    var MemoryHistory = OSv.API.OS.Memory.History,
-      free = MemoryHistory.free(),
-      total = MemoryHistory.total();
+MemoryBox.prototype.fetchData = function() {
+  var MemoryHistory = OS.Memory.History,
+    free = MemoryHistory.free(),
+    total = MemoryHistory.total();
 
-    this.total = total[ total.length - 1][1];
-    // If there was no data fetched yet, the graph will break the whole application.
-    // this is a workaround.
-    if (free.length === 0) {
-      free = [ null ];
-    }
-    if (total.length === 0) {
-      total = [ null ];
-    }
+  this.total = total[ total.length - 1][1];
+  // If there was no data fetched yet, the graph will break the whole application.
+  // this is a workaround.
+  if (free.length === 0) {
+    free = [ null ];
+  }
+  if (total.length === 0) {
+    total = [ null ];
+  }
 
-    return $.Deferred().resolve([ free ]);
-  };
+  return $.Deferred().resolve([ free ]);
+};
 
-  return MemoryBox;
-}());
+module.exports = MemoryBox;

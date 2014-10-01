@@ -1,34 +1,29 @@
-var OSv = OSv || {};
-OSv.Boxes = OSv.Boxes || {};
+var GraphBox = require("./GraphBox");
 
-OSv.Boxes.SideTextGraphBox = (function() {
+function SideTextGraphBox() {
+  GraphBox.call(this, arguments)
+}
 
-  function SideTextGraphBox() {
-    OSv.Boxes.GraphBox.call(this, arguments)
-  }
+SideTextGraphBox.prototype = Object.create(GraphBox.prototype);
 
-  SideTextGraphBox.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
+SideTextGraphBox.prototype.template = "/osv/templates/boxes/SideTextGraphBox.html";
 
-  SideTextGraphBox.prototype.template = "/osv/templates/boxes/SideTextGraphBox.html";
+SideTextGraphBox.prototype.sideTextTemplate = "/osv/templates/boxes/SideText.html"
 
-  SideTextGraphBox.prototype.sideTextTemplate = "/osv/templates/boxes/SideText.html"
+SideTextGraphBox.prototype.getSideText = function () {
+  return [];
+};
 
-  SideTextGraphBox.prototype.getSideText = function () {
-    return [];
-  };
+SideTextGraphBox.prototype.getSideTextTemplate = function() {
+  var source = $("[data-template-path='" + this.sideTextTemplate + "']").html(),
+    template = Handlebars.compile(source);
 
-  SideTextGraphBox.prototype.getSideTextTemplate = function() {
-    var source = $("[data-template-path='" + this.sideTextTemplate + "']").html(),
-      template = Handlebars.compile(source);
+  return template;
+};
 
-    return template;
-  };
+SideTextGraphBox.prototype.onUpdate = function () {
+  var html = this.getSideTextTemplate()(this.getSideText());
+  $("#" + this.selector).find('.sideTextContainer').html(html);
+};
 
-  SideTextGraphBox.prototype.onUpdate = function () {
-    var html = this.getSideTextTemplate()(this.getSideText());
-    $("#" + this.selector).find('.sideTextContainer').html(html);
-  };
-
-  return SideTextGraphBox;
-
-}());
+module.exports = SideTextGraphBox;

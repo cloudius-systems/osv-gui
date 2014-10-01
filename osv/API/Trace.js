@@ -1,66 +1,60 @@
-var OSv = OSv || {};
-OSv.API = OSv.API || {};
+var helpers = require("../helpers"),
+  apiGETCall = helpers.apiGETCall,
+  apiPOSTCall = helpers.apiPOSTCall,
+  apiDELETECall = helpers.apiDELETECall,
+  all,
+  counts,
+  addTrace,
+  deleteTrace,
+  deleteAll,
+  deleteDuplicates,
+  lastCounts = {};
 
-OSv.API.Trace = (function() {
+deleteDuplicates = function(tracepoints) {
+  return tracepoints.reduce(function (acc, point) {
+      if (acc[ point.name ]) return acc;
+      acc[ point.name ] = point;
+      return acc;
+  }, {})
+}
 
-  var apiGETCall = helpers.apiGETCall,
-    apiPOSTCall = helpers.apiPOSTCall,
-    apiDELETECall = helpers.apiDELETECall,
-    all,
-    counts,
-    addTrace,
-    deleteTrace,
-    deleteAll,
-    deleteDuplicates,
-    lastCounts = {};
-
-  deleteDuplicates = function(tracepoints) {
-    return tracepoints.reduce(function (acc, point) {
-        if (acc[ point.name ]) return acc;
-        acc[ point.name ] = point;
-        return acc;
-    }, {})
-  }
-
-  all = function() {
-    return apiGETCall("/trace/status")().then(deleteDuplicates);
-  };
+all = function() {
+  return apiGETCall("/trace/status")().then(deleteDuplicates);
+};
 
 
-  counts = function () {
-    return apiGETCall("/trace/count")().then(function (res) {
-      if (!res.list) return res;
-      res.list = deleteDuplicates(res.list.map(function (point){
-          var lastCount = lastCounts[ point.name ] || point.count ;
-          point.change = point.count - lastCount;
-          lastCounts[ point.name ] = point.count;
-          return point;
-      }));
+counts = function () {
+  return apiGETCall("/trace/count")().then(function (res) {
+    if (!res.list) return res;
+    res.list = deleteDuplicates(res.list.map(function (point){
+        var lastCount = lastCounts[ point.name ] || point.count ;
+        point.change = point.count - lastCount;
+        lastCounts[ point.name ] = point.count;
+        return point;
+    }));
 
-      return res;
-    });
-  };
+    return res;
+  });
+};
 
-  addTrace = function (id) {
-    return apiPOSTCall("/trace/count/"+id)({
-        enabled: true
-    });
-  };
+addTrace = function (id) {
+  return apiPOSTCall("/trace/count/"+id)({
+      enabled: true
+  });
+};
 
-  deleteTrace = function (id) {
-    return apiPOSTCall("/trace/count/"+id)({
-      enabled: false
-    });
-  };
+deleteTrace = function (id) {
+  return apiPOSTCall("/trace/count/"+id)({
+    enabled: false
+  });
+};
 
-  deleteAll = apiDELETECall("/trace/count");
+deleteAll = apiDELETECall("/trace/count");
 
-  return { 
-    all: all, 
-    counts: counts,
-    addTrace: addTrace,
-    deleteTrace: deleteTrace,
-    deleteAll: deleteAll
-  };
-
-}());
+module.exports = { 
+  all: all, 
+  counts: counts,
+  addTrace: addTrace,
+  deleteTrace: deleteTrace,
+  deleteAll: deleteAll
+};

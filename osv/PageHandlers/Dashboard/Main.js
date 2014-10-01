@@ -1,22 +1,16 @@
-var OSv = OSv || {};
-OSv.PageHandlers = OSv.PageHandlers || {};
-OSv.PageHandlers.Dashboard = OSv.PageHandlers.Dashboard || {};
+var Boxes = require("../../Boxes/Boxes"),
+    BoxesLayout = require("../../Layouts/BoxesLayout");
 
-OSv.PageHandlers.Dashboard.Main = (function() {
+function Main() {
+}
 
-  var Boxes = OSv.Boxes;
+Main.prototype.handler = function() {
+  this.layout = new BoxesLayout([
+    new Boxes.StaticInfo(), new Boxes.MemoryBox(),
+    new Boxes.CPUBox(), new Boxes.CPUTableBox(),
+    new Boxes.DiskUsageBox()
+  ]);
+  this.layout.render();
+};
 
-  function Main() {
-  }
-
-  Main.prototype.handler = function() {
-    this.layout = new OSv.Layouts.BoxesLayout([
-      new Boxes.StaticInfo(), new Boxes.MemoryBox(),
-      new Boxes.CPUBox(), new Boxes.CPUTableBox(),
-      new Boxes.DiskUsageBox()
-    ]);
-    this.layout.render();
-  };
-
-  return Main;
-}());
+module.exports = Main;

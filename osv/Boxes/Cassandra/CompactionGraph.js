@@ -1,57 +1,53 @@
-var OSv = OSv || {};
-OSv.Boxes = OSv.Boxes || {};
-OSv.Boxes.Cassandra = OSv.Boxes.Cassandra || {};
+var GraphBox = require("../GraphBox"),
+    CassandraCompactionGraph = require("../../API/Applications/CassandraCompactionGraph");
 
-OSv.Boxes.Cassandra.CompactionGraph = (function() {
+function CompactionGraph() {
+  GraphBox.call(this, arguments)
+}
 
-  function CompactionGraph() {
-    OSv.Boxes.GraphBox.call(this, arguments)
-  }
+CompactionGraph.prototype = Object.create(GraphBox.prototype);
 
-  CompactionGraph.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
+CompactionGraph.prototype.title = "Compaction";
 
-  CompactionGraph.prototype.title = "Compaction";
-
-  CompactionGraph.prototype.extraSettings = function() {
-    return {
-      title: "Compaction",
-      axes: {
-        xaxis: {
-          renderer: $.jqplot.DateAxisRenderer,
-          tickOptions: {
-            formatString: "%H:%M:%S"
-          },
-          label: "Time"
+CompactionGraph.prototype.extraSettings = function() {
+  return {
+    title: "Compaction",
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.DateAxisRenderer,
+        tickOptions: {
+          formatString: "%H:%M:%S"
         },
+        label: "Time"
       },
-      series: [
-        {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: "Bytes Compacted",
-          size: 1
+    },
+    series: [
+      {
+        lineWidth: 1,
+        markerOptions: {
+          style: "circle"
         },
+        label: "Bytes Compacted",
+        size: 1
+      },
 
-        {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: "Total Bytes in Progress",
-          size: 1
-        }
+      {
+        lineWidth: 1,
+        markerOptions: {
+          style: "circle"
+        },
+        label: "Total Bytes in Progress",
+        size: 1
+      }
 
-      ],
-    }
-  };
+    ],
+  }
+};
 
-  CompactionGraph.prototype.fetchData = function() {
-    var data = OSv.API.Applications.CassandraCompactionGraph.getData();
-    return $.Deferred().resolve(data);
-      
-  };
+CompactionGraph.prototype.fetchData = function() {
+  var data = CassandraCompactionGraph.getData();
+  return $.Deferred().resolve(data);
+    
+};
 
-  return CompactionGraph;
-}());
+module.exports = CompactionGraph;
