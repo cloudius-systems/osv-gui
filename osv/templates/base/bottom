@@ -2,5 +2,9 @@
     </div>
 </div>
 </body>
-<script type="text/javascript">OSv.App.start()</script>
+<script type="text/javascript">
+  require(['App'], function (App) {
+    App.start()
+  });
+</script>
 </html>
