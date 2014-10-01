@@ -37,7 +37,3 @@ OSv.API.OS = (function() {
   };
 
 }());
-OSv.API.OS.getHostname().then(function (res) { console.log(res) })
-OSv.API.OS.version().then(function (res) { console.log(res) })
-OSv.API.OS.date().then(function (res) { console.log(res) })
-OSv.API.OS.manufactor().then(function (res) { console.log(res) })
