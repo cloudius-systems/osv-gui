@@ -1,22 +1,20 @@
-var OSv = OSv || {};
-OSv.PageHandlers = OSv.PageHandlers || {};
-OSv.PageHandlers.Dashboard = OSv.PageHandlers.Dashboard || {};
+var BoxesLayout = require("../../Layouts/BoxesLayout"),
+    StaticInfo = require("../../Boxes/Cassandra/StaticInfo"),
+    LatencyGraph = require("../../Boxes/Cassandra/LatencyGraph"),
+    DBGraph = require("../../Boxes/Cassandra/DBGraph"),
+    OperationsGraph = require("../../Boxes/Cassandra/OperationsGraph"),
+    CompactionGraph = require("../../Boxes/Cassandra/CompactionGraph");
 
-OSv.PageHandlers.Dashboard.Cassandra = (function() {
+function Cassandra() {
+}
 
-  var Boxes = OSv.Boxes.Cassandra;
+Cassandra.prototype.handler = function() {
+  this.layout = new BoxesLayout([
+    new StaticInfo(), new LatencyGraph(),
+    new OperationsGraph(), new DBGraph(),
+    new CompactionGraph(),
+  ]);
+  this.layout.render();
+};
 
-  function Cassandra() {
-  }
-
-  Cassandra.prototype.handler = function() {
-    this.layout = new OSv.Layouts.BoxesLayout([
-      new Boxes.StaticInfo(), new Boxes.LatencyGraph(),
-      new Boxes.OperationsGraph(), new Boxes.DBGraph(),
-      new Boxes.CompactionGraph(),
-    ]);
-    this.layout.render();
-  };
-
-  return Cassandra;
-}());
+module.exports = Cassandra;

@@ -1,15 +1,21 @@
-var OSv = OSv || {};
+var BaseHandler = require("./PageHandlers/BaseHandler"),
+    MainHandler = require("./PageHandlers/Dashboard/Main"),
+    ThreadsHandler = require("./PageHandlers/Dashboard/Threads"),
+    TracesHandler = require("./PageHandlers/Dashboard/Traces"),
+    JVMHandler = require("./PageHandlers/Dashboard/JVM"),
+    CassandraHandler = require("./PageHandlers/Dashboard/Cassandra"),
+    TomcatHandler = require("./PageHandlers/Dashboard/Tomcat");
 
-OSv.App = Davis(function() {
 
-  var Handlers = OSv.PageHandlers,
-    baseHandler = new Handlers.BaseHandler(),
-    mainHandler = new Handlers.Dashboard.Main(),
-    threadsHandler = new Handlers.Dashboard.Threads(),
-    tracesHandler = new Handlers.Dashboard.Traces(),
-    jvmHandler = new Handlers.Dashboard.JVM(),
-    cassandraHandler = new Handlers.Dashboard.Cassandra(),
-    tomcatHandler = new Handlers.Dashboard.Tomcat(),
+module.exports = Davis(function() {
+  var 
+    baseHandler = new BaseHandler(),
+    mainHandler = new MainHandler(),
+    threadsHandler = new ThreadsHandler(),
+    tracesHandler = new TracesHandler(),
+    jvmHandler = new JVMHandler(),
+    cassandraHandler = new CassandraHandler(),
+    tomcatHandler = new TomcatHandler(),
     runRoute = new CustomEvent('runRoute')
 
   this.configure(function() {

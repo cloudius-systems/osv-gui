@@ -1,15 +1,10 @@
-var OSv = OSv || {};
-OSv.Boxes = OSv.Boxes || {};
+var BaseBox = require("./BaseBox");
 
-OSv.Boxes.StaticBox = (function() {
+function StaticBox() {
+}
 
-  function StaticBox() {
-  }
+StaticBox.prototype = Object.create(BaseBox.prototype);
 
-  StaticBox.prototype = Object.create(OSv.Boxes.BaseBox.prototype);
+StaticBox.prototype.template = "/osv/templates/boxes/StaticBox.html";
 
-  StaticBox.prototype.template = "/osv/templates/boxes/StaticBox.html";
-
-  return StaticBox;
-
-}());
+module.exports = StaticBox;

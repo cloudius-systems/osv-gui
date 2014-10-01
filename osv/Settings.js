@@ -1,8 +1,6 @@
-var OSv = OSv || {};
+module.exports = {
 
-OSv.Settings = {
-
-  BasePath: window.location.origin,
+  BasePath: window.location.href,
 
   DataFetchingRate: 2000,
 

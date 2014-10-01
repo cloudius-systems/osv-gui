@@ -1,46 +1,44 @@
-var OSv = OSv || {};
+var GraphBox = require("./GraphBox"),
+    JVM = require("../API/JVM");
+    
+function GCGraph() {
+  GraphBox.call(this, arguments)
+}
 
-OSv.Boxes.GCGraph = (function() {
+GCGraph.prototype = Object.create(GraphBox.prototype);
 
-  function GCGraph() {
-    OSv.Boxes.GraphBox.call(this, arguments)
-  }
+GCGraph.prototype.title = "Garbage Collection";
 
-  GCGraph.prototype = Object.create(OSv.Boxes.GraphBox.prototype);
-
-  GCGraph.prototype.title = "Garbage Collection";
-
-  GCGraph.prototype.extraSettings = function() {
-    return {
-      axes: {
-        xaxis: {
-          renderer: $.jqplot.DateAxisRenderer,
-          tickOptions: {
-            formatString: "%H:%M:%S"
-          },
-          label: "Time"
+GCGraph.prototype.extraSettings = function() {
+  return {
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.DateAxisRenderer,
+        tickOptions: {
+          formatString: "%H:%M:%S"
         },
-        yaxis: {
-          min: 0,
-          max: this.total
-        }
+        label: "Time"
       },
-      series: OSv.API.JVM.GCGraphAPI.labels.map(function (label) {
-        return {
-          lineWidth: 1,
-          markerOptions: {
-            style: "circle"
-          },
-          label: label,
-          size: 1
-        }
-      }),
-    }
-  };
+      yaxis: {
+        min: 0,
+        max: this.total
+      }
+    },
+    series: JVM.GCGraphAPI.labels.map(function (label) {
+      return {
+        lineWidth: 1,
+        markerOptions: {
+          style: "circle"
+        },
+        label: label,
+        size: 1
+      }
+    }),
+  }
+};
 
-  GCGraph.prototype.fetchData = function() {
-    return $.Deferred().resolve(OSv.API.JVM.GCGraphAPI.getData());
-  };
+GCGraph.prototype.fetchData = function() {
+  return $.Deferred().resolve(JVM.GCGraphAPI.getData());
+};
 
-  return GCGraph;
-}());
+module.exports = GCGraph;
