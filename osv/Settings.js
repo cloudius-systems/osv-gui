@@ -1,6 +1,6 @@
 module.exports = {
 
-  BasePath: window.location.href,
+  BasePath: window.location.origin,
 
   DataFetchingRate: 2000,
 
