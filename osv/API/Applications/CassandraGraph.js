@@ -5,7 +5,7 @@ function CassandraGraph() {
 }
 
 CassandraGraph.prototype.startPulling = function () {
-  this.interval = setInterval(this.pullData.bind(this), Settings.DataFetchingRate;
+  this.interval = setInterval(this.pullData.bind(this), Settings.DataFetchingRate);
 };
 
 CassandraGraph.prototype.normalizePlotTimestamps = function (point) {
