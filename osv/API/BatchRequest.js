@@ -1,11 +1,11 @@
 var Settings = require("../Settings");
 
-function BatchRequests (basePath, batchAPIPath) {
+function BatchRequests (basePath, batchAPIPath, refreshRate) {
   this.basePath = basePath;
   this.url = basePath + batchAPIPath;
   this.queue = [];
   this.promises = [];
-  this.interval = setInterval(this.commitRequestsQueue.bind(this), 2000)
+  this.interval = setInterval(this.commitRequestsQueue.bind(this), refreshRate)
 };
 
 BatchRequests.prototype.addRequest = function (request, toBegining) {
@@ -118,6 +118,6 @@ BatchRequests.prototype.delete = function (path) {
   return this.ajax("DELETE", path);    
 };   
 
-var singleton = new BatchRequests(Settings.BasePath, "/api/batch")
+var singleton = new BatchRequests(Settings.BasePath, "/api/batch", DataFetchingRate);
 
 module.exports = singleton;
