@@ -63,11 +63,11 @@ BaseHandler.prototype.checkJVMStatus = function () {
 
 BaseHandler.prototype.subscribe = function() {
   var self = this;
-  $(window).on("load", function () {
-    self.checkCassandraStatus();
-    self.checkJVMStatus();
-    self.checkTomcatStatus();
-  })
+  
+  self.checkCassandraStatus();
+  self.checkJVMStatus();
+  self.checkTomcatStatus();
+  
   $(document).on("runRoute", function () {
     self.updateHostname();
     self.markSelectedTab();
