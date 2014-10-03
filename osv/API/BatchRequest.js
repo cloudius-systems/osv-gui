@@ -118,6 +118,6 @@ BatchRequests.prototype.delete = function (path) {
   return this.ajax("DELETE", path);    
 };   
 
-var singleton = new BatchRequests(Settings.BasePath, "/api/batch", DataFetchingRate);
+var singleton = new BatchRequests(Settings.BasePath, "/api/batch", Settings.DataFetchingRate);
 
 module.exports = singleton;
