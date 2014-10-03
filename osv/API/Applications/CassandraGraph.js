@@ -1,9 +1,11 @@
+var Settings = require("../../Settings");
+
 function CassandraGraph() {
 
 }
 
 CassandraGraph.prototype.startPulling = function () {
-  this.interval = setInterval(this.pullData.bind(this), 1000);
+  this.interval = setInterval(this.pullData.bind(this), Settings.DataFetchingRate;
 };
 
 CassandraGraph.prototype.normalizePlotTimestamps = function (point) {
@@ -12,7 +14,7 @@ CassandraGraph.prototype.normalizePlotTimestamps = function (point) {
 };
 
 CassandraGraph.prototype.safePlot = function (plot) {
-  return (plot.length > 0 ? plot : [[]]).slice(-20).map(this.normalizePlotTimestamps);
+  return (plot.length > 0 ? plot : [[]]).slice(-Settings.Graph.MaxTicks).map(this.normalizePlotTimestamps);
 };
 
 module.exports = CassandraGraph;
