@@ -8,10 +8,15 @@ function BatchRequests (basePath, batchAPIPath) {
   this.interval = setInterval(this.commitRequestsQueue.bind(this), 2000)
 };
 
-BatchRequests.prototype.addRequest = function (request) {
+BatchRequests.prototype.addRequest = function (request, toBegining) {
   var promise = $.Deferred();
-  this.queue.push(request);
-  this.promises.push(promise);
+  if (toBegining) {
+    this.queue.unshift(request);
+    this.promises.unshift(promise);
+  } else {
+    this.queue.push(request);
+    this.promises.push(promise);
+  }
   return promise;
 }
 
@@ -91,11 +96,11 @@ BatchRequests.prototype.commitRequestsQueue = function () {
   });    
 };   
  
-BatchRequests.prototype.ajax = function (method, path) {   
+BatchRequests.prototype.ajax = function (method, path, priorityRequest) {   
   return this.addRequest({   
     method: method,    
     path: path   
-  });    
+  }, priorityRequest);    
 };
 
 BatchRequests.prototype.get = function (path) {    

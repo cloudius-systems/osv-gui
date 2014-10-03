@@ -2,6 +2,7 @@ var helpers = require("../helpers"),
   apiGETCall = helpers.apiGETCall,
   apiPOSTCall = helpers.apiPOSTCall,
   apiDELETECall = helpers.apiDELETECall,
+  BatchRequest = require("./BatchRequest"),
   all,
   counts,
   addTrace,
@@ -44,9 +45,7 @@ addTrace = function (id) {
 };
 
 deleteTrace = function (id) {
-  return apiPOSTCall("/trace/count/"+id)({
-    enabled: false
-  });
+  return BatchRequest.ajax("POST", "/trace/count/"+id+"?enabled=false", true);
 };
 
 deleteAll = apiDELETECall("/trace/count");
