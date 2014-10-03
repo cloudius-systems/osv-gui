@@ -45,7 +45,7 @@ BatchRequests.prototype.reject = function (promises, error) {
 
 BatchRequests.prototype.getRequests = function () {   
   return JSON.stringify(this.queue.map(function (request) {    
-      return {"method":"GET", "relative_url":request.path}   
+      return {"method":request.method, "relative_url":request.path}   
   }))    
 };
 
@@ -96,7 +96,8 @@ BatchRequests.prototype.ajax = function (method, path) {
     method: method,    
     path: path   
   });    
-}    
+};
+
 BatchRequests.prototype.get = function (path) {    
   return this.ajax("GET", path);   
 };   
