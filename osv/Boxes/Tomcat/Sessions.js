@@ -20,7 +20,7 @@ Sessions.prototype.extraSettings = function() {
         label: "Time"
       },
     },
-    series: Tomcat.SessionsAPI.getLabels().map(function (label) {
+    series: SessionsAPI.getLabels().map(function (label) {
       return {
         lineWidth: 1,
         markerOptions: {
@@ -34,7 +34,7 @@ Sessions.prototype.extraSettings = function() {
 };
 
 Sessions.prototype.fetchData = function() {
-  var data = Tomcat.SessionsAPI.getPlots();
+  var data = SessionsAPI.getPlots();
   return $.Deferred().resolve(data);
     
 };

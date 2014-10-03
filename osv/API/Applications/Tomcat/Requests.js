@@ -1,7 +1,8 @@
 var Jolokia = require("../../Jolokia"),
   CassandraGraph = require("../CassandraGraph"),
   Tomcat = require("./Tomcat"),
-  apiGETCall = require("../../../helpers").apiGETCall
+  helpers = require("../../../helpers"),
+  apiGETCall = helpers.apiGETCall
 
 
 function Requests() {

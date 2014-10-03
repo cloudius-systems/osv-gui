@@ -1,5 +1,6 @@
 var RequestsAPI = require("../../API/Applications/Tomcat/Requests"),
-    GraphBox = require("../GraphBox")
+    GraphBox = require("../GraphBox"),
+    helpers = require("../../helpers");
 
 function Requests() {
   GraphBox.call(this, arguments);
