@@ -111,17 +111,14 @@ apiGETCall = function(path) {
 
 apiPOSTCall = function(path) {
   return function(data) {
-    return $.post(OSv.Settings.BasePath + path, data);
-  }
+    return BatchRequests.post(path, data);
+  };
 }
 
 apiDELETECall = function(path) {
   return function() {
-    return $.ajax({
-      url: Settings.BasePath + path,
-      type: 'DELETE'
-    })
-  }
+    return BatchRequests.delete(path);
+  };
 };
 
 function DerivativePlot () {
