@@ -128,11 +128,15 @@ function DerivativePlot () {
 };
 
 DerivativePlot.prototype.add = function (timestamp, value) {
-  if (timestamp.toString().length < 11 ) timestamp = timestamp * 1000;
+  if (timestamp < Math.pow(10, 10) ) timestamp = timestamp * 1000;
   var latestValue = this.latestValue,
     latestTimestamp = this.latestTimestamp,
     newPlotPoint;
 
+  if (timestamp - latestTimestamp == 0) {
+    this.latestValue = value;
+    return;  
+  }
   if (latestValue != null) {
     newValue = (value - latestValue) / (timestamp - latestTimestamp);
     newPlotPoint = [timestamp, newValue];
