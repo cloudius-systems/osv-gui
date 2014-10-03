@@ -23,27 +23,14 @@ LatencyGraph.prototype.extraSettings = function() {
     },
     series: [
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Range Latency",
-        size: 1
       },
 
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Read Latency"
       },
 
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Write Latency"
       }
 

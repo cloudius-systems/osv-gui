@@ -32,12 +32,7 @@ MemoryPoolGraph.prototype.extraSettings = function() {
     },
     series: JVM.MemoryPoolGraph.labels.map(function (label) {
       return {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: label,
-        size: 1
       }
     }),
   }

@@ -14,6 +14,7 @@ GraphBox.prototype.subscribe = function () {
 }
 GraphBox.prototype.baseSettings = function() {
   return {
+    seriesColors: [ "#3200FF", "#FF9900", "#C601CB", "#17FC81", "#F1FF00" ],
     grid: {
         drawGridLines: true,        // wether to draw lines across the grid or not.
         gridLineColor: '#CCCCCC',    // *Color of the grid lines.

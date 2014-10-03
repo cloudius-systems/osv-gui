@@ -23,21 +23,11 @@ CompactionGraph.prototype.extraSettings = function() {
     },
     series: [
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Bytes Compacted",
-        size: 1
       },
 
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Total Bytes in Progress",
-        size: 1
       }
 
     ],

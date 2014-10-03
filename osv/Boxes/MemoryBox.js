@@ -31,19 +31,10 @@ MemoryBox.prototype.extraSettings = function() {
     },
     series: [
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Free",
-        size: 1
       },
 
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Total"
       }
 

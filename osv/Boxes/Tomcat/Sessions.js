@@ -22,12 +22,7 @@ Sessions.prototype.extraSettings = function() {
     },
     series: SessionsAPI.getLabels().map(function (label) {
       return {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
-        label: label,
-        size: 1
+        label: label
       }
     }),
   }
