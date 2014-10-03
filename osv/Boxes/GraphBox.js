@@ -14,6 +14,24 @@ GraphBox.prototype.subscribe = function () {
 }
 GraphBox.prototype.baseSettings = function() {
   return {
+    grid: {
+        drawGridLines: true,        // wether to draw lines across the grid or not.
+        gridLineColor: '#CCCCCC',    // *Color of the grid lines.
+        background: '#FDFDFD',      // CSS color spec for background color of grid.
+        borderColor: '#CCCCCC',     // CSS color spec for border around grid.
+        borderWidth: 0.1,           // pixel width of border around grid.
+        shadow: false,               // draw a shadow for grid.
+        renderer: $.jqplot.CanvasGridRenderer,  // renderer to use to draw the grid.
+        rendererOptions: {}         // options to pass to the renderer.  Note, the default
+                                    // CanvasGridRenderer takes no additional options.
+    },
+    seriesDefaults: {
+      lineWidth: 0.5,
+      markerOptions: {
+        show: false,
+        size: 0.2
+      },
+    },
     highlighter: {
           show: true,
           sizeAdjust: 7.5
