@@ -1,5 +1,6 @@
 var Jolokia = require("../Jolokia"),
   Cassandra = require("./Cassandra"),
+  CassandraGraph = require("./CassandraGraph"),
   Settings = require("../../Settings"),
   apiGETCall = require("../../helpers").apiGETCall;
 
@@ -9,6 +10,7 @@ function CassandraLatencyGraph() {
     if (isRunning) self.startPulling();
   });
 }
+CassandraLatencyGraph.prototype = Object.create(CassandraGraph.prototype);
 
 CassandraLatencyGraph.prototype.range = [];
 
@@ -32,9 +34,9 @@ CassandraLatencyGraph.prototype.pullData = function () {
 
 CassandraLatencyGraph.prototype.getData = function() {
   return [
-    (this.range.length > 0? this.range : [[]]).slice(-Settings.Graph.MaxTicks),
-    (this.read.length > 0? this.read : [[]]).slice(-Settings.Graph.MaxTicks),
-    (this.write.length > 0? this.write : [[]]).slice(-Settings.Graph.MaxTicks),
+    this.safePlot(this.range),
+    this.safePlot(this.read),
+    this.safePlot(this.write)
   ]
 }
 CassandraLatencyGraph.prototype.startPulling = function () {

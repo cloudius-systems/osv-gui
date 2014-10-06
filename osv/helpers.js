@@ -138,7 +138,7 @@ DerivativePlot.prototype.add = function (timestamp, value) {
     return;  
   }
   if (latestValue != null) {
-    newValue = (value - latestValue) / (timestamp - latestTimestamp);
+    newValue = ((value - latestValue) / (timestamp - latestTimestamp)) * 1000;
     newPlotPoint = [timestamp, newValue];
     this.plot.push(newPlotPoint);
   } else {
