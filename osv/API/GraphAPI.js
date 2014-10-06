@@ -1,4 +1,5 @@
-var Settings = require("../Settings");
+var Settings = require("../Settings"),
+    helpers = require("../helpers");
 
 function GraphAPI (path, formatter, getData) {
   this.path = path;
@@ -22,9 +23,9 @@ GraphAPI.prototype.fetchData = function() {
   if (window.globalPause) return;
   
   var self = this,
-    path = Settings.BasePath + this.path;
+    path = this.path;
 
-  $.get(path)
+  helpers.apiGETCall(path)()
    .then(function (response) {
      return typeof response == "string"? JSON.parse(response) : response;
    })

@@ -23,26 +23,14 @@ OperationsGraph.prototype.extraSettings = function() {
     },
     series: [
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Read"
       },
 
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Mutation"
       },
 
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Gossip"
       }
 

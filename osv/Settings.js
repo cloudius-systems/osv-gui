@@ -2,9 +2,9 @@ module.exports = {
 
   BasePath: window.location.origin,
 
-  DataFetchingRate: 2000,
+  DataFetchingRate: 500,
 
   Graph: {
-    MaxTicks: 20
+    MaxTicks: 40
   }
 };

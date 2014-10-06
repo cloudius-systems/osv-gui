@@ -1,5 +1,6 @@
 var RequestsAPI = require("../../API/Applications/Tomcat/Requests"),
-    GraphBox = require("../GraphBox")
+    GraphBox = require("../GraphBox"),
+    helpers = require("../../helpers");
 
 function Requests() {
   GraphBox.call(this, arguments);
@@ -22,12 +23,7 @@ Requests.prototype.extraSettings = function() {
     },
     series: RequestsAPI.getLabels().map(function (label) {
       return {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
-        label: label,
-        size: 1
+        label: label
       }
     }),
   }

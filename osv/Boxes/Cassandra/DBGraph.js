@@ -23,12 +23,7 @@ DBGraph.prototype.extraSettings = function() {
     },
     series: [
       {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: "Completed Tasks",
-        size: 1
       }
     ],
   }

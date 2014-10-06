@@ -26,12 +26,7 @@ GCGraph.prototype.extraSettings = function() {
     },
     series: JVM.GCGraphAPI.labels.map(function (label) {
       return {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         label: label,
-        size: 1
       }
     }),
   }

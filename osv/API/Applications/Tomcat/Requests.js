@@ -1,7 +1,9 @@
 var Jolokia = require("../../Jolokia"),
   CassandraGraph = require("../CassandraGraph"),
   Tomcat = require("./Tomcat"),
-  apiGETCall = require("../../../helpers").apiGETCall
+  helpers = require("../../../helpers"),
+  Settings = require("../../../Settings"),
+  apiGETCall = helpers.apiGETCall
 
 
 function Requests() {
@@ -51,7 +53,7 @@ Requests.prototype.pullData = function () {
 Requests.prototype.getPlots = function () {
   if (this.plots == null) return [[null]];
   return $.map(this.plots, function (plot) {
-    return [plot.getPlot().slice(-9)];
+    return [plot.getPlot().slice(-Settings.Graph.MaxTicks)];
   });
 };
 

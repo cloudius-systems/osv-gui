@@ -39,13 +39,8 @@ ThreadsGraph.prototype.extraSettings = function() {
     },
   series: this.threads.map(function (thread) {
       return {
-        lineWidth: 1,
-        markerOptions: {
-          style: "circle"
-        },
         color: self.colors[ thread.id ],
-        label: thread.id + " - " + thread.name,
-        size: 1
+        label: thread.id + " - " + thread.name
       }
     }),
   }

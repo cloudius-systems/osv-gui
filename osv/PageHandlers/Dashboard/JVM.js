@@ -9,8 +9,8 @@ JVM.prototype.handler = function() {
   this.MBeansBox = new Boxes.MBeansBox();
   this.MBeansAttributesBox = new Boxes.MBeansAttributesBox();
   this.layout = new BoxesLayout([ 
-    new OSv.Boxes.JVMStaticInfo(), new OSv.Boxes.GCGraph(),
-    new OSv.Boxes.HeapMemoryUsage(), new OSv.Boxes.MemoryPoolGraph(),
+    new Boxes.JVMStaticInfo(), new Boxes.GCGraph(),
+    new Boxes.HeapMemoryUsage(), new Boxes.MemoryPoolGraph(),
     this.MBeansBox, this.MBeansAttributesBox
   ]);
   this.layout.render();
