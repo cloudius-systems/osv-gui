@@ -5,6 +5,6 @@ module.exports = {
   DataFetchingRate: 500,
 
   Graph: {
-    MaxTicks: 40
+    MaxTicks: 80
   }
 };
