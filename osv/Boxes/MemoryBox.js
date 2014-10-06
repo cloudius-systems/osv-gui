@@ -1,12 +1,12 @@
-var GraphBox = require("./GraphBox"),
+var SideTextGraphBox = require("./SideTextGraphBox"),
     helpers = require("../helpers"),
     OS = require("../API/OS");
     
 function MemoryBox() {
-  GraphBox.call(this, arguments);
+  SideTextGraphBox.call(this, arguments);
 }
 
-MemoryBox.prototype = Object.create(GraphBox.prototype);
+MemoryBox.prototype = Object.create(SideTextGraphBox.prototype);
 
 MemoryBox.prototype.title = "Memory";
 
@@ -42,12 +42,30 @@ MemoryBox.prototype.extraSettings = function() {
   }
 };
 
+MemoryBox.prototype.getSideText = function () {
+  return [
+    {
+      label: "Total",
+      value: helpers.humanReadableByteSize(this.total * Math.pow(1024, 2)),
+      unit: "MB"
+    },
+
+    {
+      label: "Free",
+      value: helpers.humanReadableByteSize(this.free * Math.pow(1024, 2)),
+      unit: "MB"
+    },
+
+  ]
+};
+
 MemoryBox.prototype.fetchData = function() {
   var MemoryHistory = OS.Memory.History,
     free = MemoryHistory.free(),
     total = MemoryHistory.total();
 
   this.total = total[ total.length - 1][1];
+  this.free = free[ free.length - 1][1];
   // If there was no data fetched yet, the graph will break the whole application.
   // this is a workaround.
   if (free.length === 0) {

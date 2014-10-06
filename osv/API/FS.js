@@ -1,7 +1,7 @@
 var apiGETCall = require("../helpers").apiGETCall, 
   df = apiGETCall("/fs/df/"),
-  free;
-
+  free,
+  data;
 
 free = function() {
   return df().then(function (res) {
@@ -10,5 +10,6 @@ free = function() {
 };
 
 module.exports = { 
-  free: free
+  free: free,
+  df: df
 };
