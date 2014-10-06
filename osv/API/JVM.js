@@ -1,4 +1,5 @@
 var apiGETCall = require("../helpers").apiGETCall,
+  Settings = require("../Settings"),
   version = apiGETCall("/jvm/version"),
   GraphAPI = require("./GraphAPI");
 
@@ -30,7 +31,7 @@ GCGraphAPI.prototype.formatResponse = function(res) {
 
 GCGraphAPI.prototype.getData = function () {
   return this.memoryManagers.map(function (plot) {
-    return plot.slice(-9);
+    return plot.slice(Settings.Graph.MaxTicks);
   });
 };
 
@@ -59,7 +60,7 @@ MemoryPoolGraph.prototype.formatResponse = function (res) {
 
 
 MemoryPoolGraph.prototype.getData = function () {
-  return this.pools.map(function (plot) { return plot.slice(-9); });
+  return this.pools.map(function (plot) { return plot.slice(Settings.Graph.MaxTicks); });
 };
 
 var HeapMemoryUsed = function () {
@@ -74,7 +75,7 @@ var HeapMemoryUsageGraph = new GraphAPI("/jolokia/read/java.lang:type=Memory/Hea
 },
 function () {
   if (this.data.length && isNaN(this.data[0][1])) this.data.shift();
-  return this.data.slice(-9);
+  return this.data.slice(Settings.Graph.MaxTicks);
 });
 
 var classesCount = function () {
