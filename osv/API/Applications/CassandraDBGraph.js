@@ -1,7 +1,8 @@
 var Jolokia = require("../Jolokia"),
   CassandraGraph = require("./CassandraGraph"),
   Cassandra = require("./Cassandra"),
-  apiGETCall = require("../../helpers").apiGETCall;
+  helpers = require("../../helpers"),
+  apiGETCall = helpers.apiGETCall;
 
 
 function CassandraDBGraph() {
@@ -13,8 +14,7 @@ function CassandraDBGraph() {
 
 CassandraDBGraph.prototype = Object.create(CassandraGraph.prototype);
 
-CassandraDBGraph.prototype.completedTasksLastRead = null;
-CassandraDBGraph.prototype.completedTasks = [];
+CassandraDBGraph.prototype.completedTasks = new helpers.DerivativePlot();
 
 CassandraDBGraph.prototype.pullData = function () {
   var self = this;
@@ -22,21 +22,14 @@ CassandraDBGraph.prototype.pullData = function () {
   $.when(
     Jolokia.read("org.apache.cassandra.db:type=Commitlog")
   ).then(function (Commitlog) {
-    if (self.completedTasksLastRead == null) {
-      self.completedTasks.push([Commitlog.timestamp, 0])
-    } else {
-      self.completedTasks.push([
-        Commitlog.timestamp, 
-        (Commitlog.value.CompletedTasks - self.completedTasksLastRead[1]) / (Commitlog.timestamp - self.completedTasksLastRead[0])
-      ])
-    }
-    self.completedTasksLastRead = [Commitlog.timestamp, Commitlog.value.CompletedTasks];
-  })
+    console.log(Commitlog.value.CompletedTasks);
+    self.completedTasks.add(Commitlog.timestamp, Commitlog.value.CompletedTasks);
+  });
 };
 
 CassandraDBGraph.prototype.getData = function() {
   return [
-    this.safePlot(this.completedTasks)
+    this.safePlot(this.completedTasks.getPlot())
   ]
 };
 
