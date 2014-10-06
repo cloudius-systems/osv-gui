@@ -10,7 +10,7 @@ CassandraGraph.prototype.startPulling = function () {
 
 CassandraGraph.prototype.normalizePlotTimestamps = function (point) {
   if (point.length != 2) return point;
-  return [point[0] * 1000, point[1]]
+  return [point[0] < Math.pow(10,10)? point[0] * 1000 : point[0], point[1]]
 };
 
 CassandraGraph.prototype.safePlot = function (plot) {
