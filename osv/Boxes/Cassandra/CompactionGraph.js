@@ -11,7 +11,6 @@ CompactionGraph.prototype.title = "Compaction";
 
 CompactionGraph.prototype.extraSettings = function() {
   return {
-    title: "Compaction",
     axes: {
       xaxis: {
         renderer: $.jqplot.DateAxisRenderer,
