@@ -6,5 +6,10 @@
     <div class="graphBorder"></div>
     <div class="jqplot" width="399" style="display:inline-block; width:399px; float:left"></div>
     <div class="sideTextContainer graphBodyRight col-xs-3"></div>
+	<div class="colorMap" style=" margin-top:5px;">
+	{{#each settings.series}}
+    	<div class="status" style="background: {{color}};"></div> <span>{{label}}</span>
+	{{/each}}
+	</div>
 </div>
 
