@@ -17,8 +17,7 @@ MemoryPoolGraph.prototype.extraSettings = function() {
         renderer: $.jqplot.DateAxisRenderer,
         tickOptions: {
           formatString: "%H:%M:%S"
-        },
-        label: "Time"
+        }
       },
       yaxis: {
         max: this.total,

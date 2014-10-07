@@ -33,8 +33,7 @@ ThreadsGraph.prototype.extraSettings = function() {
             var secondsAgo = ((now - t) / 1000).toFixed(0);
             return "-" + secondsAgo + "s";
           }
-        },
-        label: "Time"
+        }
       }
     },
   series: this.threads.map(function (thread) {
