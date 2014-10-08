@@ -26,7 +26,14 @@ GraphBox.prototype.baseSettings = function() {
         rendererOptions: {}         // options to pass to the renderer.  Note, the default
                                     // CanvasGridRenderer takes no additional options.
     },
-    seriesDefaults: {
+    axisDefaults: {
+      showLabel: false,
+      labelOptions: {
+        show: false,
+        fontSize: '14px'
+      }
+    },
+    seriesDefaults: { 
       lineWidth: 0.5,
       markerOptions: {
         show: false,
@@ -38,7 +45,7 @@ GraphBox.prototype.baseSettings = function() {
           sizeAdjust: 7.5
       },
       legend: {
-        show: true,
+        show: false,
           location: "nw",
           xoffset: 12,
           yoffset: 12
@@ -51,7 +58,14 @@ GraphBox.prototype.extraSettings = function() {
 };
 
 GraphBox.prototype.getSettings = function() {
-  return $.extend(this.baseSettings(), this.extraSettings())
+  var settings = $.extend(this.baseSettings(), this.extraSettings())
+  if (settings.series) {
+    settings.series = settings.series.map(function (series, idx) {
+      series.color = settings.seriesColors[idx];
+      return series;      
+    })
+  }
+  return settings;
 };
 
 GraphBox.prototype.title = "Graph";
@@ -60,7 +74,7 @@ GraphBox.prototype.template = "/osv/templates/boxes/GraphBox.html";
 
 GraphBox.prototype.getHtml = function() {
   var template = this.getTemplate(),
-    context = { title: this.title },
+    context = { title: this.title, settings: this.getSettings() },
     html = template(context);
 
   return html;

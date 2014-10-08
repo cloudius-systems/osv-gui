@@ -17,8 +17,7 @@ Requests.prototype.extraSettings = function() {
         renderer: $.jqplot.DateAxisRenderer,
         tickOptions: {
           formatString: "%H:%M:%S"
-        },
-        label: "Time"
+        }
       },
     },
     series: RequestsAPI.getLabels().map(function (label) {

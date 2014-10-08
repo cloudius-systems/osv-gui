@@ -16,8 +16,7 @@ Sessions.prototype.extraSettings = function() {
         renderer: $.jqplot.DateAxisRenderer,
         tickOptions: {
           formatString: "%H:%M:%S"
-        },
-        label: "Time"
+        }
       },
     },
     series: SessionsAPI.getLabels().map(function (label) {

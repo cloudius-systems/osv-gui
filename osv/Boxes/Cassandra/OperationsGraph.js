@@ -11,14 +11,12 @@ OperationsGraph.prototype.title = "Completed Tasks";
 
 OperationsGraph.prototype.extraSettings = function() {
   return {
-    title: "Completed Tasks",
     axes: {
       xaxis: {
         renderer: $.jqplot.DateAxisRenderer,
         tickOptions: {
           formatString: "%H:%M:%S"
-        },
-        label: "Time"
+        }
       },
     },
     series: [

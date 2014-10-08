@@ -11,14 +11,12 @@ LatencyGraph.prototype.title = "Latency";
 
 LatencyGraph.prototype.extraSettings = function() {
   return {
-    title: "Latency",
     axes: {
       xaxis: {
         renderer: $.jqplot.DateAxisRenderer,
         tickOptions: {
           formatString: "%H:%M:%S"
-        },
-        label: "Time"
+        }
       },
     },
     series: [

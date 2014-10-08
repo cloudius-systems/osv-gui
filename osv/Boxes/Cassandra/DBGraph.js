@@ -11,14 +11,12 @@ DBGraph.prototype.title = "DB";
 
 DBGraph.prototype.extraSettings = function() {
   return {
-    title: "DB",
     axes: {
       xaxis: {
         renderer: $.jqplot.DateAxisRenderer,
         tickOptions: {
           formatString: "%H:%M:%S"
-        },
-        label: "Time"
+        }
       },
     },
     series: [
