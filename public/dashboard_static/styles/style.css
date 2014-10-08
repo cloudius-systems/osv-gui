@@ -182,8 +182,9 @@ html,body{height:100%; background-color: #f8f8f8;}
 }
 
 .graphBodyRight {
-    height:257px;
+    height:100%;
 }
+
 
 .confGraph {
     text-align: right;
