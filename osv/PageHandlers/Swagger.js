@@ -1,7 +1,8 @@
 function Swagger() {}
 
 Swagger.prototype.handler = function () {
-  console.log('everyday Im swaggering');  
+  var $iframe = $("<iframe style='border:none' id='osvContainer' src='/dashboard_static/swagger/'>")
+  $("#main").append($iframe);
 };
 
 module.exports = Swagger;
