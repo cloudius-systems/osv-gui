@@ -4,7 +4,8 @@ var BaseHandler = require("./PageHandlers/BaseHandler"),
     TracesHandler = require("./PageHandlers/Dashboard/Traces"),
     JVMHandler = require("./PageHandlers/Dashboard/JVM"),
     CassandraHandler = require("./PageHandlers/Dashboard/Cassandra"),
-    TomcatHandler = require("./PageHandlers/Dashboard/Tomcat");
+    TomcatHandler = require("./PageHandlers/Dashboard/Tomcat"),
+    SwaggerHandler = require("./PageHandlers/Swagger");
 
 
 module.exports = Davis(function() {
@@ -16,7 +17,8 @@ module.exports = Davis(function() {
     jvmHandler = new JVMHandler(),
     cassandraHandler = new CassandraHandler(),
     tomcatHandler = new TomcatHandler(),
-    runRoute = new CustomEvent('runRoute')
+    runRoute = new CustomEvent('runRoute'),
+    swaggerHandler = new SwaggerHandler();
 
   this.configure(function() {
     this.generateRequestOnPageLoad = true;
@@ -44,6 +46,10 @@ module.exports = Davis(function() {
 
   this.get("/dashboard/tomcat", function() {
     tomcatHandler.handler();
+  });
+
+  this.get("/dashboard/swagger", function() {
+    swaggerHandler.handler();
   });
   
   this.bind('runRoute', function (data) {
