@@ -1,6 +1,6 @@
-module.exports = {
+module.exports = window.Settings = {
 
-  BasePath: window.location.origin,
+  BasePath: "http://192.168.122.89:8000",
 
   DataFetchingRate: 500,
 
