@@ -24,10 +24,6 @@ BaseHandler.prototype.markSelectedTab = function() {
   }
 };
 
-BaseHandler.prototype.setSwaggerLink = function() {
-  $("[data-swagger-href]").attr("href", Settings.BasePath);
-};
-
 BaseHandler.prototype.checkTomcatStatus = function () {
   var $tomcatTab = $("a[href='/dashboard/tomcat']").parent("li");
   Tomcat.ifIsRunning().then(function (isRunning) {
@@ -71,7 +67,6 @@ BaseHandler.prototype.subscribe = function() {
   $(document).on("runRoute", function () {
     self.updateHostname();
     self.markSelectedTab();
-    self.setSwaggerLink();
   });
 
   $(document).on("click", "[data-global-play]", function () {

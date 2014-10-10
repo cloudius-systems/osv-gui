@@ -22,7 +22,6 @@ CassandraDBGraph.prototype.pullData = function () {
   $.when(
     Jolokia.read("org.apache.cassandra.db:type=Commitlog")
   ).then(function (Commitlog) {
-    console.log(Commitlog.value.CompletedTasks);
     self.completedTasks.add(Commitlog.timestamp, Commitlog.value.CompletedTasks);
   });
 };

@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = window.Settings = {
 
   BasePath: window.location.origin,
 
