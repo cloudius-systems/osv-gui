@@ -3,22 +3,22 @@
     <button type="button" class="btn btn-default clearAll">Remove All</button>
 
 
-    <div class="rightBoxCheckElements">
+    <div class="rightBoxCheckElements" style="overflow:auto">
 
 
         <input type="text" id="filterTracepoints" class="form-control" placeholder="Search...">
  
-        <div class="selectedTracepoints" style="max-height:calc(50% - 40px); overflow:auto;">
+        <div class="selectedTracepoints">
 
         </div>
 
         <hr style="border: solid 2px gray;"/>
-        <div class="traceList" style="max-height: calc(50% - 40px); overflow:auto;">
+        <div class="traceList">
           {{#each this}}
             <div data-tracepoint-name="{{@key}}" data-add-trace>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox"> {{@key}}
+                        <div class="select"></div> {{@key}}
                     </label>
                 </div>
                 <hr style="margin:0px"/>
