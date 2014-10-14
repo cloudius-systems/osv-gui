@@ -1,6 +1,35 @@
 html,body{height:100%; background-color: #f8f8f8;}
+.system_run_icon {
+    background-image: url('./../images/button_play.png');
+    width: 26px;
+    height: 26px;
+    position:absolute;
+    right:5px;
+    top:5px;
+}
 
+.systempause .system_run_icon {
+    background-image: url('./../images/button_pause.png');
+    width: 26px;
+    height: 26px;
+    position:absolute;
+    right:5px;
+    top:5px;
+}
 
+.systempause .osv_header {
+    background-color: #999999;
+}
+
+.systempause .main_tabsholder {
+    background-color: #999999;
+}
+
+.systempause .main_tabsholder{
+    margin-left: 50px;
+    height: 34px;
+    background-color: #999999;
+}
 .osv_header {
     background-color: #232323;
     height:40px;
