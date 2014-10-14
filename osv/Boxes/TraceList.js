@@ -27,7 +27,7 @@ TraceList.prototype.add = function(id) {
   }
   var selectedTmpl = '<div class="checkbox" data-remove-trace data-tracepoint-name="' + id + '">' +
               '<label>' +
-                  '<input type="checkbox" checked><span class="selectedThreads">' + id + '</span>' +
+                  '<div class="unselect"></div><span class="selectedThreads">' + id + '</span>' +
               '</label>' + 
           '</div>' +
           '<hr style="margin:0px"/>';
@@ -42,7 +42,7 @@ TraceList.prototype.remove = function(id) {
   $trace.remove();
   var unselectedTmpl = '<div class="checkbox" data-add-trace data-tracepoint-name="' + id + '">' +
       '<label>' +
-          '<input type="checkbox"><span class="unselectedThreads">' + id + '</span>' +
+          '<div class="select"></div><span class="unselectedThreads">' + id + '</span>' +
       '</label>' + 
   '</div>' +
   '<hr style="margin:0px"/>';

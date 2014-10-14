@@ -365,7 +365,8 @@ span.status { color: #333; font-size: 10px; vertical-align: top;}
     color:#ccc;
 }
 
-.thread .select {
+.thread .select,
+.checkbox .select {
     display: inline-block;
     font-size: 18px;
     font-weight: 600;
@@ -377,11 +378,13 @@ span.status { color: #333; font-size: 10px; vertical-align: top;}
     text-align: center;
     border-radius: 3px;
 }
-.thread .select::after{
+.thread .select::after,
+.checkbox .select::after{
     content: "+";
 }
 
-.thread .unselect {
+.thread .unselect,
+.checkbox .unselect {
     display: inline-block;
     font-size: 13px;
     font-weight: 600;
@@ -393,7 +396,11 @@ span.status { color: #333; font-size: 10px; vertical-align: top;}
     text-align: center;
     border-radius: 3px;
 }
-.thread .unselect::after{
+.checkbox .unselect {
+    margin-right: 5px;
+}
+.thread .unselect::after,
+.checkbox .unselect::after{
     content: "\f00d";
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
