@@ -30,6 +30,7 @@ ThreadsTableBox.prototype.draw = function (thread) {
     thread.selected = this.selected.indexOf(parseInt(thread.id, 0)) != -1;
     html = template(thread);
     if (thread.selected) {
+      $
       $(".selectedThreads").append(html);
     } else {
       $(".unselectedThreads").append(html);
@@ -54,8 +55,11 @@ ThreadsTableBox.prototype.moveThread = function(id, newParentSelector) {
   $thread.next("hr").remove();
   $thread.detach();
   $thread.appendTo(newParentSelector);
-  var checkbox = $thread.find(":checkbox");
-  checkbox.prop("checked", this.selected.indexOf(parseInt(id, 10)) != -1)
+  if ($thread.find(".select").length) {
+    $thread.find(".select").addClass("unselect").removeClass("select");
+  } else {
+    $thread.find(".unselect").addClass("select").removeClass("unselect");
+  }
   $(".threadsList [data-thread-id='"+id+"']").parents(".thread").after("<hr style='margin-top:0px'>");
 
 };
