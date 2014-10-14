@@ -73,12 +73,16 @@ BaseHandler.prototype.subscribe = function() {
     var playEvent = new CustomEvent('play')
     playEvent.initCustomEvent('play', true, true);
     document.dispatchEvent(playEvent);
+    $("[data-global-play]").attr("data-global-pause", true).removeAttr("data-global-play");
+    $("body").removeClass('systempause');
   });
   
   $(document).on("click", "[data-global-pause]", function () {
     var pauseEvent = new CustomEvent('pause')
     pauseEvent.initCustomEvent('pause', true, true);
     document.dispatchEvent(pauseEvent);
+    $("[data-global-pause]").attr("data-global-play", true).removeAttr("data-global-pause");
+    $("body").addClass('systempause');
   });
 
   $(document).on("play", function () {
