@@ -19,7 +19,10 @@
 <body>
 
 <div class="osv_header">
-    <div class="logo" ><a href="/"><img src="/dashboard_static/images/logo_osv.png"></a></div>
+    <div class="logo" >
+        <a href="/"><img src="/dashboard_static/images/logo_osv.png"></a>
+        <a style="position: absolute; left: 73px;" href="http://cloudius-systems.com/"><img src="/dashboard_static/images/logo_cloudius.png"></a>
+    </div>
     <div class="vmname" data-hostname></div>
     <div class="playPause" style="float:right; color:white; position:relative; left: -10px; top: -10px">
         <span data-global-play>Play</span>
