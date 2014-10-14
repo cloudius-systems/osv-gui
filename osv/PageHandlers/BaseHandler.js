@@ -17,7 +17,7 @@ BaseHandler.prototype.updateHostname = function() {
 BaseHandler.prototype.markSelectedTab = function() {
   $(".nav li.active").removeClass("active");
   $("a[href='"+window.location.pathname+"']").parents("li").addClass("active")
-  if (window.location.href.indexOf("/dashboard") != -1) {
+  if (window.location.href.indexOf("/dashboard") != -1 && window.location.href.indexOf("swagger") == -1) {
     $("[data-dashboard-link").addClass("active");
   } else {
     $("[data-dashboard-link").removeClass("active");
