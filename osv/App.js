@@ -9,7 +9,9 @@ var BaseHandler = require("./PageHandlers/BaseHandler"),
 
 
 module.exports = Davis(function() {
-  var 
+  var
+    self = this,
+    basePaths = ["", "/dashboard"] 
     baseHandler = new BaseHandler(),
     mainHandler = new MainHandler(),
     threadsHandler = new ThreadsHandler(),
@@ -24,34 +26,43 @@ module.exports = Davis(function() {
     this.generateRequestOnPageLoad = true;
   });
 
+  this.get("/", function() {
+    mainHandler.handler();
+  });
+  
   this.get("/dashboard", function() {
     mainHandler.handler();
   });
 
-  this.get("/dashboard/threads", function() {
-    threadsHandler.handler();
-  });
-
-  this.get("/dashboard/traces", function() {
-    tracesHandler.handler();
-  });
-
-  this.get("/dashboard/cassandra", function() {
-    cassandraHandler.handler();
-  });
-
-  this.get("/dashboard/jvm", function() {
-    jvmHandler.handler();
-  });
-
-  this.get("/dashboard/tomcat", function() {
-    tomcatHandler.handler();
-  });
-
-  this.get("/dashboard/swagger", function() {
-    swaggerHandler.handler();
-  });
+  basePaths.forEach(function (basePath) {
   
+
+    self.get(basePath + "/threads", function() {
+      threadsHandler.handler();
+    });
+
+    self.get(basePath + "/traces", function() {
+      tracesHandler.handler();
+    });
+
+    self.get(basePath + "/cassandra", function() {
+      cassandraHandler.handler();
+    });
+
+    self.get(basePath + "/jvm", function() {
+      jvmHandler.handler();
+    });
+
+    self.get(basePath + "/tomcat", function() {
+      tomcatHandler.handler();
+    });
+
+    self.get(basePath + "/swagger", function() {
+      swaggerHandler.handler();
+    });
+
+  })
+    
   this.bind('runRoute', function (data) {
     runRoute.initCustomEvent('runRoute', true, true, data);
     document.dispatchEvent(runRoute);
