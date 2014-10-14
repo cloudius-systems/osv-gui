@@ -24,10 +24,12 @@
         <a style="position: absolute; left: 73px;" href="http://cloudius-systems.com/"><img src="/dashboard_static/images/logo_cloudius.png"></a>
     </div>
     <div class="vmname" data-hostname></div>
-    <div class="playPause" style="float:right; color:white; position:relative; left: -10px; top: -10px">
+    <div data-global-pause class="system_run_icon"></div>
+
+    <!-- <div class="playPause" style="float:right; color:white; position:relative; left: -10px; top: -10px">
         <span data-global-play>Play</span>
         <span data-global-pause>Pause</span>
-    </div>
+    </div> -->
 </div>
 
 <div id="main" style="height: 100%">
