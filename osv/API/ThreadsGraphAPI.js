@@ -23,7 +23,7 @@ ThreadsGraphAPI.prototype.statuses = {};
 
 ThreadsGraphAPI.prototype.formatResponse = function (threads) { 
 
-  var timestamp = Date.now(),
+  var timestamp = threads.time_ms,
     self = this,
     parsedThreads,
     newTimems = threads.time_ms,

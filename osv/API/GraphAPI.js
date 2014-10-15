@@ -14,14 +14,12 @@ function GraphAPI (path, formatter, getData) {
 };
 
 GraphAPI.prototype.formatResponse = function (response) {
-  return [ Date.now(), response / Math.pow(1024, 2) ];
+  return [ response.generatedTimestamp? response.generatedTimestamp : Date.now(), response / Math.pow(1024, 2) ];
 };
 
 GraphAPI.prototype.rate = Settings.DataFetchingRate;
 
 GraphAPI.prototype.fetchData = function() {
-  if (window.globalPause) return;
-  
   var self = this,
     path = this.path;
 
