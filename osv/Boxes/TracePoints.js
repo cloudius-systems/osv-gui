@@ -3,19 +3,23 @@ var Settings = require("../Settings"),
     Trace = require("../API/Trace");
 
 function TracePoints() {
-  this.interval = setInterval(this.refresh.bind(this), Settings.DataFetchingRate);
+  this.run();
+  $(document).on("play", this.run.bind(this));
+  $(document).on("pause", this.pause.bind(this));
 }
 
 TracePoints.prototype = new StaticBox();
 
 TracePoints.prototype.template = "/osv/templates/boxes/TracePoints.html";
 
+TracePoints.prototype.charts = {};
 TracePoints.prototype.lines = {};
 
 TracePoints.prototype.addGraph = function(point) {
   var smoothie = new SmoothieChart({minValue:0, millisPerPixel:100, grid:{fillStyle:'#ffffff'}, labels: {fillStyle:'#000000'}}),
     line =  new TimeSeries();
 
+  this.charts[point.name] = smoothie;
   this.lines[point.name] = line;
   smoothie.addTimeSeries(line,{ strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.2)', lineWidth: 4 });
   smoothie.streamTo(document.getElementById("smoothie-"+point.name));
@@ -72,6 +76,20 @@ TracePoints.prototype.postRender = function() {
 
 TracePoints.prototype.fetchData = function () {
   return Trace.counts()
+};
+
+TracePoints.prototype.pause = function () {
+  $.map(this.charts, function (chart) {
+    chart.stop();
+  });
+  clearInterval(this.interval);
+};
+
+TracePoints.prototype.run = function () {
+  this.interval = setInterval(this.refresh.bind(this), Settings.DataFetchingRate)
+  $.map(this.charts, function (chart) {
+    chart.start();
+  });
 };
 
 TracePoints.prototype.clear = function() {
