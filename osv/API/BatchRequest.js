@@ -32,7 +32,6 @@ BatchRequests.prototype.resetQueue = function () {
 };
 
 BatchRequests.prototype.resolve = function (promises, responses) {
-  responses = JSON.parse(responses.replace(/<h1>We didn't find the page you were looking for<\/h1>/g, 404));
   responses.forEach(function (response, idx) {
     if (response.code == 200) {
       promises[idx].resolve(response.body);
@@ -82,7 +81,11 @@ BatchRequests.prototype.commitRequestsQueue = function () {
   if (queue.length == 0) return;   
   this.resetQueue();   
   this.postData(formData)    
-  .then(function (responses) {   
+  .then(function (responses) {
+    responses = responses = JSON.parse(responses.replace(/<h1>We didn't find the page you were looking for<\/h1>/g, 404));
+    responses = responses.map(function (response) {
+      return response.generatedTimestamp = Date.now(), response;
+    });   
     if (window.globalPause) {    
       $(document).on("play", function () {   
         self.resolve(promises, responses);   
