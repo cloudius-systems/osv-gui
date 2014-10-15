@@ -19,7 +19,6 @@ CassandraLatencyGraph.prototype.read = [];
 CassandraLatencyGraph.prototype.write = [];
 
 CassandraLatencyGraph.prototype.pullData = function () {
-  if (window.globalPause) return;
   var self = this;
   $.when(
     Jolokia.read("org.apache.cassandra.db:type=StorageProxy/RecentRangeLatencyMicros"),

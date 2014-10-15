@@ -17,7 +17,6 @@ Threads.prototype.plots = null;
 
 Threads.prototype.pullData = function () {
   var self = this;
-  if (window.globalPause) return;
   Jolokia.read("Catalina:type=ThreadPool,name=*?ignoreErrors=true")
   .then(function (res) {
     if (self.plots == null) self.plots = {};

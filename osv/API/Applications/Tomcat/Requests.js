@@ -19,7 +19,6 @@ Requests.prototype.plots = null;
 
 Requests.prototype.pullData = function () {
   var self = this;
-  if (window.globalPause) return;
   Jolokia.read("Catalina:type=GlobalRequestProcessor,name=*?ignoreErrors=true")
   .then(function (res) {
     if (self.plots == null) self.plots = {};
