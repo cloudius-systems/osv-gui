@@ -17,7 +17,6 @@ Sessions.prototype.plots = null;
 
 Sessions.prototype.pullData = function () {
   var self = this;
-  if (window.globalPause) return;
   Jolokia.read("Catalina:context=*,host=*,type=Manager/activeSessions?ignoreErrors=true")
   .then(function (res) {
     if (self.plots == null) self.plots = {};

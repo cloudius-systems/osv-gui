@@ -18,7 +18,6 @@ CassandraDBGraph.prototype.completedTasks = new helpers.DerivativePlot();
 
 CassandraDBGraph.prototype.pullData = function () {
   var self = this;
-  if (window.globalPause) return;
   $.when(
     Jolokia.read("org.apache.cassandra.db:type=Commitlog")
   ).then(function (Commitlog) {

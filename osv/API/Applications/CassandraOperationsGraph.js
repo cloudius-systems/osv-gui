@@ -20,7 +20,6 @@ CassandraOperationsGraph.prototype.gossip = new helpers.DerivativePlot();
 
 CassandraOperationsGraph.prototype.pullData = function () {
   var self = this;
-  if (window.globalPause) return;
   $.when(
     Jolokia.read("org.apache.cassandra.request:type=ReadStage"),
     Jolokia.read("org.apache.cassandra.request:type=MutationStage"),
