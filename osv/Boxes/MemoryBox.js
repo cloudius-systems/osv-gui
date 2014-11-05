@@ -46,13 +46,13 @@ MemoryBox.prototype.getSideText = function () {
     {
       label: "Total",
       value: helpers.humanReadableByteSize(this.total * Math.pow(1024, 2)),
-      unit: "MB"
+      unit: ""
     },
 
     {
       label: "Free",
       value: helpers.humanReadableByteSize(this.free * Math.pow(1024, 2)),
-      unit: "MB"
+      unit: ""
     },
 
   ]
