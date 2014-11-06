@@ -25,7 +25,7 @@ BaseHandler.prototype.markSelectedTab = function() {
 };
 
 BaseHandler.prototype.checkTomcatStatus = function () {
-  var $tomcatTab = $("a[href='/dashboard/tomcat']").parent("li");
+  var $tomcatTab = $("a[href='/dashboard/tomcat/']").parent("li");
   Tomcat.ifIsRunning().then(function (isRunning) {
      if (!isRunning) { 
       $tomcatTab.remove();
@@ -36,7 +36,7 @@ BaseHandler.prototype.checkTomcatStatus = function () {
 };
 
 BaseHandler.prototype.checkCassandraStatus = function () {
-  var $cassandraTab = $("a[href='/dashboard/cassandra']").parent("li");
+  var $cassandraTab = $("a[href='/dashboard/cassandra/']").parent("li");
   Cassandra.ifIsRunning().then(function (isRunning) {
      if (!isRunning) { 
       $cassandraTab.remove();
@@ -47,7 +47,7 @@ BaseHandler.prototype.checkCassandraStatus = function () {
 };
 
 BaseHandler.prototype.checkJVMStatus = function () {
-  var $jvmTab = $("a[href='/dashboard/jvm']").parent("li");
+  var $jvmTab = $("a[href='/dashboard/jvm/']").parent("li");
    JVM.version()
     .then(function () {
       $jvmTab.removeClass("hidden")
