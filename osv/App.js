@@ -30,34 +30,33 @@ module.exports = Davis(function() {
     mainHandler.handler();
   });
   
-  this.get("/dashboard", function() {
-    mainHandler.handler();
+  this.get("/dashboard/", function() {
+	  mainHandler.handler();
   });
-
   basePaths.forEach(function (basePath) {
   
 
-    self.get(basePath + "/threads", function() {
+    self.get(basePath + "/threads/", function() {
       threadsHandler.handler();
     });
 
-    self.get(basePath + "/traces", function() {
+    self.get(basePath + "/traces/", function() {
       tracesHandler.handler();
     });
 
-    self.get(basePath + "/cassandra", function() {
+    self.get(basePath + "/cassandra/", function() {
       cassandraHandler.handler();
     });
 
-    self.get(basePath + "/jvm", function() {
+    self.get(basePath + "/jvm/", function() {
       jvmHandler.handler();
     });
 
-    self.get(basePath + "/tomcat", function() {
+    self.get(basePath + "/tomcat/", function() {
       tomcatHandler.handler();
     });
 
-    self.get(basePath + "/swagger", function() {
+    self.get(basePath + "/swagger/", function() {
       swaggerHandler.handler();
     });
 
