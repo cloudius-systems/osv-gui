@@ -36,13 +36,13 @@ StaticInfo.prototype.getData = function() {
 StaticInfo.prototype.formatUptime = function(ms) {
   var x, seconds, minutes, hours, days, uptime = "";
   x = ms / 1000;
-  seconds = Math.round(x % 60);
+  seconds = Math.floor(x % 60);
   x /= 60;
-  minutes = Math.round(x % 60);
+  minutes = Math.floor(x % 60);
   x /= 60;
-  hours = Math.round(x % 24);
+  hours = Math.floor(x % 24);
   x /= 24;
-  days = Math.round(x);
+  days = Math.floor(x);
 
   uptime +=  days + " Days, ";
   uptime +=  hours + " Hours, ";
