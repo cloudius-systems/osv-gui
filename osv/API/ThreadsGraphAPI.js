@@ -117,7 +117,7 @@ ThreadsGraphAPI.prototype.averageCpus = function(cpus) {
 ThreadsGraphAPI.prototype.hasCPUData = function() {
   return Object.keys(this.threads).length > 1;
 }
-ThreadsGraphAPI.prototype.getCpuAvergae = function() {
+ThreadsGraphAPI.prototype.getCpuAverage = function() {
   return this.hasCPUData() ? this.averageCpus(this.idles) : [];
 };
 

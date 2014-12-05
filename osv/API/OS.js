@@ -27,6 +27,6 @@ module.exports = {
   setHostname: apiPOSTCall("/os/hostname"),
   threads: apiGETCall("/os/threads"),
   threadsGraph: threadsGraph.getData.bind(threadsGraph),
-  CPUAverage: threadsGraph.getCpuAvergae.bind(threadsGraph),
+  CPUAverage: threadsGraph.getCpuAverage.bind(threadsGraph),
   CPU: threadsGraph.getCpu.bind(threadsGraph)
 };
