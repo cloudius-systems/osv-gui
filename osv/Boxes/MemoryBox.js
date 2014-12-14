@@ -23,7 +23,7 @@ MemoryBox.prototype.extraSettings = function() {
         max: this.total,
         tickOptions: {
           formatter: function(foramt, val) {
-            return helpers.humanReadableByteSize(val * Math.pow(1024, 2));
+            return helpers.humanReadableByteSize(val * Math.pow(1024, 2),2);
           }
         }
       }
@@ -45,13 +45,13 @@ MemoryBox.prototype.getSideText = function () {
   return [
     {
       label: "Total",
-      value: helpers.humanReadableByteSize(this.total * Math.pow(1024, 2)),
+      value: helpers.humanReadableByteSize(this.total * Math.pow(1024, 2),2),
       unit: ""
     },
 
     {
       label: "Free",
-      value: helpers.humanReadableByteSize(this.free * Math.pow(1024, 2)),
+      value: helpers.humanReadableByteSize(this.free * Math.pow(1024, 2),2),
       unit: ""
     },
 
