@@ -55,7 +55,7 @@ ThreadsGraphAPI.prototype.formatResponse = function (threads) {
     
     self.idles[ idle.id ] = self.idles[ idle.id ] || idle;
 
-    var percent =(100 - (100 * idle.diff) / (newTimems - self.timems));
+    var percent = Math.max(0,(100 - (100 * idle.diff) / (newTimems - self.timems)));
 
     self.idles[ idle.id ].cpu_ms = idle.cpu_ms; 
     
