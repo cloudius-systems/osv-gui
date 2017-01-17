@@ -82,7 +82,9 @@ BatchRequests.prototype.commitRequestsQueue = function () {
   this.resetQueue();   
   this.postData(formData)    
   .then(function (responses) {
-    responses = responses = JSON.parse(responses.replace(/<h1>We didn't find the page you were looking for<\/h1>/g, 404));
+    if(typeof(responses) === "string") {
+      responses = JSON.parse(responses.replace(/<h1>We didn't find the page you were looking for<\/h1>/g, 404));
+    }
     responses = responses.map(function (response) {
       return response.generatedTimestamp = Date.now(), response;
     });   
